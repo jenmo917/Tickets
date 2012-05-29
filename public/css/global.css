@@ -7,7 +7,7 @@ body {
 	border: 0px solid;
 }
 
-h1, h2, h3 {
+ul, li, h1, h2, h3 {
 	margin: 0;
 	padding: 0;
 }
@@ -52,21 +52,16 @@ img {
 }
 
 #header{
-	width: 70%;
+	width: 1330px;
 	margin: 0 auto 0 auto;
 }
 
 #footer{
-	width: 70%;
-	margin: 0 auto 0 auto;
-        margin-top: 20px;
+    width: 1330px;
+    margin: 0 auto 0 auto;
+    clear:both;
 }
 
-#content{
-	width: 70%;
-	margin: 0 auto 0 auto;
-	padding-top: 20px;
-}
 
 #comment{
 	width: 300px;
@@ -74,34 +69,96 @@ img {
 	margin: 0px;
 	padding: 0px;
 }
-#entries td
+
+table, th, td
 {
-	border-width: 1px;
-	padding: 1px;
-	border-style: inset;
-	border-color: gray;
-	background-color: white;
-	-moz-border-radius: ;
+border: 1px solid black;
 }
 
-#entries th
-{
-	border-width: 1px;
-	padding: 1px;
-	border-style: inset;
-	border-color: gray;
-	background-color: white;
-	-moz-border-radius: ;
+td, th{
+    padding: 5px;
 }
 
-#entries
-{
-	width: 100%;
-	border-width: 1px;
-	border-spacing: 2px;
-	border-style: outset;
-	border-color: gray;
-	border-collapse: collapse;
-	background-color: white;
-	margin-bottom: 10px;
+table{
+    width: 100%;
+    border-collapse:collapse;
 }
+
+.message{
+    color: red;
+}
+
+#content{
+    float: right;
+    width: 1220px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 0px solid;    
+}
+
+/*
+* Wrap content and menu
+*/
+
+#wrapper {
+    width: 1330px;
+    margin: 0 auto 0 auto;
+    border: 0px solid;
+}
+
+/*
+* Main navigation
+*/
+
+#navigation
+{
+    width: 100px;
+    margin-top: 5px;
+    border: 1px solid;
+    float: left;
+}
+
+#top-level-navigation
+{
+    border: 1px solid;
+    display: block;
+    margin: 0 auto 0 auto;
+    width: 1330px;
+}
+
+#top-level-navigation ul li
+{
+    display: inline;
+}
+
+/* Choose date
+ * Creates a little calendar icon
+ * instead of a text link for "Choose date"
+ */
+a.dp-choose-date {
+	float: left;
+	width: 16px;
+	height: 16px;
+	padding: 0;
+	margin: 3px 3px 0;
+	display: block;
+	text-indent: -2000px;
+	background: url(../images/calendar.png) no-repeat; 
+}
+a.dp-choose-date.dp-disabled {
+	background-position: 0 -20px;
+	cursor: default;
+}
+/* makes the input field shorter once the date picker code
+ * has run (to allow space for the calendar icon
+ */
+input.dp-applied {
+	float: left;
+}
+
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 65px; }
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }

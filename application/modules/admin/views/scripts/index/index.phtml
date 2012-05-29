@@ -1,3 +1,35 @@
 <h1>
-	Admin
+	{organizer} events
 </h1>
+<p>
+    lorum ipsum lorum ipsum lorum ipsum.
+    <br/>
+    <br/>
+    <a href="/admin/index/create-event">Create event</a>
+    <?php
+    foreach($this->messages as $message):
+        echo "<div class='message'>{$message}</div>";
+    endforeach;
+    ?>
+</p>
+
+<table class="tablesorter">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Start time</th>
+            <th>End time</th>
+            <th>Action</th>
+        </tr>        
+    </thead>
+<?PHP foreach ($this->events as $event): ?>
+    <tr>
+        <td><a href="/admin/event?event_id=<?PHP echo $event->event_id; ?>"><?PHP echo $event->name; ?></a></td>
+        <td><?PHP echo $event->location; ?></td>
+        <td><?PHP echo $event->start_time; ?></td>
+        <td><?PHP echo $event->end_time; ?></td>
+        <td><a href="/admin/event/edit?event_id=<?PHP echo $event->event_id; ?>">Edit</a> / <a href="/admin/event/delete?event_id=<?PHP echo $event->event_id; ?>">Delete</a></td>
+    </tr>
+<?PHP endforeach; ?>
+</table>

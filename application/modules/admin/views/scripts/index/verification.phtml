@@ -1,0 +1,24 @@
+<h1>
+	Verification
+</h1>
+<p>
+    lorum ipsum lorum ipsum lorum ipsum.
+</p>
+<?PHP
+foreach ($this->info as $info):
+    foreach ($info as $form => $data): ?>
+<h4><?php echo ucfirst($form) ?>:</h4>
+<dl>
+    <?php foreach ($data as $key => $value): ?>
+    <dt><?php echo ucfirst($key) ?></dt>
+    <?php if (is_array($value)):
+        foreach ($value as $label => $val): ?>
+    <dd><?php echo $val ?></dd>
+        <?php endforeach;
+       else: ?>
+    <dd><?php echo $this->escape($value) ?></dd>
+    <?php endif;
+    endforeach; ?>
+</dl>
+<?php endforeach;
+endforeach ?>

@@ -1,27 +1,44 @@
-    <!-- application/layouts/scripts/layout.phtml -->
-    <?php echo $this->doctype() ?>
-    <html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-      <title>TDDD27 Project</title>
-      <?php echo $this->headLink()->appendStylesheet('/css/global.css') ?>
-    </head>
-    <body>
+<?php
+    echo $this->doctype();
+?>
+
+<html>
+<head>
+    <meta  charset="UTF-8"/>
+    <title>TDDD27 Project</title>
+    <?php 
+    echo $this->headLink()->appendStylesheet('/css/global.css');
+    echo $this->headLink()->appendStylesheet('http://code.jquery.com/ui/1.8.20/themes/base/jquery-ui.css');   
+    echo $this->headLink()->appendStylesheet('http://static.jquery.com/ui/css/demo-docs-theme/ui.theme.css');   
+    
+    echo $this->headScript();
+    ?>
+</head>
+<body>
     <div id="header" style=" background-color: #EEEEEE; height: 50px;">
         <div id="header-logo" style="float: left; padding-top: 8px; padding-left: 8px;">
             <h2>TDDD27 Project</h2>
         </div>
-        <div id="header-navigation" style="float: right">
+    </div>
+    <div id="wrapper">        
+        <div id="top-level-navigation">
+            <ul>
+                <li><a href="/admin/index/create-event">Create Event</a></li>
+                <li><a href="/admin/">My events</a></li>
+            </ul>
+        </div> 
+        <div id="navigation">
+            <ul>
+                <li><a href="/admin/index/create-event">Sell tickets</a></li>
+                <li><a href="/admin/">Check tickets</a></li>                
+            </ul>
+        </div>
+        <div id="content">
+            <?php echo $this->layout()->content ?>
         </div>
     </div>
-    
-    <div id="content">
-    	<?php echo $this->layout()->content ?>
-    </div>
-        
     <div id="footer" style="background-color: #EEEEEE; height: 50px; text-align: center;">
             <div style="padding-top: 20px;">Copyright &#169; Moser & Josefsson 2012</div>
     </div>
-    
-    </body>
-    </html>
+</body>
+</html>
