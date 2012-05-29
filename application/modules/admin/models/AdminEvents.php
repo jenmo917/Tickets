@@ -112,7 +112,7 @@ class Admin_Model_AdminEvents
     }
         
     /*
-    * Delete event.
+    * Delete event and ticket types connected to it.
     * @author	Jens Moser <jenmo917@gmail.com>
     * @since	v0.1
     * @return	NULL
@@ -122,6 +122,11 @@ class Admin_Model_AdminEvents
         $this->getEventsTable();
         $row = $this->_eventsTable->fetchRow($this->_eventsTable->select()->where('event_id = ?', $eventId));
         $row->delete();
+        
+        $this->getTicketTypesTable();
+        $where = $this->_ticketTypeTable->getAdapter()->quoteInto('event_id = ?', $eventId);
+        $this->_ticketTypeTable->delete($where);
+        
     }
     
     /*
@@ -166,12 +171,12 @@ class Admin_Model_AdminEvents
         {
             $row = $this->_ticketTypeTable->createRow();
         }
-        var_dump($ticketType);
         $row->name       = $ticketType['name'];
         $row->quantity   = $ticketType['quantity'];
         $row->event_id   = $ticketType['event_id'];        
         $row->price      = $ticketType['price'];
-        $row->details    = $ticketType['details'];   
+        $row->details    = $ticketType['details'];
+        $row->order      = $ticketType['order'];
 
         $row->save();
         return $row; 

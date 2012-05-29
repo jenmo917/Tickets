@@ -1,78 +1,7 @@
 <?php
 
 class Admin_Form_EventInfo extends Zend_Form
-{
-    /**
-     * Prepare a sub form for display
-     *
-     * @param  string|Zend_Form_SubForm $spec
-     * @return Zend_Form_SubForm
-     */
-    public function prepareSubForm($spec)
-    {
-        if (is_string($spec)) {
-            $subForm = $this->{$spec};
-        } elseif ($spec instanceof Zend_Form_SubForm) {
-            $subForm = $spec;
-        } else {
-            throw new Exception('Invalid argument passed to ' .
-                                __FUNCTION__ . '()');
-        }
-        $this->setSubFormDecorators($subForm)
-             ->addSubmitButton($subForm)
-             ->addSubFormActions($subForm);
-        return $subForm;
-    }
- 
-    /**
-     * Add form decorators to an individual sub form
-     *
-     * @param  Zend_Form_SubForm $subForm
-     * @return My_Form_Registration
-     */
-    public function setSubFormDecorators(Zend_Form_SubForm $subForm)
-    {
-        $subForm->setDecorators(array(
-            'FormElements',
-            array('HtmlTag', array('tag' => 'dl',
-                                   'class' => 'zend_form')),
-            'Form',
-        ));
-        return $this;
-    }
- 
-    /**
-     * Add a submit button to an individual sub form
-     *
-     * @param  Zend_Form_SubForm $subForm
-     * @return My_Form_Registration
-     */
-    public function addSubmitButton(Zend_Form_SubForm $subForm)
-    {
-        $subForm->addElement(new Zend_Form_Element_Submit(
-            'save',
-            array(
-                'label'    => 'Save and continue',
-                'required' => false,
-                'ignore'   => true,
-            )
-        ));
-        return $this;
-    }
- 
-    /**
-     * Add action and method to sub form
-     *
-     * @param  Zend_Form_SubForm $subForm
-     * @return My_Form_Registration
-     */
-    public function addSubFormActions(Zend_Form_SubForm $subForm)
-    {
-        $subForm->setAction('/admin/index/process')
-                ->setMethod('post');
-        return $this;
-    }
-    
+{    
     public function setEventId($eventId)
     {
         $hidden = $this->createElement('hidden', 'event_id');
@@ -160,10 +89,6 @@ class Admin_Form_EventInfo extends Zend_Form
             "0" => "Private"
         ));
         $step3->addElement($public);
-        
-        
-        
-        
         
         /*
          *  Overall actions

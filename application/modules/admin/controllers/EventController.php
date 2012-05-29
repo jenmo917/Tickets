@@ -41,8 +41,8 @@ class Admin_EventController extends Zend_Controller_Action
         // Fetch event
         $event = $events->getEvent($eventId);
         // Fetch ticket types
-        $ticketTypes = $events->getTicketTypes($eventId);        
-
+        $ticketTypes = $events->getTicketTypes($eventId);
+        
         // Create form with correct number of ticket types
         if(isset($post['submit']))
         {
@@ -69,7 +69,6 @@ class Admin_EventController extends Zend_Controller_Action
             $ticketTypeData = $post['step2'];
             
             // Save event
-            var_dump($eventData);
             $events->saveEvent($eventData);
             
             // Set message
@@ -98,6 +97,12 @@ class Admin_EventController extends Zend_Controller_Action
 
         // Populate form with data.
         
+        if(isset($post['submit']))
+        {
+            $vars = $post;
+        }
+        else
+        {
         // Form step 1
         $step1 = array(
             'name' => $event->name,
@@ -133,7 +138,7 @@ class Admin_EventController extends Zend_Controller_Action
             'step2' => $step2,
             'step3' => $step3
         );
-        
+        }
         // Populate form with data
         $form->populate($vars);
         
@@ -142,7 +147,7 @@ class Admin_EventController extends Zend_Controller_Action
         
         // Send form to view
         $this->view->form = $form;
-  
+        
     }
     
     public function deleteAction()

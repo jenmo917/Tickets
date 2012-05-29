@@ -2,38 +2,48 @@
 class Admin_Form_SubForm_TicketType extends Zend_Form_SubForm {
     
 	public function init()
-    {         
+    {
+        $this->setDecorators(array(
+            'FormElements',
+            array('fieldset', array('class' => 'ticket_type'))
+        ));
+                
+                
         $name  = $this->createElement('text', 'name', array(
             'label'      => 'Ticket Name: ',
             'required'   => false,
-            'filters'    => array('StringTrim','StripTags')
+            'class'      => 'name',
+            'filters'    => array('StringTrim','StripTags'),
         ));
-        $name->addValidator(new Admin_Validate_TicketType());
+        $name->setAllowEmpty(false);
+        $name->addValidator(new Admin_Validate_TicketTypeName());
         $this->addElement($name);
 
-        $name  = $this->createElement('text', 'name', array(
-            'label'      => 'Ticket Name: ',
-            'required'   => false,
-            'filters'    => array('StringTrim','StripTags')
-        ));
-        $this->addElement($name);
-        
         $quantity  = $this->createElement('text', 'quantity', array(
             'label'      => 'Ticket Quantity: ',
             'required'   => false,
+            'class'      => 'quantity',            
             'filters'    => array('StringTrim','StripTags')
         ));
+        $quantity->addValidator(new Admin_Validate_TicketTypeQuantity());
+        $quantity->setAllowEmpty(false);
+        
         $this->addElement($quantity);
         $price  = $this->createElement('text', 'price', array(
             'label'      => 'Ticket Price: ',
             'required'   => false,
+            'class'      => 'price',            
             'filters'    => array('StringTrim','StripTags')
         ));      
+        $price->addValidator(new Admin_Validate_TicketTypePrice());
+        $price->setAllowEmpty(false);
+      
         $this->addElement($price); 
     
         $details = $this->createElement('textarea', 'details', array(
             'label'      => 'Details: ',
             'required'   => false,
+            'class'      => 'details',            
             'filters'    => array('StringTrim','StripTags')
         ));
         $details->setAttrib('COLS', '130')
@@ -41,6 +51,10 @@ class Admin_Form_SubForm_TicketType extends Zend_Form_SubForm {
         $this->addElement($details);
         
         $this->addElement('hidden','ticket_type_id');
-        $this->addElement('hidden','order');        
+        
+        $order = $this->createElement('hidden','order',array(
+            'class' => 'order'
+        ));
+        $this->addElement($order);
     }
 }

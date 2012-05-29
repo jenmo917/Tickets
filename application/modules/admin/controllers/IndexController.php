@@ -23,7 +23,7 @@ class Admin_IndexController extends Zend_Controller_Action
         // Create form with one ticket type form
         $form = new Admin_Form_EventInfo();
         if(!isset($data['step2'])){
-            $numOfTicketTypes = 2;
+            $numOfTicketTypes = 1;
         }
         else
         {
@@ -31,7 +31,7 @@ class Admin_IndexController extends Zend_Controller_Action
         }
         $form->create($numOfTicketTypes);
         $this->view->form = $form;
-        
+ 
         if(isset($data['submit']) && $form->isValid($data))
         {
             // Remove submit from data
