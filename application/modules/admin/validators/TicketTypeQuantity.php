@@ -1,6 +1,8 @@
 <?php 
 class Admin_Validate_TicketTypeQuantity extends Zend_Validate_Abstract
 {
+    protected $_translator;
+    
 	/**
      * Error codes
      * @const string
@@ -11,12 +13,16 @@ class Admin_Validate_TicketTypeQuantity extends Zend_Validate_Abstract
      * Error messages
      * @var array
      */
-    protected $_messageTemplates = array(
-        self::ERROR => "Please enter a number.",
-       );
+    protected $_messageTemplates;
         
     public function isValid($value, $context = null)
     {
+        $this->_translator = $this->getTranslator();
+        
+        $this->_messageTemplates = array(
+        self::ERROR => $this->_translator->translate('Please enter a number').'.',
+        );
+        
         unset($context['quantity']);
         unset($context['order']);
         unset($context['ticket_type_id']);

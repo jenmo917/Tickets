@@ -130,6 +130,29 @@ class Admin_Model_AdminEvents
     }
     
     /*
+    * Publish or unpublish event
+    * @author	Jens Moser <jenmo917@gmail.com>
+    * @since	v0.1
+    * @return	Admin_Model_DbTable_Row_Event
+    */     
+    public function publishEvent($eventId)
+    {
+        $this->getEventsTable();
+        $row = $this->_eventsTable->fetchRow($this->_eventsTable->select()->where('event_id = ?', $eventId));
+
+        if($row->published)
+        {
+            $row->published = 0;
+        }
+        else
+        {
+            $row->published = 1;
+        }
+        $row->save();
+        return $row;          
+    }    
+    
+    /*
     * Fetch all events.
     * @author	Jens Moser <jenmo917@gmail.com>
     * @since	v0.1
@@ -205,4 +228,5 @@ class Admin_Model_AdminEvents
         $this->getTicketTypesTable();
         $this->_ticketTypeTable->delete($this->_ticketTypeTable->getAdapter()->quoteInto('ticket_type_id = ?', $ticketTypeId));
     }
+    
 }
