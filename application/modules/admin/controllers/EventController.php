@@ -18,7 +18,23 @@ class Admin_EventController extends Zend_Controller_Action
         $this->view->event = $event;
         $this->view->messages = $flashMessenger->getMessages();
     }
-    
+
+    public function attendeesAction()
+    {
+        // Fetch event
+        $events = new Admin_Model_AdminEvents();
+        $flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        $params = $this->getRequest()->getParams();
+        $event = $events->getEvent($params['event_id']);
+        $this->view->event = $event;
+        
+        // Fetch attendees
+        $attendees = $events->fetchAttendees($params['event_id']);
+        $this->view->attendees = $attendees;
+        
+    }
+
+
     /*
     * Sell tickets in a specific event
     * @author	Jens Moser <jenmo917@gmail.com>

@@ -217,7 +217,26 @@ class Admin_Model_AdminEvents
         $this->getEventsTable();
         return $row = $this->_eventsTable->fetchRow($this->_eventsTable->select()->where('event_id = ?', $eventId));
     }
-
+    
+    /*
+    * Fetch event attendees.
+    * @author	Jens Moser <jenmo917@gmail.com>
+    * @since	v0.1
+    * @return	Array with Admin_Model_DbTable_Row_Event
+    */
+    public function fetchAttendees($eventId)
+    {
+        $this->getTicketTable();
+        $select = $this->_ticketTable->select();
+        $select->setIntegrityCheck(false)
+               ->from('tickets',array('*', 'attendee_name' => 'tickets.name'))
+               ->join('ticket_types','tickets.ticket_type_id = ticket_types.ticket_type_id',array(
+                   'ticket_type_name' => 'name'
+               ))
+               ->where('event_id = ?', $eventId)->order('order');
+        return $this->_ticketTable->fetchAll($select);
+    }
+    
     /*
     * Save ticket type.
     * @author	Jens Moser <jenmo917@gmail.com>

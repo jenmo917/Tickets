@@ -10,7 +10,9 @@ class Default_IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        // action body
+        $eventModel = new Default_Model_Events();
+        $events = $eventModel->fetchPublishedEvents();
+        $this->view->events = $events;
     }
 
 

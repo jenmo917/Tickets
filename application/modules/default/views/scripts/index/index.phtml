@@ -1,1 +1,35 @@
-<h1>Default</h1>
+<style type="text/css">
+    .event{
+        width: 290px;
+        height: 100px;
+        border: 1px solid;
+        display: inline-block;
+        padding: 5px;
+        margin-bottom: 5px;
+    }
+    .event-name{
+        font-size: 20px;
+    }
+    .event-date{
+        margin-bottom: 5px;
+        font-style: italic;
+    }
+</style>
+
+<h1><?PHP echo "Attend - ".$this->translate->_('The Ticket System'); ?></h1>
+<p>
+    <?PHP echo $this->translate->_('Browse events or create your own events and sell tickets right here. '); ?>
+</p>
+<div id="container">
+    <?PHP
+    foreach ($this->events as $event):
+        ?>
+        <div class="event">
+            <div class="event-name"><?PHP echo $this->escape($event->name); ?></div>
+            <div class="event-date"><?PHP echo $this->escape($event->location).' '.$this->escape($event->start_time); ?></div>
+            <div class="event-details"><?PHP echo $this->escape($event->details); ?></div>
+        </div>
+        <?PHP
+    endforeach;  
+    ?>
+</div>
