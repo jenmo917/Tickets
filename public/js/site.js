@@ -2,6 +2,37 @@ $(document).ready(function() {
     // Init sort tables
     $(".tablesorter").tablesorter({sortList: [[0, 0]]});
 
+
+    //
+    //
+    // START: Get KOBRA details and fill ticket form when LiU-ID is in place
+    //
+    //
+	
+	$('#liuid').keyup(function(e){
+		var $this = $(this);
+		if(/^[a-zA-Z]{3,5}\d{2,3}$/g.test($this.val())){
+			setTimeout(function(){
+				if(!$this.next().hasClass('loader')){
+					$this.after('<img src="/images/ajax-loader.gif" class="loader" />');
+				}
+				$.getJSON("/sv/admin/ajax/get-kobra-details/id/" + $this.val(), function(data) {
+					$this.next('img').remove();
+                    if(data != null)
+                    {
+                    	$('#email').val(data.email);
+                        $('#name').val(data.first_name+' '+data.last_name);    
+                    }
+                    else
+                    {
+                        $this.after('<img src="/images/ajax-loader-fail.png" class="loader" />');
+                    }
+				});
+			}, 500);
+		}
+	});
+
+
     //
     //
     // START: Create/Edit Event Form

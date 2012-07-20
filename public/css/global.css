@@ -12,6 +12,11 @@ ul, li, h1, h2, h3 {
 	padding: 0;
 }
 
+dd{
+    padding: 0px;
+    margin: 0px;
+}
+
 h1 {
 }
 
@@ -88,12 +93,21 @@ table{
     color: red;
 }
 
+/*Zend Form */
+.zend_form dt{
+    margin-top: 10px;
+}
+
+.zend_form .errors{
+    color: red;
+}
+
 #content{
-    float: right;
-    width: 1220px;
     margin-top: 5px;
     margin-bottom: 10px;
-    border: 0px solid;    
+    border: 0px solid;
+    width: 1225px;
+    float: right;
 }
 
 /*
@@ -110,20 +124,32 @@ table{
 * Main navigation
 */
 
-#navigation
+#vertical-menu
 {
     width: 100px;
-    margin-top: 5px;
-    border: 1px solid;
+    height: 100%;
+    border: 0px solid;
     float: left;
+    height: auto;
 }
 
 #top-level-navigation
 {
-    border: 1px solid;
+    height: 30px;
+    border: 0px solid;
     display: block;
     margin: 0 auto 0 auto;
     width: 1330px;
+}
+
+.active{
+    font-weight: bold;
+}
+
+#header-links
+{
+    float: right;
+    margin: 10px 10px 0px 0px;
 }
 
 #top-level-navigation ul li

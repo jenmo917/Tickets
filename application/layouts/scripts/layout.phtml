@@ -19,23 +19,46 @@
             <h2>Attend</h2>
         </div>
         <div id="header-links" style="float: right; margin: 10px 10px 0px 0px;">
-            <a href="<?PHP  echo $this->url(array('lang' => 'sv'),'defaultRoute'); ?>">Svenska</a>
-            <a href="<?PHP  echo $this->url(array('lang' => 'en'),'defaultRoute'); ?>">English</a>
+            
+            <a href="<?PHP  echo $this->url(array('lang' => 'sv'),'defaultRoute'); ?>">
+ 
+           <?PHP
+           //
+           // Make the current language bold
+           //
+            $langs = array(
+                    'sv' => 'Svenska',
+                    'en' => 'English'
+                );
+
+            while($value = current($langs)){
+                if(key($langs) == $this->layout()->lang)
+                {
+                    echo "<a href=".$this->url(array('lang' => key($langs)),'defaultRoute')."><b>".$langs[key($langs)]."</b></a> ";
+                }
+                else
+                {
+                    echo "<a href=".$this->url(array('lang' => key($langs)),'defaultRoute').">".$langs[key($langs)]."</a> ";
+                }
+                next($langs);
+            } 
+            ?>
+                
         </div>
     </div>
-    <div id="wrapper">        
-        <div id="top-level-navigation">
-            <ul>
-                <li><a href="<?PHP  echo $this->url(array('module'=> 'admin', 'controller' => 'index', 'action' => 'create-event')); ?>">Create Event</a></li>
-                <li><a href="<?PHP  echo $this->url(array('module'=> 'admin', 'controller' => 'index', 'action' => 'index')); ?>">My events</a></li>
-            </ul>
-        </div> 
-        <div id="navigation">
-            <ul>
-                <li><a href="#">Sell tickets</a></li>
-                <li><a href="#">Check tickets</a></li>                
-            </ul>
-        </div>
+    <div id="wrapper">
+            <?PHP
+            if (Zend_Registry::isRegistered('topLevelMenu')) {
+                $menu = Zend_Registry::get('topLevelMenu');
+                echo "<div id='top-level-navigation'>".$this->navigation()->menu()->renderMenu($menu)."</div>";
+            }
+            ?>            
+            <?PHP
+            if (Zend_Registry::isRegistered('verticalMenu')) {
+                $menu = Zend_Registry::get('verticalMenu');
+                echo "<div id='vertical-menu'>".$this->navigation()->menu()->renderMenu($menu)."</div>";
+            }
+            ?>
         <div id="content">
             <?php echo $this->layout()->content ?>
         </div>

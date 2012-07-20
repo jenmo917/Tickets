@@ -1,6 +1,12 @@
 <?PHP
 class Plugins_LangLoader extends Zend_Controller_Plugin_Abstract
 {
+    /*
+    * Init translation and give forms and views access to the translation object
+    * @author	Jens Moser <jenmo917@gmail.com>
+    * @since	v0.1
+    * @return	null
+    */         
    public function preDispatch(Zend_Controller_Request_Abstract $request)
    {
         // Get the current URI
@@ -80,13 +86,16 @@ class Plugins_LangLoader extends Zend_Controller_Plugin_Abstract
          {
             $viewRenderer->initView();
          }
+         
          $view = $viewRenderer->view;
+         $layout= Zend_Controller_Action_HelperBroker::getStaticHelper('Layout');
          
-         // $Translate is important for translation to work
+         // $translate is important for translation to work
          $view->assign('translate', $translate);
-         
+
          // Lang is only for some urls in different views
          $view->assign('lang', $lang);
+         $layout->assign('lang',$lang);
          
          // Default translator for forms
          Zend_Form::setDefaultTranslator($translate);

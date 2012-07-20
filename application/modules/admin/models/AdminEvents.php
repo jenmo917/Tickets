@@ -9,10 +9,51 @@ class Admin_Model_AdminEvents
     
     /**
     * Instance of Admin_Model_DbTable_TicketTypes
-    * @var Admin_Model_DbTable_Events $_ticketTypesTable
+    * @var Admin_Model_DbTable_TicketTypes $_ticketTypeTable
     */    
     protected $_ticketTypeTable;
+    
+    /**
+    * Instance of Admin_Model_DbTable_Tickets
+    * @var Admin_Model_DbTable_Tickets $_ticketTable
+    */    
+    protected $_ticketTable;
 
+    /**
+    * Set Events table.
+    * @author	Jens Moser <jenmo917@gmail.com>
+    * @since	v0.1
+    * @return	Admin_Model_DbTable_Events
+    */        
+    public function setTicketTable($dbTable)
+    {
+        if (is_string($dbTable))
+        {
+            $dbTable = new $dbTable();
+            }
+            if (!$dbTable instanceof Admin_Model_DbTable_Tickets)
+            {
+            throw new Exception('Invalid table data gateway provided');
+                    }
+                    $this->_ticketTable = $dbTable;
+            return $this;
+    }
+    
+    /**
+    * Set or get Events table.
+    * @author	Jens Moser <jenmo917@gmail.com>
+    * @since	v0.1
+    * @return	Admin_Model_DbTable_Events
+    */
+    public function getTicketTable()
+    {
+            if (null === $this->_ticketTable)
+            {
+                    $this->setTicketTable('Admin_Model_DbTable_Tickets');
+            }
+            return $this->_ticketTable;
+    }      
+    
     /**
     * Set Events table.
     * @author	Jens Moser <jenmo917@gmail.com>
@@ -32,6 +73,21 @@ class Admin_Model_AdminEvents
                     $this->_eventsTable = $dbTable;
             return $this;
     }
+    
+    /**
+    * Set or get Events table.
+    * @author	Jens Moser <jenmo917@gmail.com>
+    * @since	v0.1
+    * @return	Admin_Model_DbTable_Events
+    */
+    public function getEventsTable()
+    {
+            if (null === $this->_eventsTable)
+            {
+                    $this->setEventsTable('Admin_Model_DbTable_Events');
+            }
+            return $this->_eventsTable;
+    }    
  
     /**
     * Set Tickettypes table.
@@ -52,21 +108,6 @@ class Admin_Model_AdminEvents
                     $this->_ticketTypeTable = $dbTable;
             return $this;
     }    
-    
-    /**
-    * Set or get Events table.
-    * @author	Jens Moser <jenmo917@gmail.com>
-    * @since	v0.1
-    * @return	Admin_Model_DbTable_Events
-    */
-    public function getEventsTable()
-    {
-            if (null === $this->_eventsTable)
-            {
-                    $this->setEventsTable('Admin_Model_DbTable_Events');
-            }
-            return $this->_eventsTable;
-    }
     
     /**
     * Set or get ticket type table.
@@ -214,7 +255,27 @@ class Admin_Model_AdminEvents
     public function getTicketTypes($eventId)
     {
         $this->getTicketTypesTable();
-        return $this->_ticketTypeTable->fetchAll($this->_ticketTypeTable->select()->where('event_id = ?', $eventId)->order('order'));
+        $select = $this->_ticketTypeTable->select();
+        $select->setIntegrityCheck(false)
+               ->from('ticket_types',array('*','sold_tickets' => 'COUNT(tickets.ticket_type_id)'))
+               ->joinLeft('tickets','tickets.ticket_type_id = ticket_types.ticket_type_id',array(
+                    ))
+               ->where('event_id = ?', $eventId)->order('order');
+        return $this->_ticketTypeTable->fetchAll($select);
+    }
+
+    /*
+    * Return one ticket type with specific ticket-type-id.
+    * @author	Jens Moser <jenmo917@gmail.com>
+    * @since	v0.1
+    * @return	Admin_Model_DbTable_Row_TicketType
+    */     
+    public function getTicketType($ticketTypeId)
+    {
+        $this->getTicketTypesTable();
+        $select = $this->_ticketTypeTable->select();
+        $select->where('ticket_type_id = ?', $ticketTypeId);
+        return $this->_ticketTypeTable->fetchRow($select);
     }
     
     /*
@@ -228,5 +289,33 @@ class Admin_Model_AdminEvents
         $this->getTicketTypesTable();
         $this->_ticketTypeTable->delete($this->_ticketTypeTable->getAdapter()->quoteInto('ticket_type_id = ?', $ticketTypeId));
     }
-    
+
+    /*
+    * Save ticket.
+    * @author	Jens Moser <jenmo917@gmail.com>
+    * @since	v0.1
+    * @return	Admin_Model_DbTable_Row_Ticket
+    */    
+    public function saveTicket($ticket)
+    {
+        $this->getTicketTable();
+
+        if(isset($event['event_id']))
+        {
+            $row = $this->_ticketTable->fetchRow($this->_ticketTable->select()->where('ticket_id = ?', $ticket['event_id']));
+        }
+        else
+        {
+            $row = $this->_ticketTable->createRow();
+        }
+
+        $row->name              = $ticket['name'];
+        $row->email             = $ticket['email'];
+        $row->liuid             = $ticket['liuid'];        
+        $row->ticket_type_id    = $ticket['ticket_type_id'];
+        $row->payment           = $ticket['payment'];
+            
+        $row->save();
+        return $row;
+    }    
 }

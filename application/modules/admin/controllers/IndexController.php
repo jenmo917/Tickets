@@ -2,7 +2,12 @@
 
 class Admin_IndexController extends Zend_Controller_Action
 {
-    
+    /*
+    * Overview of all events
+    * @author	Jens Moser <jenmo917@gmail.com>
+    * @since	v0.1
+    * @return	null
+    */    
     public function indexAction()
     {      
         // Create model
@@ -17,6 +22,12 @@ class Admin_IndexController extends Zend_Controller_Action
         $this->view->messages = $flashMessenger->getMessages();
     }
     
+    /*
+    * Create new event
+    * @author	Jens Moser <jenmo917@gmail.com>
+    * @since	v0.1
+    * @return	null
+    */      
     public function createEventAction()
     {
         // Create model

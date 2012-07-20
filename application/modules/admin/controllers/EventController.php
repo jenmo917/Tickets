@@ -1,9 +1,15 @@
 <?php
 
 class Admin_EventController extends Zend_Controller_Action
-{   
+{
+    /*
+    * Overview of a specific event
+    * @author	Jens Moser <jenmo917@gmail.com>
+    * @since	v0.1
+    * @return	null
+    */    
     public function indexAction()
-    {
+    { 
         // Fetch event
         $events = new Admin_Model_AdminEvents();
         $flashMessenger = $this->_helper->getHelper('FlashMessenger');
@@ -13,6 +19,97 @@ class Admin_EventController extends Zend_Controller_Action
         $this->view->messages = $flashMessenger->getMessages();
     }
     
+    /*
+    * Sell tickets in a specific event
+    * @author	Jens Moser <jenmo917@gmail.com>
+    * @since	v0.1
+    * @return	null
+    */      
+    public function sellAction()
+    {
+        // Fetch event
+        $events = new Admin_Model_AdminEvents();
+        $flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        $params = $this->getRequest()->getParams();
+        $event = $events->getEvent($params['event_id']);
+        $this->view->event = $event;
+        $this->view->messages = $flashMessenger->getMessages();
+        
+        // $translate is important for translation to work
+        $translate = Zend_Registry::get('Zend_Translate');
+
+        // Create form
+        $form = new Admin_Form_SellTickets();
+        $form->setEventID($params['event_id']);
+        $form->create();
+        $params = $this->getRequest()->getParams();
+        
+        if(isset($params['submit']) && $form->isValid($params))
+        {
+            // Initiate Event model
+            $adminEvent = new Admin_Model_AdminEvents();
+
+            // Initiate Mailer object
+            $htmlMailer = new Generic_HtmlMailer();
+            
+            
+            // Save ticket to DB
+            $ticket = $adminEvent->saveTicket($params);
+
+           // Get ticket price
+           $ticketType = $adminEvent->getTicketType($params['ticket_type_id']);
+                
+            // If invoice
+            if($params['payment'] == 'invoice')
+            {
+                // generate ocr with luhn algorithm from ticket_id
+                $ocrHelper = new Generic_Ocr();
+                $ocr = $ocrHelper->luhn($ticket->ticket_id);
+
+
+                // Send invoice to buyer
+                $htmlMailer->setSubject("[TDDD27] ".$translate->_('Invoice'))
+                           ->addTo($params['email'])
+                           ->setViewParam("ocr", $ocr)
+                           ->setViewParam("ticketType", $ticketType->name)
+                           ->setViewParam("name", $params['name'])
+                           ->setViewParam("email", $params['email'])
+                           ->setViewParam('translate', $translate)
+                           ->setViewParam("price", $ticketType->price)
+                           ->sendHtmlTemplate("invoice.phtml"); 
+                
+            }
+              
+            else
+            {
+                // Send payment confirmation to buyer
+                $htmlMailer->setSubject("[TDDD27] ".$translate->_('Payment confirmation'))
+                           ->addTo($params['email'])
+                           ->setViewParam("ticketType", $ticketType->name)
+                           ->setViewParam("name", $params['name'])
+                           ->setViewParam("email", $params['email'])
+                           ->setViewParam('translate', $translate)
+                           ->setViewParam("price", $ticketType->price)
+                           ->sendHtmlTemplate("payment-confirmation.phtml"); 
+
+            }
+            
+            // Set message
+            $flashMessenger->addMessage($translate->_('Ticket is registred'));
+
+            // Redirect to admin/event/sell
+            $this->_redirect($this->_helper->url->url(array('module' => 'admin','controller' => 'event', 'action' => 'sell', 'event_id' => $params['event_id']),"defaultRoute",true));            
+        }
+        
+        $this->view->ticketForm = $form;
+    }
+
+    /*
+    * Edit specific event
+    * @author	Jens Moser <jenmo917@gmail.com>
+    * @since	v0.1
+    * @return	null
+    */  
     public function editAction()
     {
         // Initiate vars/objects.
@@ -173,6 +270,12 @@ class Admin_EventController extends Zend_Controller_Action
         
     }
     
+    /*
+    * Delete specific event
+    * @author	Jens Moser <jenmo917@gmail.com>
+    * @since	v0.1
+    * @return	null
+    */      
     public function deleteAction()
     {
         $flashMessenger = $this->_helper->getHelper('FlashMessenger');
@@ -205,6 +308,12 @@ class Admin_EventController extends Zend_Controller_Action
         $this->_redirect($this->_helper->url->url(array('module' => 'admin'),"defaultRoute",true));
     }
     
+    /*
+    * Publish/unpublish event. This will controll if the event is visible on the front page
+    * @author	Jens Moser <jenmo917@gmail.com>
+    * @since	v0.1
+    * @return	array
+    */      
     public function publishAction()
     {
         // Get flashmessenger
@@ -220,10 +329,6 @@ class Admin_EventController extends Zend_Controller_Action
         if(isset($params['event_id']))
         {
             $eventId = $filter->filter($params['event_id']);
-        }
-        else
-        {
-            // TODO: What if wrong or none event_id is set 
         }
         
         // Get event for flashMessenger
