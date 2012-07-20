@@ -131,6 +131,9 @@ class Admin_EventController extends Zend_Controller_Action
         // Initiate vars/objects.
         $flashMessenger = $this->_helper->getHelper('FlashMessenger');
         
+        // $translate is important for translation to work
+        $translate = Zend_Registry::get('Zend_Translate');
+        
         // FIX: Get params??
         $post = $this->getRequest()->getPost();
         $get  = $this->getRequest()->getQuery();
@@ -203,7 +206,7 @@ class Admin_EventController extends Zend_Controller_Action
             $events->saveEvent($eventData);
             
             // Set message
-            $flashMessenger->addMessage('Eventet har uppdaterats!');
+            $flashMessenger->addMessage($translate->_('Event is now updated'));
 
             // Save ticket types
             foreach ($ticketTypeData as $ticketTypeArray):
@@ -295,6 +298,8 @@ class Admin_EventController extends Zend_Controller_Action
     public function deleteAction()
     {
         $flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        // $translate is important for translation to work
+        $translate = Zend_Registry::get('Zend_Translate');
         
         // Initiate object
         $events = new Admin_Model_AdminEvents();
@@ -318,7 +323,7 @@ class Admin_EventController extends Zend_Controller_Action
         $events->deleteEvent($eventId);
         
         // Set message
-        $flashMessenger->addMessage($event->name. ' har tagits bort!');
+        $flashMessenger->addMessage($event->name.' '.$translate->_('is now deleted'));
                 
         // Redirect to admin/index
         $this->_redirect($this->_helper->url->url(array('module' => 'admin'),"defaultRoute",true));
@@ -334,6 +339,9 @@ class Admin_EventController extends Zend_Controller_Action
     {
         // Get flashmessenger
         $flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        
+        // $translate is important for translation to work
+        $translate = Zend_Registry::get('Zend_Translate');
         
         // Initiate object
         $events = new Admin_Model_AdminEvents();
@@ -356,11 +364,11 @@ class Admin_EventController extends Zend_Controller_Action
         // Set message
         if($event->published)
         {
-            $flashMessenger->addMessage($event->name. ' has been unpublished!');
+            $flashMessenger->addMessage($event->name. ' '.$translate->_('has been unpublished'));
         }
         else
         {
-            $flashMessenger->addMessage($event->name. ' has been published!');            
+            $flashMessenger->addMessage($event->name. ' '.$translate->_('has been published'));            
         }
         
         // Redirect to admin/index

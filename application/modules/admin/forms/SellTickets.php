@@ -78,15 +78,15 @@ class Admin_Form_SellTickets extends Zend_Form
         
         // Add Cash or Invoice
         $payment = $this->createElement('radio','payment');
-        $payment->addMultiOption("cash","Cash")
-                ->addMultiOption("invoice","Send Invoice")
+        $payment->addMultiOption("cash",$this->_translator->translate('Cash'))
+                ->addMultiOption("invoice",$this->_translator->translate('Send Invoice'))
                 ->setRequired(true)
-                ->setLabel("Payment Options")
+                ->setLabel($this->_translator->translate('Payment Options'))
                 ->addErrorMessage($this->_translator->translate('Select payment type please'));
         $this->addElement($payment);
         
         // Add submit button
-        $this->addElement('submit', 'submit', array('label' => $this->_translator->translate('Register Ticket Payment')));
+        $this->addElement('submit', 'submit', array('label' => $this->_translator->translate('Register Ticket')));
         
     }
 }

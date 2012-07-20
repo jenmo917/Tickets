@@ -1,12 +1,25 @@
 <style type="text/css">
+    #container{
+        border: 0px solid;
+    }
     .event{
         width: 290px;
         height: 100px;
         border: 1px solid;
-        display: inline-block;
+        float: left;
         padding: 5px;
-        margin-bottom: 5px;
+        margin: 0px 5px 5px 0px;
     }
+    
+    .event-last-in-row{
+        width: 290px;
+        height: 100px;
+        border: 1px solid;
+        float: left;
+        padding: 5px;
+        margin-right: 0px 0px 5px 0px;
+    }
+    
     .event-name{
         font-size: 20px;
     }
@@ -22,14 +35,19 @@
 </p>
 <div id="container">
     <?PHP
+    $i = 0;
     foreach ($this->events as $event):
+        $i++;
+        $eventClass = 'event';
+        if($i == 4){ $eventClass = 'event-last-in-row'; $i = 0; }
         ?>
-        <div class="event">
+        <div class="<?PHP echo $eventClass; ?>" id="<?PHP echo $event->event_id; ?>">
             <div class="event-name"><?PHP echo $this->escape($event->name); ?></div>
             <div class="event-date"><?PHP echo $this->escape($event->location).' '.$this->escape($event->start_time); ?></div>
-            <div class="event-details"><?PHP echo $this->escape($event->details); ?></div>
+            <div class="event-details"><?PHP echo substr($this->escape($event->details),0,90); if(strlen($event->details) > 20){ echo "..."; }?></div>
         </div>
         <?PHP
     endforeach;  
     ?>
+    <div style = "clear: both; "></div>
 </div>
