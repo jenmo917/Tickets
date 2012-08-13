@@ -83,7 +83,7 @@ class Acl_Resources
 		$resourceTableName = $this->_resourceTable->getColumnName('resource');
 
 		// Create a master resource
-		$resources[] = $resource = self::PAGEPREFIX . '*' . self::DELIMITER . '*' . self::DELIMITER . '*';
+		$resources[] = $resource = self::PAGEPREFIX . self::DELIMITER . '*' . self::DELIMITER . '*' . self::DELIMITER . '*';
 		// Try to find this resource.
 		$select->orWhere(	$resourceTableName. ' = ?', $resource	);
 		// Loop through the page resource array to be able to populate the resource db table.
