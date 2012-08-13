@@ -5,3 +5,5 @@ demos/
 extras/documentation
 .project
 *~
+*.bak
+application/cache/zend_cache*
