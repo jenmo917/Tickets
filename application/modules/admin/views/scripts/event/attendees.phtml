@@ -15,7 +15,7 @@
         </th>
         <th>
             <?PHP echo $this->translate->_('Email'); ?>
-        </th>        
+        </th>
         <th>
             <?PHP echo $this->translate->_('Ticket'); ?>
         </th>
@@ -31,22 +31,22 @@ foreach ($this->attendees as $att):
 ?>
     <tr>
         <td>
-            <?PHP echo $this->escape($att->attendee_name); ?>
+            <?PHP echo $this->escape($att['attendee_name']); ?>
         </td>
         <td>
-            <?PHP echo $this->escape($att->liuid); ?>
+            <?PHP echo $this->escape($att['liu_id']); ?>
         </td>
         <td>
-            <?PHP echo $this->escape($att->email); ?>
-        </td>        
-        <td>
-            <?PHP echo $this->escape($att->ticket_type_name); ?> | <a href="">Utlämnad</a>
+            <?PHP echo $this->escape($att['email']); ?>
         </td>
         <td>
-            <?PHP echo $this->escape($att->payment); ?>
+            <?PHP echo $this->escape($att['ticket_type_name']); ?> | <a href="">Utlämnad</a>
         </td>
         <td>
-            <?PHP echo $att->ocr; ?>
+            <?PHP echo $this->escape($att['payment']); ?>
+        </td>
+        <td>
+            <?PHP echo "";//$att->ocr; ?>
         </td>
     </tr>
 <?PHP
