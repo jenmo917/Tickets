@@ -280,7 +280,7 @@ class Admin_Model_AdminEvents
 		$ttOrder = $this->_ticketTypeTable->getColumnName('order');
 
 		$tTn = Admin_Model_DbTable_Tickets::getTableName();
-		$ttTicketTypeId = Admin_Model_DbTable_Tickets::getColumnName('ticketTypeId');
+		$tTicketTypeId = Admin_Model_DbTable_Tickets::getColumnName('ticketTypeId');
 		$select = $this->_ticketTypeTable->select();
 		$select->setIntegrityCheck(false)
 		->from(	$ttTn,
