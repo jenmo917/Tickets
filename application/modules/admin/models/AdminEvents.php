@@ -215,7 +215,7 @@ class Admin_Model_AdminEvents
 	{
 		$this->getEventsTable();
 		$select = $this->_eventsTable->select()
-				->where($this->_eventsTable->getColumnName('event_id').' = ?', $eventId);
+				->where($this->_eventsTable->getColumnName('eventId').' = ?', $eventId);
 		return $row = $this->_eventsTable->fetchRow($select);
 	}
 
@@ -228,13 +228,21 @@ class Admin_Model_AdminEvents
 	public function fetchAttendees($eventId)
 	{
 		$this->getTicketTable();
+		// Table and column names
+		$ticketTn = $this->_ticketTable->getTableName();
+		$ticketName = $this->_ticketTable->getColumnName('name');
+		$ticketTicketTypeId = $this->_ticketTable->getColumnName('ticketTypeId');
+		$ticketEventId = $this->_ticketTable->getColumnName('eventId');
+		$ttTn = Admin_Model_DbTable_TicketTypes::getTableName();
+		$ttTicketTypeId = Admin_Model_DbTable_TicketTypes::getColumnName('ticketTypeId');
+		$ttName = Admin_Model_DbTable_TicketTypes::getColumnName('name');
+
 		$select = $this->_ticketTable->select();
 		$select->setIntegrityCheck(false)
-		->from('tickets',array('*', 'attendee_name' => 'tickets.name'))
-		->join('ticket_types','tickets.ticket_type_id = ticket_types.ticket_type_id',array(
-                   'ticket_type_name' => 'name'
-		))
-		->where('event_id = ?', $eventId)->order('order');
+		->from($ticketTn,array('*', 'attendee_name' => $ticketTn.'.'.$ticketName))
+		->join($ttTn,$ticketTn.'.'.$ticketTicketTypeId.' = '.$ttTn.'.'.$ttTicketTypeId,
+				array('ticket_type_name' => $ttTn.'.'.$ttName))
+		->where($ticketTn.'.'.$ticketEventId.' = ?', $eventId)->order('order');
 		return $this->_ticketTable->fetchAll($select);
 	}
 
@@ -255,12 +263,12 @@ class Admin_Model_AdminEvents
 		{
 			$row = $this->_ticketTypeTable->createRow();
 		}
-		$row->name       = $ticketType['name'];
-		$row->quantity   = $ticketType['quantity'];
-		$row->event_id   = $ticketType['event_id'];
-		$row->price      = $ticketType['price'];
-		$row->details    = $ticketType['details'];
-		$row->order      = $ticketType['order'];
+		$row->name		= $ticketType['name'];
+		$row->quantity	= $ticketType['quantity'];
+		$row->event_id	= $ticketType['event_id'];
+		$row->price		= $ticketType['price'];
+		$row->details	= $ticketType['details'];
+		$row->order		= $ticketType['order'];
 
 		$row->save();
 		return $row;
@@ -333,10 +341,10 @@ class Admin_Model_AdminEvents
 	{
 		$this->getTicketTable();
 
-		if(isset($event['event_id']))
+		if(isset($ticket['ticket_id']))
 		{
-			$row = $this->_ticketTable	->fetchRow($this->_ticketTable->select()
-			->where(Admin_Model_DbTable_Tickets::getColumnName('ticketId'). ' = ?', $ticket['event_id']));
+			$row = $this->_ticketTable->fetchRow($this->_ticketTable->select()
+			->where(Admin_Model_DbTable_Tickets::getColumnName('ticketId'). ' = ?', $ticket['ticket_id']));
 		}
 		else
 		{
@@ -344,10 +352,11 @@ class Admin_Model_AdminEvents
 		}
 
 		$row->setColumn('name', $ticket['name'])
-		->setColumn('email', $ticket['email'])
-		->setColumn('liuId', $ticket['liuid'])
-		->setColumn('ticketTypeId', $ticket['ticket_type_id'])
-		->setColumn('payment', $ticket['payment']);
+			->setColumn('eventId', $ticket['event_id'])
+			->setColumn('email', $ticket['email'])
+			->setColumn('liuId', $ticket['liuid'])
+			->setColumn('ticketTypeId', $ticket['ticket_type_id'])
+			->setColumn('payment', $ticket['payment']);
 
 		$row->save();
 		return $row;
