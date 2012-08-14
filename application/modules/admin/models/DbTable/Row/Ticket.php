@@ -27,7 +27,7 @@ class Admin_Model_DbTable_Row_Ticket extends Generic_Db_Table_Row_Abstract
 					'user_id'		=> 'user_id',
 					'name'			=> 'name',
 					'email'			=> 'email',
-					'liuId'			=> 'liuid',
+					'liuId'			=> 'liu_id',
 					'ticketTypeId'	=> 'ticket_type_id',
 					'payment'		=> 'payment',
 					'created'		=> 'created',
