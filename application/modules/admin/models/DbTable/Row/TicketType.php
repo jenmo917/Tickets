@@ -28,6 +28,7 @@ class Admin_Model_DbTable_Row_TicketType extends Generic_Db_Table_Row_Abstract
 					'price'			=> 'price',
 					'quantity'		=> 'quantity',
 					'details'		=> 'details',
+					'order'			=> 'order',
 					'created'		=> 'created',
 					'updated'		=> 'updated');
 }
