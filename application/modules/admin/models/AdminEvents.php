@@ -214,7 +214,9 @@ class Admin_Model_AdminEvents
 	public function getEvent($eventId)
 	{
 		$this->getEventsTable();
-		return $row = $this->_eventsTable->fetchRow($this->_eventsTable->select()->where('event_id = ?', $eventId));
+		$select = $this->_eventsTable->select()
+				->where($this->_eventsTable->getColumnName('event_id').' = ?', $eventId);
+		return $row = $this->_eventsTable->fetchRow($select);
 	}
 
 	/**
