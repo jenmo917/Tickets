@@ -341,11 +341,11 @@ class Admin_Model_AdminEvents
 			$row = $this->_ticketTable->createRow();
 		}
 
-		$row->setColumn($row->getColumnName('name'), $ticket['name'])
-		->setColumn($row->getColumnName('email'), $ticket['email'])
-		->setColumn($row->getColumnName('liuId'), $ticket['liuid'])
-		->setColumn($row->getColumnName('ticketTypeId'), $ticket['ticket_type_id'])
-		->setColumn($row->getColumnName('payment'), $ticket['payment']);
+		$row->setColumn('name', $ticket['name'])
+		->setColumn('email', $ticket['email'])
+		->setColumn('liuId', $ticket['liuid'])
+		->setColumn('ticketTypeId', $ticket['ticket_type_id'])
+		->setColumn('payment', $ticket['payment']);
 
 		$row->save();
 		return $row;
