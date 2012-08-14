@@ -1,12 +1,35 @@
 <?php
 
-class Admin_Model_DbTable_Row_Ticket extends Zend_Db_Table_Row_Abstract
+class Admin_Model_DbTable_Row_Ticket extends Generic_Db_Table_Row_Abstract
 {
-    protected $_tableClass      = 'Admin_Model_DbTable_Tickets';
-    protected $_primary         = 'ticket_id';
-    protected $_name            = 'name';    
-    protected $_email           = 'email';
-    protected $_liuid           = 'liuid';
-    protected $_ticket_type_id  = 'ticket_type_id';
-    protected $_payment         = 'payment';
+	const TABLE_CLASS = 'Admin_Db_Table_Tickets';
+	/**
+	 * #@+
+	 * @access	protected
+	 */
+
+	/**
+	 * The table class is given by TABLE_CLASS.
+	 * @var		string
+	 */
+	protected $_tableClass 	= self::TABLE_CLASS;
+
+	/**
+	 * Primary column is permission_id
+	 * @var		array
+	 */
+	protected $_primary		= 'ticket_id';
+	/**#@-*/
+
+	protected static $_columns
+		= array(	'ticketId'		=> 'ticket_id',
+					'eventId'		=> 'event_id',
+					'user_id'		=> 'user_id',
+					'name'			=> 'name',
+					'email'			=> 'email',
+					'liuId'			=> 'liuid',
+					'ticketTypeId'	=> 'ticket_type_id',
+					'payment'		=> 'payment',
+					'created'		=> 'created',
+					'updated'		=> 'updated');
 }
