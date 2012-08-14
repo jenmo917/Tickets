@@ -13,51 +13,51 @@ class Login_IndexController extends Zend_Controller_Action
 	 * @author	Daniel Josefsson <dannejosefsson@gmail.com>
 	 * @since	v0.1
 	 */
-    public function init()
-    {
-        $this->_options = $this->getInvokeArg('bootstrap')->getOptions();
-        $this->_auth	= Zend_Auth::getInstance();
+	public function init()
+	{
+		$this->_options = $this->getInvokeArg('bootstrap')->getOptions();
+		$this->_auth	= Zend_Auth::getInstance();
 
-        $flash = $this->_helper->getHelper('flashMessenger');
-        if ($flash->hasMessages())
-        {
-        	$this->view->messages = $flash->getMessages();
-        }
+		$flash = $this->_helper->getHelper('flashMessenger');
+		if ($flash->hasMessages())
+		{
+			$this->view->messages = $flash->getMessages();
+		}
 
-    	$config = array	(
-    						'hostname'  => 'login.liu.se',
-    	            		'port'      => 443,
-    						'path'      => 'cas/',
-    	        		);
+		$config = array	(
+							'hostname'  => 'login.liu.se',
+							'port'      => 443,
+							'path'      => 'cas/',
+						);
 
-    	$this->_adapterCas = new Zend_Auth_Adapter_Cas($config);
+		$this->_adapterCas = new Zend_Auth_Adapter_Cas($config);
 
-    	$this->view->cas_link = $this->_adapterCas->getLoginUrl();
-    }
+		$this->view->cas_link = $this->_adapterCas->getLoginUrl();
+	}
 
-    /**
-     *
-     * Redirects to cas action.
-     * @author	Daniel Josefsson <dannejosefsson@gmail.com>
-     * @since	v0.1
-     */
-    public function indexAction()
-    {
-    	$this->casAction();
-    }
+	/**
+	 *
+	 * Redirects to cas action.
+	 * @author	Daniel Josefsson <dannejosefsson@gmail.com>
+	 * @since	v0.1
+	 */
+	public function indexAction()
+	{
+		$this->casAction();
+	}
 
-    /**
-     *  Log in with LiU CAS.
-     * @author	Daniel Josefsson <dannejosefsson@gmail.com>
-     * @since	v0.1
-     */
-    public function casAction()
-    {
-    	// A CAS request returns a ticket.
-    	if ($this->getRequest()->getQuery('ticket'))
-    	{
-    		// Authenitcate the user.
-    		$this->_adapterCas->setTicket(htmlspecialchars($this->getRequest()->getQuery('ticket')));
+	/**
+	 *  Log in with LiU CAS.
+	 * @author	Daniel Josefsson <dannejosefsson@gmail.com>
+	 * @since	v0.1
+	 */
+	public function casAction()
+	{
+		// A CAS request returns a ticket.
+		if ($this->getRequest()->getQuery('ticket'))
+		{
+			// Authenitcate the user.
+			$this->_adapterCas->setTicket(htmlspecialchars($this->getRequest()->getQuery('ticket')));
 			$result = $this->_auth->authenticate($this->_adapterCas);
 			if(!$result->isValid())
 			{
@@ -110,7 +110,7 @@ class Login_IndexController extends Zend_Controller_Action
 					// TODO: Redirect to logout action if someone else is in.
 				}
 			}
-    	}
+		}
 		// Check if the new user allows us to store information.
 		elseif( $this->getRequest()->getQuery('ok')	)
 		{
@@ -137,64 +137,63 @@ class Login_IndexController extends Zend_Controller_Action
 					$this->_redirect('/');
 				}
 			}
+		}
+		elseif( $this->getRequest()->getQuery('cancel')	)
+		{
+			$this->_auth->getStorage()->clear();
+			$this->_redirect('/');
+		}
 
+		// Send to CAS for authentication
+		if(!$this->_auth->hasIdentity())
+		{
+			$this->_redirect($this->_adapterCas->getLoginUrl());
+		}
+	}
 
-        }
-        elseif( $this->getRequest()->getQuery('cancel')	)
-        {
-        	$this->_auth->getStorage()->clear();
-        	$this->_redirect('/');
-        }
+	/**
+	 * This will logout all LiU accounts and will redirect to applicationname/$redirect.
+	 *
+	 * @author	Daniel Josefsson <dannejosefsson@gmail.com>
+	 * @since	v0.1
+	 * @param $redirect string
+	 */
+	public function liuLogoutAction($redirect = null)
+	{
+		$this->_liuLogin = new Login_Model_LiuLogin();
+		if ($this->_liuLogin->logout())
+		{
+			$this->_helper->flashMessenger->addMessage("Your session on LiU's CAS is now ended.");
+			$protocol = $_SERVER['HTTPS'] ? "https" : "http";
+			$this->_auth->clearIdentity();
+			$this->_adapterCas->setService($protocol.'://'. $_SERVER['HTTP_HOST'].'/'.$redirect);
+			$this->_adapterCas->setLogoutUrl();
+			$this->_redirect($this->_adapterCas->getLogoutUrl());
+			$this->view->didLogout = true;
+			$this->_userInfoSession->hasLiuLogin() ? null: $this->_userInfoSession->userLogout();
+		}
+		else
+		{
+			$this->view->didLogout = false;
+		}
+	}
 
-        // Send to CAS for authentication
-        if(!$this->_auth->hasIdentity()) {
-        	$this->_redirect($this->_adapterCas->getLoginUrl());
-        }
-    }
+	/**
+	 * Logout user.
+	 * @author	Daniel Josefsson <dannejosefsson@gmail.com>
+	 * @since	v0.1
+	 */
+	public function logoutAction()
+	{
+		$this->_userInfoSession = new Login_Model_UserInfoSession();
+		$this->_userInfoSession->hasLiuLogin() ? $this->_userInfoSession->liuLogout() : null;
+		$this->_userInfoSession->userLogout();
+	}
 
-    /**
-     * This will logout all LiU accounts and will redirect to applicationname/$redirect.
-     *
-     * @author	Daniel Josefsson <dannejosefsson@gmail.com>
-     * @since	v0.1
-     * @param $redirect string
-     */
-    public function liuLogoutAction($redirect = null)
-    {
-    	$this->_liuLogin = new Login_Model_LiuLogin();
-    	if ($this->_liuLogin->logout())
-    	{
-    		$this->_helper->flashMessenger->addMessage("Your session on LiU's CAS is now ended.");
-    		$protocol = $_SERVER['HTTPS'] ? "https" : "http";
-    		$this->_auth->clearIdentity();
-    		$this->_adapterCas->setService($protocol.'://'. $_SERVER['HTTP_HOST'].'/'.$redirect);
-    		$this->_adapterCas->setLogoutUrl();
-    		$this->_redirect($this->_adapterCas->getLogoutUrl());
-    		$this->view->didLogout = true;
-    		$this->_userInfoSession->hasLiuLogin() ? null: $this->_userInfoSession->userLogout();
-    	}
-    	else
-    	{
-    		$this->view->didLogout = false;
-    	}
-    }
-
-    /**
-     * Logout user.
-     * @author	Daniel Josefsson <dannejosefsson@gmail.com>
-     * @since	v0.1
-     */
-    public function logoutAction()
-    {
-    	$this->_userInfoSession = new Login_Model_UserInfoSession();
-    	$this->_userInfoSession->hasLiuLogin() ? $this->_userInfoSession->liuLogout() : null;
-    	$this->_userInfoSession->userLogout();
-    }
-
-    public function testAction()
-    {
-    	$this->_userInfoSession = new Login_Model_UserInfoSession();
-    	$this->view->userInfo = $this->_userInfoSession->toArray();
-    	$this->_userInfoSession->test();
-    }
+	public function testAction()
+	{
+		$this->_userInfoSession = new Login_Model_UserInfoSession();
+		$this->view->userInfo = $this->_userInfoSession->toArray();
+		$this->_userInfoSession->test();
+	}
 }
