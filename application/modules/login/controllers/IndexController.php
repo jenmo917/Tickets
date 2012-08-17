@@ -2,37 +2,20 @@
 
 class Login_IndexController extends Zend_Controller_Action
 {
-	protected $_options;
-	protected $_adapterCas;
 	protected $_liuLogin;
 	protected $_userInfoSession;
 
 	/**
-	 * Settings for cas.
-	 *
 	 * @author	Daniel Josefsson <dannejosefsson@gmail.com>
 	 * @since	v0.1
 	 */
 	public function init()
 	{
-		$this->_options = $this->getInvokeArg('bootstrap')->getOptions();
-		$this->_auth	= Zend_Auth::getInstance();
-
 		$flash = $this->_helper->getHelper('flashMessenger');
 		if ($flash->hasMessages())
 		{
 			$this->view->messages = $flash->getMessages();
 		}
-
-		$config = array	(
-							'hostname'  => 'login.liu.se',
-							'port'      => 443,
-							'path'      => 'cas/',
-						);
-
-		$this->_adapterCas = new Zend_Auth_Adapter_Cas($config);
-
-		$this->view->cas_link = $this->_adapterCas->getLoginUrl();
 	}
 
 	/**
@@ -43,7 +26,11 @@ class Login_IndexController extends Zend_Controller_Action
 	 */
 	public function indexAction()
 	{
-		$this->casAction();
+		$liuServiceName = Login_Model_LiuInfoSession::getServiceName();
+		$this->_loadUserInfoSession();
+		$this->view->cas_url
+			= $this->_userInfoSession->getLoginUrl($liuServiceName);
+		$this->liuLoginAction();
 	}
 
 	/**
@@ -51,52 +38,37 @@ class Login_IndexController extends Zend_Controller_Action
 	 * @author	Daniel Josefsson <dannejosefsson@gmail.com>
 	 * @since	v0.1
 	 */
-	public function casAction()
+	public function liuLoginAction()
 	{
-		// A CAS request returns a ticket.
-		if ($this->getRequest()->getQuery('ticket'))
+		$liuServiceName = Login_Model_LiuInfoSession::getServiceName();
+		$this->_loadUserInfoSession();
+		$this->view->cas_url
+			= $this->_userInfoSession->getLoginUrl($liuServiceName);
+		$request = $this->getRequest();
+		// A CAS request returns a ticket as a get variable. Do a redirect to fix the url.
+		// TODO:: Make up a good way to set the cas service so the url does not include ticket.
+		/*if ($ticket = $request->getQuery('ticket'))
 		{
-			// Authenitcate the user.
-			$this->_adapterCas->setTicket(htmlspecialchars($this->getRequest()->getQuery('ticket')));
-			$result = $this->_auth->authenticate($this->_adapterCas);
-			if(!$result->isValid())
+			$ticket = htmlspecialchars($ticket);
+			$this->_redirect($this->_helper->url->url(
+											array(	'module' => 'login',
+													'controller' => 'index',
+													'action' => 'liuLogin',
+													'ticket' => $ticket),
+													"defaultRoute",true));
+		}*/
+		// When the redirect is made, authenticate the user.
+		if ( $ticket = htmlspecialchars($request->getParam('ticket')) )
+		{
+			if ($loginResult = $this->_userInfoSession->serviceLogin($liuServiceName, $ticket))
 			{
-				// If the login failed, send the user back to the login page.
-				$this->_helper->flashMessenger->addMessage("Log in failed.");
-				$this->_redirect('/login');
-			}
-			else
-			{
-				// Get the identity returned from the CAS
-				$userData;
-				if(is_array($this->_auth->getIdentity()))
+				// Show Register new user form.
+				if(!strcmp('notFound', $loginResult))
 				{
-					$userData = $this->_auth->getIdentity();
-				}
-				else
-				{
-					$userData = array(	'userName' => $this->_auth->getIdentity(), );
-				}
-
-				// Get the user.
-				$this->_liuLogin = new Login_Model_LiuLogin();
-				$loginStatus = $this->_liuLogin->userLogin($userData);
-
-				if( true === $loginStatus)
-				{
-					//TODO: Set permissions.
-					//$this->_redirect('/login/index/test');
-				}
-				elseif ( !strcmp('logout', $loginStatus) )
-				{
-					$this->_liuLogin->clearSession();
-					$this->_liuLogin->userLogin($userData);
-					$this->_redirect('/');
-				}
-				else
-				{
+					// TODO: Translate!
 					$mess  = "You are about to create a new user. ";
-					$mess .= "To use our services, we need your permission to save your LiU-ID. ";
+					$mess .= "To use our services, we need your permission to save your login service user id. ";
+					$mess .= "We will never store your password, this is the beauty with using external login services.";
 					$this->_helper->flashMessenger->addMessage($mess);
 					$this->view->form = new Login_Form_Confirm();
 					$this->view->message = array_merge
@@ -105,75 +77,64 @@ class Login_IndexController extends Zend_Controller_Action
 						$this->_helper->flashMessenger->getCurrentMessages()
 					);
 					$this->_helper->flashMessenger->clearCurrentMessages();
-					// TODO: New user. Register and let the user accept our terms.
-					// TODO: The user shall be able to add this account to another account as well, if the user wants of course.
-					// TODO: Redirect to logout action if someone else is in.
 				}
-			}
-		}
-		// Check if the new user allows us to store information.
-		elseif( $this->getRequest()->getQuery('ok')	)
-		{
-			$userData;
-			if(is_array($this->_auth->getIdentity()))
-			{
-				$userData = $this->auth->getIdentity();
-			}
-			else
-			{
-				$userData = array(	'userName' => $this->_auth->getIdentity(), );
-			}
-			$this->_liuLogin = new Login_Model_LiuLogin();
-			if($this->_liuLogin->userLogin($userData) === true)
-			{
-				//TODO: Set permissions.
-				$this->_redirect('/');
-			}
-			else
-			{
-				$newUserName = $this->_auth->getIdentity();
-				if($this->_liuLogin->registerNewUser($newUserName))
+				else //TODO: $loginResult = 'logout', this is the case if a new user tries to login on an old users account.
 				{
-					$this->_redirect('/');
+					//echo "<pre>";
+						//var_dump($ticket);
+					//echo "</pre>";
 				}
 			}
+			else
+			{
+				// If the login failed, send the user back to the login page.
+				$this->_helper->flashMessenger->addMessage("Log in failed.");
+				$url = array(	'module' => 'login',
+								'controller' => 'index',
+								'action' => 'liu-login');
+				$this->_redirect($this->_helper->url->url($url, "defaultRoute",true));
+			}
 		}
-		elseif( $this->getRequest()->getQuery('cancel')	)
+		// If a new user is about to register
+		elseif (	$confirmation = htmlspecialchars($request->getParam('ok')))
 		{
-			$this->_auth->getStorage()->clear();
-			$this->_redirect('/');
+			if ( $this->_userInfoSession->hasNew() )
+				$this->view->ticket = $this->_userInfoSession->addLoginServiceToUser($liuServiceName);
+			else
+				$this->_redirect('/');
 		}
 
-		// Send to CAS for authentication
-		if(!$this->_auth->hasIdentity())
-		{
-			$this->_redirect($this->_adapterCas->getLoginUrl());
-		}
+		//$this->view->ticket = $this->getRequest()->getParams();
 	}
 
 	/**
-	 * This will logout all LiU accounts and will redirect to applicationname/$redirect.
+	 * This will logout the LiU account and redirect to $redirect.
 	 *
 	 * @author	Daniel Josefsson <dannejosefsson@gmail.com>
 	 * @since	v0.1
-	 * @param $redirect string
+	 * @param $redirect array
 	 */
-	public function liuLogoutAction($redirect = null)
+	public function liuLogoutAction()
 	{
-		$this->_liuLogin = new Login_Model_LiuLogin();
-		if ($this->_liuLogin->logout())
+		$this->_loadUserInfoSession();
+		$redirect = $this->getRequest()->getParam('redirect');
+		$liuId = $this->getRequest()->getParam('liuId');
+		echo "<pre>";
+			var_dump('liuId', $liuId);
+		echo "</pre>";
+
+		// Get service names to later decide wheter to logout the user or not
+		$liuServiceName = Login_Model_LiuInfoSession::getServiceName();
+		if ($this->_userInfoSession->hasServiceSignedIn($liuServiceName, $liuId))
 		{
-			$this->_helper->flashMessenger->addMessage("Your session on LiU's CAS is now ended.");
-			$protocol = $_SERVER['HTTPS'] ? "https" : "http";
-			$this->_auth->clearIdentity();
-			$this->_adapterCas->setService($protocol.'://'. $_SERVER['HTTP_HOST'].'/'.$redirect);
-			$this->_adapterCas->setLogoutUrl();
-			$this->_redirect($this->_adapterCas->getLogoutUrl());
-			$this->view->didLogout = true;
-			$this->_userInfoSession->hasLiuLogin() ? null: $this->_userInfoSession->userLogout();
+			//$this->_helper->flashMessenger->addMessage("Your session on LiU's CAS has ended.");
+			//$logoutUrl = $this->_userInfoSession->serviceLogout($liuServiceName, $liuId, $redirect);
+			// Do the actual logout.
+			$this->_redirect($logoutUrl);
 		}
 		else
 		{
+			//$this->_helper->flashMessenger->addMessage("You currently not logged in on LiU's CAS.");
 			$this->view->didLogout = false;
 		}
 	}
@@ -186,14 +147,34 @@ class Login_IndexController extends Zend_Controller_Action
 	public function logoutAction()
 	{
 		$this->_userInfoSession = new Login_Model_UserInfoSession();
-		$this->_userInfoSession->hasLiuLogin() ? $this->_userInfoSession->liuLogout() : null;
-		$this->_userInfoSession->userLogout();
+		if ( $this->_userInfoSession->hasUser() )
+		{
+			$thisUrl = array('module' => 'login','controller' => 'index', 'action' => 'logout');
+			$defaultUrl = array('module' => 'default','controller' => 'index', 'action' => 'index');
+			$logoutUrl = $this->_userInfoSession->logoutAllServices($this->_helper->url->url($thisUrl, "defaultRoute",true));
+		}
+
+		( true === $logoutUrl )?
+			null://$this->_redirect($this->_helper->url->url($defaultUrl,"defaultRoute",true)):
+			$this->_redirect($logoutUrl);
 	}
 
 	public function testAction()
 	{
 		$this->_userInfoSession = new Login_Model_UserInfoSession();
-		$this->view->userInfo = $this->_userInfoSession->toArray();
 		$this->_userInfoSession->test();
+		//$this->_userInfoSession->test();
+			echo "<pre>";
+				var_dump($_SESSION);
+			echo "</pre>";
+		//$this->_redirect($this->_helper->url->url(array('module' => 'admin','controller' => 'event', 'action' => 'sell', 'event_id' => $params['event_id']),"defaultRoute",true));
+	}
+
+	protected function _loadUserInfoSession()
+	{
+		if ( !$this->_userInfoSession instanceof Login_Model_UserInfoSession )
+		{
+			$this->_userInfoSession = new Login_Model_UserInfoSession();
+		}
 	}
 }

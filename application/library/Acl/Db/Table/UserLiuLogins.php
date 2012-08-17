@@ -50,7 +50,7 @@ class Acl_Db_Table_UserLiuLogins extends Acl_Db_Table_Abstract
 	 * @param	string $liuId
 	 * @return	bool|array
 	 */
-	function findUser( $liuId )
+	function findLiuId( $liuId )
 	{
 		if ( is_string($liuId) && strcmp('', $liuId) )
 		{

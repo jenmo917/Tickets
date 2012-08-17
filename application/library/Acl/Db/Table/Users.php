@@ -34,4 +34,26 @@ class Acl_Db_Table_Users extends Acl_Db_Table_Abstract
 	 * @var		array
 	 */
 	protected $_dependentTables	= array('Acl_Db_Table_UserLiuLogins',);
+
+	/**
+	 * Find a user with given LiU ID connected.
+	 * @author	Daniel Josefsson <dannejosefsson@gmail.com>
+	 * @since	v0.1
+	 * @param	string $userId
+	 * @return	bool|array
+	 */
+	function findUser( $userId )
+	{
+		if ( is_string($userId) && strcmp('', $userId) )
+		{
+			$UserColName = $this->getColumnName('userId');
+			$select = $this->select()->where($this->quoteString($UserColName). ' LIKE ?', $userId);
+			$userLogin = $this->fetchRow($select);
+			return ( $userLogin instanceof $this->_rowClass)? $userLogin->toArray(): false;
+		}
+		else
+		{
+			return false;
+		}
+	}
 }
