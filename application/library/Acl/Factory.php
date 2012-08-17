@@ -17,7 +17,7 @@ class Acl_Factory
 		self::$_cache = Zend_Registry::get('AclCache');
 		if($clearACL)
 		{
-			self::$_cache->remove('acl');
+			self::clearCache();
 		}
 
 		return self::_loadAclFromCache();
@@ -79,5 +79,39 @@ class Acl_Factory
 			self::$_objAcl = unserialize($result);
 		}
 		return self::$_objAcl;
+	}
+
+	public static function addPrivilegeToStorage( $settings )
+	{
+		$settingsKeys = array_keys($settings);
+		$mustHave =	array(	Acl_Db_Table_Privileges::getColumnName('userId'),
+							Acl_Db_Table_Privileges::getColumnName('roleId'));
+		$mayHave =	Acl_Db_Table_Privileges::getColumnNames();
+		$mustHaveDiff = array_diff($mustHave, $settingsKeys);
+		$mayHaveDiff = array_diff($settingsKeys, $mayHave);
+		if ( !empty($mustHaveDiff) )
+		{
+			$mustHaveKeysString = implode(', ', $mustHave);
+			throw new Zend_Exception($mustHaveKeysString . ' have to be keys in settings');
+		}
+
+		if ( !empty($mayHaveDiff) )
+		{
+			$mayHaveKeysString = implode(', ', $mayHave);
+			throw new Zend_Exception('Only '.$mayHaveKeysString . ' can be keys in settings');
+		}
+		$permissionsTable = new Acl_Db_Table_Privileges();
+		return $permissionsTable->createRow($settings)->save();
+	}
+
+	public static function getPrivilegesForUser( $userId )
+	{
+		$privilegesTable = new Acl_Db_Table_Privileges();
+		return $privilegesTable->getPrivilegesForUserId($userId, true);
+	}
+
+	public static function clearCache()
+	{
+		self::$_cache->remove('acl');
 	}
 }
