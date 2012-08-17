@@ -31,21 +31,21 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
                     'module'    => 'admin',
                     'controller'=> 'index',
                     'action'    => 'create-event',
-                    'resource'  => 'users'
+                    //'resource'  => 'users'
                 ),
                 array(
                     'label'     => $this->_translate->translate('My Events'),
                     'module'    => 'admin',
                     'controller'=> 'index',
                     'action'    => 'index',
-                    'resource'  => 'users'
+                    //'resource'  => 'users'
                 ),
                 array(
                     'label'     => 'Sign in', //TODO: Translate!
                     'module'    => 'login',
                     'controller'=> 'index',
                     'action'    => 'index',
-                    'resource'  => $pre.$del.'login'.$del.'*'.$del.'*',
+                    'resource'  => $pre.$del.'login'.$del.'index'.$del.'index',
                     'privilege'	=> 'allow',
                 	),
                 array(
