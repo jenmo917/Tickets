@@ -47,6 +47,7 @@ class Acl_Plugins_SecurityCheck extends Zend_Controller_Plugin_Abstract
         $userPermitted = $this->_isAllowed($resourceNeedels);
 
         if (!$userPermitted) {
+            $request->setParam('redirect', $request->getParams());
             $request->setModuleName('login');
             $request->setControllerName('index');
             $request->setActionName('index');

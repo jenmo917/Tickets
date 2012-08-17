@@ -74,4 +74,36 @@ class Acl_Db_Table_Row_Abstract extends Zend_Db_Table_Row_Abstract
 
 		return $vars['_columns'][$columnName];
 	}
+
+	public static function getColumnNames()
+	{
+		$vars = get_class_vars(get_called_class());
+
+		if ( !isset($vars['_columns']) )
+		{
+			throw new Zend_Exception('$_columns is not set.');
+		}
+		if ( !is_array($vars['_columns']))
+		{
+			throw new Zend_Exception('$_columns is not an array.');
+		}
+
+		return array_values($vars['_columns']);
+	}
+
+	public static function getColumnNamesKeys()
+	{
+	$vars = get_class_vars(get_called_class());
+
+	if ( !isset($vars['_columns']) )
+	{
+	throw new Zend_Exception('$_columns is not set.');
+			}
+			if ( !is_array($vars['_columns']))
+			{
+	throw new Zend_Exception('$_columns is not an array.');
+			}
+
+			return array_keys($vars['_columns']);
+		}
 }
