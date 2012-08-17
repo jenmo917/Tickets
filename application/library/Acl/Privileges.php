@@ -175,7 +175,7 @@ class Acl_Privileges
 	 */
 	public function sanitize($keyArrRoleIds)
 	{
-		$excessKeys = array_diff_key($this->_privileges, array_flip($keyArrRoleIds));
+		$excessKeys = array_diff(array_keys($this->_privileges), $keyArrRoleIds);
 		foreach ($excessKeys as $excessKey)
 		{
 			unset($this->_privileges[$excessKey]);
