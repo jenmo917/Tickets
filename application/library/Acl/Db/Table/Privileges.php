@@ -38,9 +38,11 @@ class Acl_Db_Table_Privileges extends Acl_Db_Table_Abstract
 		if ( $onlyActive )
 		{
 			$now = date('Y-m-d H:i:s');
-			$select	->where($this->quoteString($this->getColumnName('startTime'))	." < '". $now."'")
+			$select	->where($this->quoteString($this->getColumnName('startTime'))	." < '". $now."' OR ".
+							$this->quoteString($this->getColumnName('startTime'))	." IS NULL")
 					->where($this->quoteString($this->getColumnName('endTime'))		." > '". $now."' OR ".
-							$this->quoteString($this->getColumnName('endTime'))		." = '0000-00-00 00:00:00'");
+							$this->quoteString($this->getColumnName('endTime'))		." = '0000-00-00 00:00:00' OR ".
+							$this->quoteString($this->getColumnName('endTime'))		." IS NULL");
 		}
 		return $this->fetchAll($select);
 	}
