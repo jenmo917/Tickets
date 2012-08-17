@@ -4,9 +4,11 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
     /**
     * Instance of Zend_Translate
     * @var Zend_Translate $_translator
-    */       
+    */
     protected $_translate;
-    
+    protected $_pagePrefix;
+    protected $_delimiter;
+
     /*
     * Get the top Level menu.
     * @author	Jens Moser <jenmo917@gmail.com>
@@ -15,6 +17,8 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
     */
     public function getTopLevelMenu()
     {
+    	$del = $this->_delimiter;
+    	$pre = $this->_pagePrefix;
         $pages = array(
                 array(
                     'label'     => $this->_translate->translate('Start'),
@@ -35,7 +39,23 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
                     'controller'=> 'index',
                     'action'    => 'index',
                     'resource'  => 'users'
-                )
+                ),
+                array(
+                    'label'     => 'Sign in', //TODO: Translate!
+                    'module'    => 'login',
+                    'controller'=> 'index',
+                    'action'    => 'index',
+                    'resource'  => $pre.$del.'login'.$del.'*'.$del.'*',
+                    'privilege'	=> 'allow',
+                	),
+                array(
+                    'label'     => 'Sign out', //TODO: Translate!
+                    'module'    => 'login',
+                    'controller'=> 'index',
+                    'action'    => 'logout',
+                    'resource'  => $pre.$del.'login'.$del.'index'.$del.'logout',
+                    'privilege'	=> 'allow',
+                	),
             );
 
         return $pages;
@@ -46,7 +66,7 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
     * @author	Jens Moser <jenmo917@gmail.com>
     * @since	v0.1
     * @return	array
-    */  
+    */
     public function getEventMenu($params)
     {
        $pages = array(
@@ -75,18 +95,19 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
         );
         return $pages;
     }
-    
+
     /*
     * Init menus
     * @author	Jens Moser <jenmo917@gmail.com>
     * @since	v0.1
     * @return	array
-    */  
+    */
     public function preDispatch(Zend_Controller_Request_Abstract $request)
-    {   
-        
+    {
         $this->_translate = Zend_Registry::get('Zend_Translate');
-        
+    	$this->_pagePrefix = Acl_Resources::PAGEPREFIX;
+    	$this->_delimiter = Acl_Resources::DELIMITER;
+
         // get params
         $params = $request->getParams();
         // Always view the top level menu
@@ -104,8 +125,8 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
             // Create menu container
             $eventMenu   = new Zend_Navigation(new Zend_Config($eventMenu));
             // Save menu in registry
-            Zend_Registry::set('verticalMenu',$eventMenu);            
+            Zend_Registry::set('verticalMenu',$eventMenu);
         }
-    }   
+    }
 }
 ?>
