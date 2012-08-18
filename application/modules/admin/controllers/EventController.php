@@ -75,7 +75,7 @@ class Admin_EventController extends Zend_Controller_Action
 			$data['event']['public'] = $data['step3']['public'];
 
 			// Save event
-			$event = $events->saveEvent($data['event']);
+			$event = $events->createEvent($data['event']);
 
 			// Add message
 			$flashMessenger = $this->_helper->getHelper('FlashMessenger');

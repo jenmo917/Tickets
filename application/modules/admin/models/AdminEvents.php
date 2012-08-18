@@ -19,6 +19,8 @@ class Admin_Model_AdminEvents
 	 */
 	protected $_ticketTable;
 
+	protected $_defaultCategories = array('eventCreator' => 'event-creator',);
+
 	/**
 	 * Set Events table.
 	 * @author	Jens Moser <jenmo917@gmail.com>
@@ -124,6 +126,19 @@ class Admin_Model_AdminEvents
 		return $this->_ticketTypeTable;
 	}
 
+	public function createEvent($event)
+	{
+		$userInfoSession = new Login_Model_UserInfoSession();
+		$userId = $userInfoSession->getUserId();
+		$userIdColName	= Acl_Db_Table_Privileges::getColumnName('userId');
+		$eventIdColName	= Acl_Db_Table_Privileges::getColumnName('eventId');
+		$row = $this->saveEvent($event);
+		$privilegeSettings = array(	$userIdColName	=> $userId,
+									$eventIdColName	=> $row->getColumn('eventId'));
+		Acl_Factory::addDefaultPrivileges($privilegeSettings, $this->_defaultCategories['eventCreator']);
+		return $row;
+	}
+
 	/**
 	 * Save event.
 	 * @author	Jens Moser <jenmo917@gmail.com>
@@ -141,12 +156,12 @@ class Admin_Model_AdminEvents
 		{
 			$row = $this->_eventsTable->createRow();
 		}
-		$row->name       = $event['name'];
-		$row->location   = $event['location'];
-		$row->details    = $event['details'];
-		$row->public     = $event['public'];
-		$row->start_time = $event['start_time'];
-		$row->end_time   = $event['end_time'];
+		$row->name			= $event['name'];
+		$row->location		= $event['location'];
+		$row->details		= $event['details'];
+		$row->public		= $event['public'];
+		$row->start_time	= $event['start_time'];
+		$row->end_time		= $event['end_time'];
 
 		$row->save();
 		return $row;
