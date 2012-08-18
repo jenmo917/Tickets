@@ -18,6 +18,11 @@ class Generic_Db_Table_Abstract extends Zend_Db_Table_Abstract
 		return '`'.$string.'`';
 	}
 
+	public static function getRowClassName( )
+	{
+		return static::ROW_CLASS;
+	}
+
 	public static function getTableName( )
 	{
 		return static::TABLE_NAME;
@@ -27,5 +32,17 @@ class Generic_Db_Table_Abstract extends Zend_Db_Table_Abstract
 	{
 		$rowClass = static::ROW_CLASS;
 		return $rowClass::getColumnName($columnName);
+	}
+
+	public static function getColumnNames()
+	{
+		$rowClass = static::ROW_CLASS;
+		return $rowClass::getColumnNames();
+	}
+
+	public static function getColumnNamesKeys()
+	{
+		$rowClass = static::ROW_CLASS;
+		return $rowClass::getColumnNamesKeys();
 	}
 }
