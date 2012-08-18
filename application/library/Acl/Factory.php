@@ -83,6 +83,9 @@ class Acl_Factory
 
 	public static function addPrivilegeToStorage( $settings )
 	{
+		// Check input
+		if ( !is_array($settings) )
+			throw new Zend_Exception('$settings must be an array');
 		$settingsKeys = array_keys($settings);
 		$mustHave =	array(	Acl_Db_Table_Privileges::getColumnName('userId'),
 							Acl_Db_Table_Privileges::getColumnName('roleId'));
@@ -91,14 +94,14 @@ class Acl_Factory
 		$mayHaveDiff = array_diff($settingsKeys, $mayHave);
 		if ( !empty($mustHaveDiff) )
 		{
-			$mustHaveKeysString = implode(', ', $mustHave);
-			throw new Zend_Exception($mustHaveKeysString . ' have to be keys in settings');
+			$mustHaveKeysString = implode(', ', $mustHaveDiff);
+			throw new Zend_Acl_Exception('$settings lacks following keys: '. $mustHaveKeysString);
 		}
 
 		if ( !empty($mayHaveDiff) )
 		{
 			$mayHaveKeysString = implode(', ', $mayHave);
-			throw new Zend_Exception('Only '.$mayHaveKeysString . ' can be keys in settings');
+			throw new Zend_Exception('Only '.$mayHaveKeysString . ' can be keys in $settings');
 		}
 		$permissionsTable = new Acl_Db_Table_Privileges();
 		return $permissionsTable->createRow($settings)->save();
@@ -108,6 +111,54 @@ class Acl_Factory
 	{
 		$privilegesTable = new Acl_Db_Table_Privileges();
 		return $privilegesTable->getPrivilegesForUserId($userId, true);
+	}
+
+	/**
+	 * Add default privileges to user on given categories.
+	 * @author	Daniel Josefsson <dannejosefsson@gmail.com>
+	 * @since	v0.1
+	 * @param	string	$userId
+	 * @param	array	$categories
+	 * @todo	Limit so the user cant get serveral of the same privileges.
+	 * 			As for now, the user will get several equal service default privileges.
+	 * @throws	Zend_Acl_Exception if $categories is not an array or a string.
+	 * @throws	Zend_Acl_Exception if privilegeSettings is not an array.
+	 * @throws	Zend_Acl_Exception if user id column is not found in privilegeSettings.
+	 */
+	public static function addDefaultPrivileges( $privilegeSettings, $categories )
+	{
+		// Check input
+		if (!is_array($categories) && !is_string($categories))
+			throw new Zend_Acl_Exception('$categories must be an array or a string');
+		if ( !is_array($privilegeSettings) )
+		throw new Zend_Acl_Exception('$privilegeSettings must be an array');
+		$settingsKeys = array_keys($privilegeSettings);
+
+		// make sure that user id is set.
+		$mustHave =	array(	Acl_Db_Table_Privileges::getColumnName('userId'));
+		$mustHaveDiff = array_diff($mustHave, $settingsKeys);
+		if ( !empty($mustHaveDiff) )
+		{
+			$mustHaveKeysString = implode(', ', $mustHave);
+			throw new Zend_Acl_Exception('$privilegeSettings lacks following keys: '. $mustHaveKeysString);
+		}
+
+		// Make sure that $categories is an array.
+		if ( is_string($categories) )
+			$categories = array($categories);
+
+		$defaultPrivileges = new Acl_Db_Table_DefaultPrivileges();
+		$roleIdColName = $defaultPrivileges->getColumnName('roleId');
+		$roleIdPrivilegeColName = Acl_Db_Table_Privileges::getColumnName('roleId');
+
+		//Fetch all privileges that should be set to the user.
+		$privilegesArray = $defaultPrivileges->getCategoriesPrivileges($categories);
+		foreach ($privilegesArray as $privilege)
+		{
+			$privilegeSettings[$roleIdPrivilegeColName] = $privilege[$roleIdColName];
+			// Store the privilege.
+			self::addPrivilegeToStorage($privilegeSettings);
+		}
 	}
 
 	public static function clearCache()

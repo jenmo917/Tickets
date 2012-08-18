@@ -7,7 +7,6 @@ class Login_Model_UserInfoSession
 	protected $_namespace;
 	protected $_services;
 	protected $_users;
-	protected $_defaultPrivileges;
 	static protected $_defaultPrivilegeCategories = array('authenticated user');
 	const USER_INFO_NS = 'Attend_UserInfo';
 	const AUTO_LOGOUT	= 900; // 15 minutes.
@@ -168,19 +167,6 @@ class Login_Model_UserInfoSession
 	}
 
 	/**
-	 * Load the table where the default privileges are stored.
-	 * @author	Daniel Josefsson <dannejosefsson@gmail.com>
-	 * @since	v0.1
-	 */
-	protected function _loadDefaultPrivilegesTable()
-	{
-		if(!$this->_defaultPrivileges instanceof Acl_Db_Table_DefaultPrivileges)
-		{
-			$this->_defaultPrivileges = new Acl_Db_Table_DefaultPrivileges();
-		}
-	}
-
-	/**
 	 * Sets user info to namespace.
 	 * Keys in $userInfo must conform with column names of Acl_Db_Table_Users
 	 * @author	Daniel Josefsson <dannejosefsson@gmail.com>
@@ -234,43 +220,10 @@ class Login_Model_UserInfoSession
 		// Reload the user to get default values set by the storage mechanism.
 		$userInfo = $this->_users->findUser($userId);
 		$this->_setInfo($userInfo);
-		$this->_addDefaultPrivileges($userId, self::$_defaultPrivilegeCategories);
+		Acl_Factory::addDefaultPrivileges(array(
+											Acl_Db_Table_Privileges::getColumnName('userId') => $userId),
+											self::$_defaultPrivilegeCategories);
 		return $userId;
-	}
-
-	/**
-	 * Add default privileges to user on given categories.
-	 * @author	Daniel Josefsson <dannejosefsson@gmail.com>
-	 * @since	v0.1
-	 * @param	string	$userId
-	 * @param	array	$categories
-	 * @todo	Limit so the user cant get serveral of the same privileges.
-	 * 			As for now, the user will get several equal service default privileges.
-	 * @throws	Zend_Exception if $userId is not a string
-	 * @throws	Zend_Exception if $categories is not an array.
-	 */
-	protected function _addDefaultPrivileges( $userId, $categories )
-	{
-		if ( !is_string($userId) )
-			throw new Zend_Exception('$userId must be a string');
-		if (!is_array($categories))
-		throw new Zend_Exception('$categories must be an array');
-
-		$roleIdPrivilegeColName = Acl_Db_Table_Privileges::getColumnName('roleId');
-		$userIdPrivilegeColName = Acl_Db_Table_Privileges::getColumnName('userId');
-
-		$this->_loadDefaultPrivilegesTable();
-		$roleIdColName = $this->_defaultPrivileges->getColumnName('roleId');
-
-		//Fetch all privileges that should be set to the user.
-		$privilegesArray = $this->_defaultPrivileges->getCategoriesPrivileges($categories);
-		foreach ($privilegesArray as $privilege)
-		{
-			$settings = array(	$roleIdPrivilegeColName => $privilege[$roleIdColName],
-			$userIdPrivilegeColName => $userId);
-			// Store the privilege.
-			Acl_Factory::addPrivilegeToStorage($settings);
-		}
 	}
 
 	/**
@@ -514,7 +467,9 @@ class Login_Model_UserInfoSession
 		$userInfo = $serviceObj->addAccount($userId, $identifier);
 		$this->_setServiceUserInfo($serviceName, $userInfo);
 		$serviceDefaultCategories = $serviceObj->getDefaultCategories();
-		$this->_addDefaultPrivileges($userId, $serviceDefaultCategories);
+		Acl_Factory::addDefaultPrivileges(array(
+											Acl_Db_Table_Privileges::getColumnName('userId') => $userId),
+											$serviceDefaultCategories);
 		return $this->toArray();
 	}
 
