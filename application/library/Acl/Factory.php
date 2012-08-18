@@ -32,7 +32,7 @@ class Acl_Factory
 	{
 		if(!$result = self::$_cache->load('acl'))
 		{
-			self::$_objAcl = new Zend_Acl();
+			self::$_objAcl = new Acl_Acl();
 			// Fetch roles.
 			$roleTree = new Acl_RoleTree();
 			$roleTree->buildFullTree();

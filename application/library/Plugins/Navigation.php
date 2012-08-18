@@ -21,24 +21,28 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
     	$pre = $this->_pagePrefix;
         $pages = array(
                 array(
-                    'label'     => $this->_translate->translate('Start'),
-                    'module'    => 'default',
+                    'label'		=> $this->_translate->translate('Start'),
+                    'module'	=> 'default',
                     'controller'=> 'index',
-                    'action'    => 'index'
+                    'action'	=> 'index',
+                    'resource'	=> $pre.$del.'default'.$del.'index'.$del.'index',
+                    'privilege'	=> 'resourceStackCheck',
                 ),
                 array(
                     'label'     => $this->_translate->translate('Create Event'),
                     'module'    => 'admin',
                     'controller'=> 'index',
                     'action'    => 'create-event',
-                    //'resource'  => 'users'
+                    'resource'  => $pre.$del.'admin'.$del.'index'.$del.'create-event',
+                    'privilege'	=> 'resourceStackCheck',
                 ),
                 array(
                     'label'     => $this->_translate->translate('My Events'),
                     'module'    => 'admin',
                     'controller'=> 'index',
                     'action'    => 'index',
-                    //'resource'  => 'users'
+                    'resource'  => $pre.$del.'admin'.$del.'index'.$del.'index',
+                    'privilege'	=> 'resourceStackCheck',
                 ),
                 array(
                     'label'     => 'Sign in', //TODO: Translate!
@@ -46,7 +50,7 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
                     'controller'=> 'index',
                     'action'    => 'index',
                     'resource'  => $pre.$del.'login'.$del.'index'.$del.'index',
-                    'privilege'	=> 'allow',
+                    'privilege'	=> 'resourceStackCheck',
                 	),
                 array(
                     'label'     => 'Sign out', //TODO: Translate!
@@ -54,7 +58,7 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
                     'controller'=> 'index',
                     'action'    => 'logout',
                     'resource'  => $pre.$del.'login'.$del.'index'.$del.'logout',
-                    'privilege'	=> 'allow',
+                    'privilege'	=> 'resourceStackCheck',
                 	),
             );
 
