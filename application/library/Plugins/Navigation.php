@@ -31,17 +31,17 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
                 array(
                     'label'     => $this->_translate->translate('Create Event'),
                     'module'    => 'admin',
-                    'controller'=> 'index',
+                    'controller'=> 'event',
                     'action'    => 'create-event',
-                    'resource'  => $pre.$del.'admin'.$del.'index'.$del.'create-event',
+                    'resource'  => $pre.$del.'admin'.$del.'event'.$del.'create-event',
                     'privilege'	=> 'resourceStackCheck',
                 ),
                 array(
                     'label'     => $this->_translate->translate('My Events'),
                     'module'    => 'admin',
-                    'controller'=> 'index',
+                    'controller'=> 'event',
                     'action'    => 'index',
-                    'resource'  => $pre.$del.'admin'.$del.'index'.$del.'index',
+                    'resource'  => $pre.$del.'admin'.$del.'event'.$del.'index',
                     'privilege'	=> 'resourceStackCheck',
                 ),
                 array(
