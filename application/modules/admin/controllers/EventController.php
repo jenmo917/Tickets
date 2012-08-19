@@ -11,10 +11,11 @@ class Admin_EventController extends Zend_Controller_Action
 	public function indexAction()
 	{
 		// Fetch event
+		$eventIdColName = Admin_Model_DbTable_Row_Event::getColumnNameForUrl('eventId');
 		$events = new Admin_Model_AdminEvents();
 		$flashMessenger = $this->_helper->getHelper('FlashMessenger');
 		$params = $this->getRequest()->getParams();
-		$event = $events->getEvent($params['event_id']);
+		$event = $events->getEvent($params[$eventIdColName]);
 		$this->view->event = $event;
 		$this->view->messages = $flashMessenger->getMessages();
 	}

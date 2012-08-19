@@ -582,6 +582,16 @@ class Login_Model_UserInfoSession
 		return $hasMoreAccountsLoggedIn;
 	}
 
+	public function hasPrivilegeThatFollows($settings)
+	{
+		return $this->_namespace->privileges->hasPrivilegeThatFollows($settings);
+	}
+
+	public function getUserEventIds()
+	{
+		return $this->_namespace->privileges->getActiveEventIds();
+	}
+
 	public function test()
 	{
 

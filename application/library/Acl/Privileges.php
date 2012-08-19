@@ -151,19 +151,38 @@ class Acl_Privileges
 	}
 
 	/**
-	 * Get all role ids.
+	* Get all role ids.
+	* @author	Daniel Josefsson <dannejosefsson@gmail.com>
+	* @since	v0.1
+	* @return	array
+	*/
+	public function getRoleIds()
+	{
+	$roleIds = array();
+	foreach ($this->_privileges as $privilege)
+	{
+	$roleIds[] = $privilege->getRoleId();
+	}
+	return $roleIds;
+	}
+
+	/**
+	 * Get active event ids.
 	 * @author	Daniel Josefsson <dannejosefsson@gmail.com>
 	 * @since	v0.1
 	 * @return	array
 	 */
-	public function getRoleIds()
+	public function getActiveEventIds()
 	{
-		$roleIds = array();
+		$eventIds = array();
 		foreach ($this->_privileges as $privilege)
 		{
-			$roleIds[] = $privilege->getRoleId();
+			if ((null !== $eventId = $privilege->getEventId()) && $privilege->isActive())
+			{
+				$eventIds[] = $eventId;
+			}
 		}
-		return $roleIds;
+		return $eventIds;
 	}
 
 	/**
@@ -181,5 +200,17 @@ class Acl_Privileges
 			unset($this->_privileges[$excessKey]);
 		}
 		return $this;
+	}
+
+	public function hasPrivilegeThatFollows($settings)
+	{
+		$result = false;
+		foreach ($this->_privileges as $privilege)
+		{
+			$result = $privilege->followsPattern($settings);
+			if ( $result )
+				break;
+		}
+		return $result;
 	}
 }

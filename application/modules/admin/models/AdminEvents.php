@@ -209,15 +209,32 @@ class Admin_Model_AdminEvents
 	}
 
 	/**
-	 * Fetch all events.
+	 * Fetch events .
 	 * @author	Jens Moser <jenmo917@gmail.com>
 	 * @since	v0.1
 	 * @return	Array with Admin_Model_DbTable_Row_Event
 	 */
-	public function fetchEvents()
+	public function fetchEvents($eventIds = array())
 	{
+		if (!is_array($eventIds))
+			throw new Zend_Exception('$eventIds must be an array.');
 		$this->getEventsTable();
-		return $this->_eventsTable->fetchAll();
+		if ( empty($eventIds) )
+		{
+			return $this->_eventsTable->fetchAll()->toArray();
+		}
+		else
+		{
+			$select = $this->_eventsTable->select();
+			$eventIdColName = Admin_Model_DbTable_Row_Event::getColumnName('eventId');
+			foreach ($eventIds as $eventId)
+			{
+				$select->orWhere($eventIdColName.' = ?', $eventId);
+			}
+			return $this->_eventsTable->fetchAll($select)->toArray();
+		}
+
+
 	}
 
 	/**
