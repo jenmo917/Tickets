@@ -75,7 +75,7 @@ class Generic_Db_Table_Row_Abstract extends Zend_Db_Table_Row_Abstract
 		return $vars['_columns'][$columnName];
 	}
 
-	public static function getColumnNames($option = null)
+public static function getColumnNames($option = null)
 	{
 		$vars = get_class_vars(get_called_class());
 
@@ -83,11 +83,11 @@ class Generic_Db_Table_Row_Abstract extends Zend_Db_Table_Row_Abstract
 			throw new Zend_Exception('$_columns is not set.');
 		if ( !is_array($vars['_columns']))
 			throw new Zend_Exception('$_columns is not an array.');
-		if ( null !== $option && !is_string($option) )
+		if ( !is_null($option) && !is_string($option) )
 			throw new Zend_Exception('$option must either be null or a string');
 		$diff = array_diff(array($option), array('keys', 'columns', 'both'));
-		if ( !empty($diff) )
-			throw new Zend_Exception('$option must either be keys columns or both if set.');
+		if ( !is_null($option) && !empty($diff) )
+			throw new Zend_Exception('$option must either be keys, columns or both if set.');
 
 		$result;
 		switch ($option) {
