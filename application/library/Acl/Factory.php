@@ -59,14 +59,12 @@ class Acl_Factory
 			// Store the permissions.
 			foreach ($permissions as $permission)
 			{
-				if ( !is_null($permission[$dbnAssertion]) )
-				{
+				if ( 	!is_null($permission[$dbnAssertion]) &&
+						is_string($permission[$dbnAssertion]) &&
+						strcmp('', $permission[$dbnAssertion]) )
 					$assertion = new $permission[$dbnAssertion]();
-				}
 				else
-				{
 					$assertion = null;
-				}
 				// $permission[$dbnPermission] => allow or deny.
 				self::$_objAcl->allow($permission[$dbnRoleId], $permission[$dbnResource], $permission[$dbnPermission], $assertion);
 			}
