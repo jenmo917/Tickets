@@ -34,15 +34,9 @@ class Acl_Db_Table_Abstract extends Zend_Db_Table_Abstract
 		return $rowClass::getColumnName($columnName);
 	}
 
-	public static function getColumnNames()
+	public static function getColumnNames($option = null)
 	{
 		$rowClass = static::ROW_CLASS;
-		return $rowClass::getColumnNames();
-	}
-
-	public static function getColumnNamesKeys()
-	{
-		$rowClass = static::ROW_CLASS;
-		return $rowClass::getColumnNamesKeys();
+		return $rowClass::getColumnNames($option);
 	}
 }
