@@ -40,8 +40,8 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
 				'label'		=> $this->_translate->translate('My Events'),
 				'module'	=> 'admin',
 				'controller'=> 'event',
-				'action'	=> 'index',
-				'resource'	=> $pre.$del.'admin'.$del.'event'.$del.'index',
+				'action'	=> 'my-events',
+				'resource'	=> $pre.$del.'admin'.$del.'event'.$del.'my-events',
 				'privilege'	=> 'resourceStackCheck',
 			),
 			array(
@@ -73,7 +73,7 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
 	 */
 	public function getEventMenu($params)
 	{
-		$eventIdColName = Admin_Model_DbTable_Row_Event::getColumnName('eventId');
+		$eventIdColName = Admin_Model_DbTable_Row_Event::getColumnNameForUrl('eventId');
 		if (  isset($params[$eventIdColName]))
 		{
 			$pages = array(
@@ -82,21 +82,21 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
 					'module'	=> 'admin',
 					'controller'=> 'event',
 					'action'	=> 'index',
-					'params'	=> array('event_id' => $params[$eventIdColName])
+					'params'	=> array($eventIdColName => $params[$eventIdColName])
 				),
 				array(
 					'label'		=> $this->_translate->translate('Sell Tickets'),
 					'module'	=> 'admin',
 					'controller'=> 'event',
 					'action'	=> 'sell',
-					'params'	=> array('event_id' => $params[$eventIdColName])
+					'params'	=> array($eventIdColName => $params[$eventIdColName])
 				),
 				array(
 					'label'		=> $this->_translate->translate('Attendees'),
 					'module'	=> 'admin',
 					'controller'=> 'event',
 					'action'	=> 'attendees',
-					'params'	=> array('event_id' => $params[$eventIdColName])
+					'params'	=> array($eventIdColName => $params[$eventIdColName])
 				),
 			);
 		}
