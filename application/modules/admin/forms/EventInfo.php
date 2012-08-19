@@ -1,19 +1,19 @@
 <?php
 
-class Admin_Form_EventInfo extends Zend_Form
+class Admin_Form_EventInfo extends Generic_Form_Base
 {
     /**
     * Instance of Zend_Translate
     * @var Zend_Translate $_translator
-    */       
+    */
     protected $_translator;
-    
+
     /*
     * Set event ID
     * @author	Jens Moser <jenmo917@gmail.com>
     * @since	v0.1
     * @return	null
-    */  
+    */
     public function setEventId($eventId)
     {
         $hidden = $this->createElement('hidden', 'event_id');
@@ -26,79 +26,78 @@ class Admin_Form_EventInfo extends Zend_Form
     * @author	Jens Moser <jenmo917@gmail.com>
     * @since	v0.1
     * @return	null
-    */  
+    */
     public function init()
     {
         $this->_translator = $this->getTranslator();
     }
-    
+
     /*
     * This function add all form elements
     * @author	Jens Moser <jenmo917@gmail.com>
     * @since	v0.1
     * @return	null
-    */     
+    */
     public function create($numOfTicketTypes)
     {
         /*
          *  STEP 1
          */
-        $step1 = new Zend_Form_SubForm();
-        
+        $step1 = new Generic_Form_SubForm_Base('step1');
+
         // Add name
-        $name = $this->createElement('text', 'name', array(
+        $step1->addElement('text', 'name', array(
             'label'      => $this->_translator->translate('Name'),
             'required'   => true,
             'filters'    => array('StringTrim','StripTags'),
-            'validators' => array('notEmpty')
-        ));     
-        $name->addErrorMessage($this->_translator->translate('Name please').'.');
-        $step1->addElement($name);
+            'validators' => array('notEmpty'),
+            'errorMessages' => array($this->_translator->translate('Name please').'.')
+        ));
 
         // Add location
-        $location = $this->createElement('text', 'location', array(
+        $step1->addElement('text', 'location', array(
             'label'      => $this->_translator->translate('Location'),
             'required'   => true,
             'filters'    => array('StringTrim','StripTags'),
-            'validators' => array('notEmpty')
+            'validators' => array('notEmpty'),
+        	'errorMessages' => array($this->_translator->translate('Location please').'.')
         ));
-        $location->addErrorMessage($this->_translator->translate('Location please').'.');
-        $step1->addElement($location);
-        
+
         // Add start time
-        $startTime = $this->createElement('text', 'start_time', array(
+        $step1->addElement('text', 'start_time', array(
             'label'      => $this->_translator->translate('Event starts'),
             'required'   => true,
             'filters'    => array('StringTrim','StripTags'),
+        	'errorMessages' => array($this->_translator->translate('Start time please').'.'),
+        	'class'			=> array('date-pick')
         ));
-        $startTime->class = 'date-pick';
-        $startTime->addErrorMessage($this->_translator->translate('Start time please').'.');
-        $step1->addElement($startTime);
-        
+        //$startTime->class = 'date-pick';
+
         // Add end time
-        $endTime = $this->createElement('text', 'end_time', array(
+        $step1->addElement('text', 'end_time', array(
             'label'      => $this->_translator->translate('Event ends'),
             'required'   => true,
-            'filters'    => array('StringTrim','StripTags')
+            'filters'    => array('StringTrim','StripTags'),
+        	'errorMessages' => array($this->_translator->translate('End time please').'.'),
+        	'class'			=> array('date-pick')
         ));
-        $endTime->class = 'date-pick';
-        $endTime->addErrorMessage($this->_translator->translate('End time please').'.');
-        $step1->addElement($endTime);
-        
+        //$endTime = $step1->getElement('end_time');
+        //$endTime->class = 'date-pick';
+
         // Add details
-        $details = $this->createElement('textarea', 'details', array(
+        $step1->addElement('textarea', 'details', array(
             'label'      => $this->_translator->translate('Details'),
             'required'   => false,
-            'filters'    => array('StringTrim','StripTags')
+            'filters'    => array('StringTrim','StripTags'),
+        	'errorMessages' => array(),
+        	'cols'		=> '130',
+        	'rows'		=> '2',
         ));
-        $details->setAttrib('COLS', '130')
-                ->setAttrib('ROWS', '2');
-        $step1->addElement($details);        
 
         /*
          *  STEP 2
          */
-        $step2 = new Zend_Form_SubForm();
+        $step2 = new Generic_Form_SubForm_Base('step2');
         $i = 0;
         // Add ticket types
         while($i < $numOfTicketTypes)
@@ -108,30 +107,32 @@ class Admin_Form_EventInfo extends Zend_Form
             $step2->addSubForm($ticketType, $i);
             $i++;
         }
-       
+        $step2->setSubFormDecorators(array(
+                    'FormElements',
+                    'Fieldset'
+        ));
+
         // Add submit button. This is used by Jquery to add more ticket type subforms
-        $step2->addElement('submit', 'submit', array('label' => $this->_translator->translate('New Ticket Type')));
-        
+        $step2->addElement('submit', 'new_ticket_type', array('label' => $this->_translator->translate('New Ticket Type')));
+
         /*
          *  STEP 3
          */
         // Initiate subform
-        $step3 = new Zend_Form_SubForm();
-        
-        // Add public
-        $public = new Zend_Form_Element_Select("public");
+        $step3 = new Generic_Form_SubForm_Base();
 
-        $public ->setLabel($this->_translator->translate('Publicize, or keep it private'))
-        ->addMultiOptions(array(
-            "1" => $this->_translator->translate('Public'),
-            "0" => $this->_translator->translate('Private')
+        // Add public
+        $step3->addElement(	'select', 'public',array(
+        					'label' => $this->_translator->translate('Publicize, or keep it private'),
+        					'multiOptions' => array(
+												"1" => $this->_translator->translate('Public'),
+												"0" => $this->_translator->translate('Private'))
         ));
-        $step3->addElement($public);
-        
+
         /*
          *  Overall actions
          */
-        
+
         // Set legends
         $step1->setLegend($this->_translator->translate('Step 1 - Add your Event Details'));
         $step2->setLegend($this->_translator->translate('Step 2 - Create Tickets'));
@@ -143,7 +144,11 @@ class Admin_Form_EventInfo extends Zend_Form
             'step2'  => $step2,
             'step3'  => $step3
         ));
-        
+        $this->setSubFormDecorators(array(
+            'FormElements',
+            'Fieldset'
+        ));
+
         // Add main submit button
         $this->addElement('submit', 'submit', array('label' => $this->_translator->translate('Save Event')));
     }

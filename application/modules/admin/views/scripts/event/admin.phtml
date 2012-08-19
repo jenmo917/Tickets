@@ -1,0 +1,57 @@
+<h1>
+	<?PHP echo $this->escape($this->eventInfo->name); ?>
+</h1>
+<?php /*?>
+<h3>
+    <?PHP echo $this->translate->_('Attendees'); ?>
+</h3>
+</br>
+<table>
+    <tr>
+        <th>
+            <?PHP echo $this->translate->_('Name'); ?>
+        </th>
+        <th>
+            <?PHP echo $this->translate->_('LiU-ID'); ?>
+        </th>
+        <th>
+            <?PHP echo $this->translate->_('Email'); ?>
+        </th>
+        <th>
+            <?PHP echo $this->translate->_('Ticket'); ?>
+        </th>
+        <th>
+            <?PHP echo $this->translate->_('Payment'); ?>
+        </th>
+        <th>
+            <?PHP echo $this->translate->_('OCR'); ?>
+        </th>
+    </tr>
+<?PHP
+foreach ($this->attendees as $att):
+?>
+    <tr>
+        <td>
+            <?PHP echo $this->escape($att['attendee_name']); ?>
+        </td>
+        <td>
+            <?PHP echo $this->escape($att['liu_id']); ?>
+        </td>
+        <td>
+            <?PHP echo $this->escape($att['email']); ?>
+        </td>
+        <td>
+            <?PHP echo $this->escape($att['ticket_type_name']); ?> | <a href="">Utlämnad</a>
+        </td>
+        <td>
+            <?PHP echo $this->escape($att['payment']); ?>
+        </td>
+        <td>
+            <?PHP echo "";//$att->ocr; ?>
+        </td>
+    </tr>
+<?PHP
+endforeach;
+?>
+</table>
+*/?>

@@ -1,0 +1,40 @@
+<h1>
+	<?PHP echo $this->translate->_('My Events'); ?>
+</h1>
+<p>
+    <?PHP
+
+    echo "<p>".$this->translate->_('Your events are listed below').".</p>"; ?>
+
+    <?php
+    foreach($this->messages as $message):
+        echo "<div class='message'>{$message}</div>";
+    endforeach;
+    ?>
+</p>
+
+<table class="tablesorter" style="width: 800px;">
+    <thead>
+        <tr>
+            <th><?PHP echo $this->translate->_('Name'); ?></th>
+            <th><?PHP echo $this->translate->_('Date'); ?></th>
+            <th><?PHP echo $this->translate->_('Published'); ?></th>
+            <th><?PHP echo $this->translate->_('Quick links'); ?></th>
+        </tr>
+    </thead>
+<?PHP
+	$eventsCols = Admin_Model_DbTable_Row_Event::getColumnNames('both');
+	$eventIdColNameUrl = Admin_Model_DbTable_Row_Event::getColumnNameForUrl('eventId');
+	foreach ($this->events as $event): ?>
+    <tr>
+        <td><a href="<?PHP echo $this->url(array('lang' => $this->lang, 'module' => 'admin','controller' => 'event', 'action' => 'index',$eventIdColNameUrl => $event[$eventsCols['eventId']])); ?>"><?PHP echo $event['name']; ?></a></td>
+        <td><?PHP echo $event[$eventsCols['startTime']]; ?></td>
+        <td>
+            <?PHP if($event[$eventsCols['published']]){ echo "<div style='color: green'>".$this->translate->_('Live'); }else{ echo "<div style='color: red;'>".$this->translate->_('Draft'); } ?></div>
+        </td>
+        <td><a href="<?PHP echo $this->url(array('lang' => $this->lang, 'module' => 'admin','controller' => 'event', 'action' => 'edit',$eventIdColNameUrl => $event[$eventsCols['eventId']])); ?>"><?PHP echo $this->translate->_('Edit'); ?></a>
+            | <a href="<?PHP echo $this->url(array('lang' => $this->lang, 'module' => 'admin','controller' => 'event', 'action' => 'delete',$eventIdColNameUrl => $event[$eventsCols['eventId']])); ?>"><?PHP echo $this->translate->_('Delete'); ?></a>
+            | <a href="<?PHP echo $this->url(array('lang' => $this->lang, 'module' => 'admin','controller' => 'event', 'action' => 'publish',$eventIdColNameUrl => $event[$eventsCols['eventId']])); ?>"><?PHP if($event[$eventsCols['published']]){ echo $this->translate->_('Unpublish'); } else{ echo $this->translate->_('Publish'); } ?></a></td>
+    </tr>
+<?PHP endforeach; ?>
+</table>

@@ -106,14 +106,15 @@ class Admin_EventController extends Zend_Controller_Action
 	public function attendeesAction()
 	{
 		// Fetch event
+		$eventIdColName = Admin_Model_DbTable_Row_Event::getColumnNameForUrl('eventId');
 		$events = new Admin_Model_AdminEvents();
 		$flashMessenger = $this->_helper->getHelper('FlashMessenger');
 		$params = $this->getRequest()->getParams();
-		$event = $events->getEvent($params['event_id']);
+		$event = $events->getEvent($params[$eventIdColName]);
 		$this->view->event = $event;
 
 		// Fetch attendees
-		$attendees = $events->fetchAttendees($params['event_id'])->toArray();
+		$attendees = $events->fetchAttendees($params[$eventIdColName])->toArray();
 		$this->view->attendees = $attendees;
 	}
 
@@ -126,10 +127,12 @@ class Admin_EventController extends Zend_Controller_Action
 	public function sellAction()
 	{
 		// Fetch event
+		$eventIdColName = Admin_Model_DbTable_Row_Event::getColumnNameForUrl('eventId');
+		$ticketTypeIdColName = Admin_Model_DbTable_Row_TicketType::getColumnNameForUrl('ticketTypeId', '_');
 		$events = new Admin_Model_AdminEvents();
 		$flashMessenger = $this->_helper->getHelper('FlashMessenger');
 		$params = $this->getRequest()->getParams();
-		$event = $events->getEvent($params['event_id']);
+		$event = $events->getEvent($params[$eventIdColName]);
 		$this->view->event = $event;
 		$this->view->messages = $flashMessenger->getMessages();
 
@@ -138,7 +141,7 @@ class Admin_EventController extends Zend_Controller_Action
 
 		// Create form
 		$form = new Admin_Form_SellTickets();
-		$form->setEventID($params['event_id']);
+		$form->setEventID($params[$eventIdColName]);
 		$form->create();
 		$params = $this->getRequest()->getParams();
 
@@ -154,7 +157,7 @@ class Admin_EventController extends Zend_Controller_Action
 			$ticket = $adminEvent->saveTicket($params);
 
 			// Get ticket price
-			$ticketType = $adminEvent->getTicketType($params['ticket_type_id']);
+			$ticketType = $adminEvent->getTicketType($params[$ticketTypeIdColName]);
 
 			// If invoice
 			if($params['payment'] == 'invoice')
@@ -191,7 +194,7 @@ class Admin_EventController extends Zend_Controller_Action
 			$flashMessenger->addMessage($translate->_('Ticket is registred'));
 
 			// Redirect to admin/event/sell
-			$this->_redirect($this->_helper->url->url(array('module' => 'admin','controller' => 'event', 'action' => 'sell', 'event_id' => $params['event_id']),"defaultRoute",true));
+			$this->_redirect($this->_helper->url->url(array('module' => 'admin','controller' => 'event', 'action' => 'sell', $eventIdColName => $params[$eventIdColName]),"defaultRoute",true));
 		}
 		$this->view->ticketForm = $form;
 	}
@@ -216,26 +219,24 @@ class Admin_EventController extends Zend_Controller_Action
 
 		$params = $this->getRequest()->getParams();
 
-		if(isset($params['event_id']))
+		$eventIdColNameUrl = Admin_Model_DbTable_Row_Event::getColumnNameForUrl('eventId');
+		$eventIdColNameForm = Admin_Model_DbTable_Row_Event::getColumnNameForUrl('eventId', '_');
+		if(isset($params[$eventIdColNameUrl]))
 		{
-			$eventId = $params['event_id'];
+			$eventId = $params[$eventIdColNameUrl];
 		}
 
 		// Initiate model
 		$events = new Admin_Model_AdminEvents();
 
 		// Fix between post and get vars.
-		if(isset($post['event_id']))
+		if(isset($post[$eventIdColNameForm]))
 		{
-			$eventId = $post['event_id'];
+			$eventId = $post[$eventIdColNameForm];
 		}
-		elseif(isset($post['event_id']))
+		elseif(isset($get[$eventIdColNameUrl]))
 		{
-			$eventId = $post['event_id'];
-		}
-		elseif(isset($get['event_id']))
-		{
-			$eventId = $get['event_id'];
+			$eventId = $get[$eventIdColNameUrl];
 		}
 
 		// Fetch event
@@ -384,9 +385,10 @@ class Admin_EventController extends Zend_Controller_Action
 		// Filter eventId
 		$filter = new Zend_Filter_Digits();
 		$params = $this->getRequest()->getParams();
-		if(isset($params['event_id']))
+		$eventIdColName = Admin_Model_DbTable_Row_Event::getColumnNameForUrl('eventId');
+		if(isset($params[$eventIdColName]))
 		{
-			$eventId = $filter->filter($params['event_id']);
+			$eventId = $filter->filter($params[$eventIdColName]);
 		}
 		else
 		{
@@ -427,9 +429,10 @@ class Admin_EventController extends Zend_Controller_Action
 		$filter = new Zend_Filter_Digits();
 		$params = $this->getRequest()->getParams();
 
-		if(isset($params['event_id']))
+		$eventIdColName = Admin_Model_DbTable_Row_Event::getColumnNameForUrl('eventId');
+		if(isset($params[$eventIdColName]))
 		{
-			$eventId = $filter->filter($params['event_id']);
+			$eventId = $filter->filter($params[$eventIdColName]);
 		}
 
 		// Get event for flashMessenger
@@ -450,6 +453,23 @@ class Admin_EventController extends Zend_Controller_Action
 
 		// Redirect to admin/index
 		$this->_redirect($this->_helper->url->url(array('module' => 'admin'),"defaultRoute",true));
+	}
+
+	public function adminAction()
+	{
+		$eventId = $this->getRequest()->getParam('event-id');
+		$adminEvents = new Admin_Model_AdminEvents();
+		$this->view->eventInfo = $adminEvents->getEvent($eventId);
+	}
+
+	public function myEventsAction()
+	{
+		$uI = new Login_Model_UserInfoSession();
+		$events = new Admin_Model_AdminEvents();
+		$eventIds = $uI->getUserEventIds();
+		$this->view->events = $events->fetchEvents($eventIds);
+		$flashMessenger = $this->_helper->getHelper('FlashMessenger');
+		$this->view->messages = $flashMessenger->getMessages();
 	}
 }
 
