@@ -29,21 +29,29 @@ class Admin_Form_SubForm_TicketType extends Generic_Form_SubForm_Base {
 	 */
 	public function init()
 	{
+		// Form element names
+		$ticketTypeIdElementName	= Attend_Db_Table_Row_TicketType::getColumnNameForUrl('ticketTypeId', '_');
+		$eventIdElementName			= Attend_Db_Table_Row_TicketType::getColumnNameForUrl('eventId', '_');
+		$nameElementName			= Attend_Db_Table_Row_TicketType::getColumnNameForUrl('name', '_');
+		$priceElementName			= Attend_Db_Table_Row_TicketType::getColumnNameForUrl('price', '_');
+		$quantityElementName		= Attend_Db_Table_Row_TicketType::getColumnNameForUrl('quantity', '_');
+		$detailsElementName			= Attend_Db_Table_Row_TicketType::getColumnNameForUrl('details', '_');
+		$orderElementName			= Attend_Db_Table_Row_TicketType::getColumnNameForUrl('order', '_');
+
 		// Get default form translator
 		$this->_translator = $this->getTranslator();
 
 		// Add name
-		$this->addElement('text', 'name', array(
-			'label'		=> $this->_translator->translate('Ticket Name'),
-			'required'	=> false,
-			'class'		=> 'name',
-			'filters'	=> array('StringTrim','StripTags'),
+		$this->addElement('text', $nameElementName, array(
+			'label'			=> $this->_translator->translate('Ticket Name'),
+			'required'		=> false,
+			'class'			=> 'name',
+			'filters'		=> array('StringTrim','StripTags'),
 			'validators'	=> array('notEmpty', new Admin_Validate_TicketTypeName()),
 		));
-		$name = $this->getElement('name');
 
 		// Add quantity
-		$this->addElement('text', 'quantity', array(
+		$this->addElement('text', $quantityElementName, array(
 			'label'			=> $this->_translator->translate('Ticket Quantity'),
 			'required'		=> false,
 			'class'			=> 'quantity',
@@ -52,7 +60,7 @@ class Admin_Form_SubForm_TicketType extends Generic_Form_SubForm_Base {
 		));
 
 		// Add price
-		$this->addElement('text', 'price', array(
+		$this->addElement('text', $priceElementName, array(
 			'label'		=> $this->_translator->translate('Ticket Price'),
 			'required'		=> false,
 			'class'			=> 'price',
@@ -61,7 +69,7 @@ class Admin_Form_SubForm_TicketType extends Generic_Form_SubForm_Base {
 		));
 
 		// Add details
-		$this->addElement('textarea', 'details', array(
+		$this->addElement('textarea', $detailsElementName, array(
 			'label'			=> $this->_translator->translate('Details'),
 			'required'		=> false,
 			'class'			=> 'details',
@@ -77,11 +85,10 @@ class Admin_Form_SubForm_TicketType extends Generic_Form_SubForm_Base {
 		));
 
 		// Add ticket type id
-		$ticketTypeIdColNameForForm = Attend_Db_Table_Row_TicketType::getColumnNameForUrl('ticketTypeId', '_');
-		$this->addElement('hidden',$ticketTypeIdColNameForForm, array(
-			'class'			=> $ticketTypeIdColNameForForm));
+		$this->addElement('hidden',$ticketTypeIdElementName, array(
+			'class'			=> 'ticket_type_id'));
 
 		// Add hidden order num
-		$this->addElement('hidden','order', array('class' => 'order'));
+		$this->addElement('hidden',$orderElementName, array('class' => 'order'));
 	}
 }
