@@ -48,6 +48,7 @@ class Admin_Form_EventInfo extends Generic_Form_Base
 		$step1 = new Generic_Form_SubForm_Base('step1');
 
 		// Add name
+			$nameElementName =
 		$step1->addElement('text', 'name', array(
 			'label'			=> $this->_translator->translate('Name'),
 			'required'		=> true,

@@ -1,8 +1,8 @@
 <?php
 
-class Admin_Model_DbTable_Row_Ticket extends Generic_Db_Table_Row_Abstract
+class Attend_Db_Table_Row_Ticket extends Generic_Db_Table_Row_Abstract
 {
-	const TABLE_CLASS = 'Admin_Db_Table_Tickets';
+	const TABLE_CLASS = 'Attend_Db_Table_Tickets';
 	/**
 	 * #@+
 	 * @access	protected

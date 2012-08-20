@@ -11,7 +11,7 @@ class Admin_EventController extends Zend_Controller_Action
 	public function indexAction()
 	{
 		// Fetch event
-		$eventIdColName = Admin_Model_DbTable_Row_Event::getColumnNameForUrl('eventId');
+		$eventIdColName = Attend_Db_Table_Row_Event::getColumnNameForUrl('eventId');
 		$events = new Admin_Model_AdminEvents();
 		$flashMessenger = $this->_helper->getHelper('FlashMessenger');
 		$params = $this->getRequest()->getParams();
@@ -106,7 +106,7 @@ class Admin_EventController extends Zend_Controller_Action
 	public function attendeesAction()
 	{
 		// Fetch event
-		$eventIdColName = Admin_Model_DbTable_Row_Event::getColumnNameForUrl('eventId');
+		$eventIdColName = Attend_Db_Table_Row_Event::getColumnNameForUrl('eventId');
 		$events = new Admin_Model_AdminEvents();
 		$flashMessenger = $this->_helper->getHelper('FlashMessenger');
 		$params = $this->getRequest()->getParams();
@@ -127,8 +127,8 @@ class Admin_EventController extends Zend_Controller_Action
 	public function sellAction()
 	{
 		// Fetch event
-		$eventIdColName = Admin_Model_DbTable_Row_Event::getColumnNameForUrl('eventId');
-		$ticketTypeIdColName = Admin_Model_DbTable_Row_TicketType::getColumnNameForUrl('ticketTypeId', '_');
+		$eventIdColName = Attend_Db_Table_Row_Event::getColumnNameForUrl('eventId');
+		$ticketTypeIdColName = Attend_Db_Table_Row_TicketType::getColumnNameForUrl('ticketTypeId', '_');
 		$events = new Admin_Model_AdminEvents();
 		$flashMessenger = $this->_helper->getHelper('FlashMessenger');
 		$params = $this->getRequest()->getParams();
@@ -219,8 +219,8 @@ class Admin_EventController extends Zend_Controller_Action
 
 		$params = $this->getRequest()->getParams();
 
-		$eventIdColNameUrl = Admin_Model_DbTable_Row_Event::getColumnNameForUrl('eventId');
-		$eventIdColNameForm = Admin_Model_DbTable_Row_Event::getColumnNameForUrl('eventId', '_');
+		$eventIdColNameUrl = Attend_Db_Table_Row_Event::getColumnNameForUrl('eventId');
+		$eventIdColNameForm = Attend_Db_Table_Row_Event::getColumnNameForUrl('eventId', '_');
 		if(isset($params[$eventIdColNameUrl]))
 		{
 			$eventId = $params[$eventIdColNameUrl];
@@ -385,7 +385,7 @@ class Admin_EventController extends Zend_Controller_Action
 		// Filter eventId
 		$filter = new Zend_Filter_Digits();
 		$params = $this->getRequest()->getParams();
-		$eventIdColName = Admin_Model_DbTable_Row_Event::getColumnNameForUrl('eventId');
+		$eventIdColName = Attend_Db_Table_Row_Event::getColumnNameForUrl('eventId');
 		if(isset($params[$eventIdColName]))
 		{
 			$eventId = $filter->filter($params[$eventIdColName]);
@@ -429,7 +429,7 @@ class Admin_EventController extends Zend_Controller_Action
 		$filter = new Zend_Filter_Digits();
 		$params = $this->getRequest()->getParams();
 
-		$eventIdColName = Admin_Model_DbTable_Row_Event::getColumnNameForUrl('eventId');
+		$eventIdColName = Attend_Db_Table_Row_Event::getColumnNameForUrl('eventId');
 		if(isset($params[$eventIdColName]))
 		{
 			$eventId = $filter->filter($params[$eventIdColName]);

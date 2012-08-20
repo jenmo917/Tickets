@@ -2,8 +2,8 @@
 class Default_Model_Events
 {
     /**
-    * Instance of Admin_Model_DbTable_Events
-    * @var Admin_Model_DbTable_Events $_eventsTable
+    * Instance of Attend_Db_Table_Events
+    * @var Attend_Db_Table_Events $_eventsTable
     */
     protected $_eventsTable;
 
@@ -11,56 +11,56 @@ class Default_Model_Events
     * Set Events table.
     * @author	Jens Moser <jenmo917@gmail.com>
     * @since	v0.1
-    * @return	Admin_Model_DbTable_Events
-    */        
+    * @return	Attend_Db_Table_Events
+    */
     public function setEventsTable($dbTable)
     {
         if (is_string($dbTable))
         {
             $dbTable = new $dbTable();
             }
-            if (!$dbTable instanceof Admin_Model_DbTable_Events)
+            if (!$dbTable instanceof Attend_Db_Table_Events)
             {
             throw new Exception('Invalid table data gateway provided');
                     }
                     $this->_eventsTable = $dbTable;
             return $this;
     }
-    
+
     /**
     * Set or get Events table.
     * @author	Jens Moser <jenmo917@gmail.com>
     * @since	v0.1
-    * @return	Admin_Model_DbTable_Events
+    * @return	Attend_Db_Table_Events
     */
     public function getEventsTable()
     {
             if (null === $this->_eventsTable)
             {
-                    $this->setEventsTable('Admin_Model_DbTable_Events');
+                    $this->setEventsTable('Attend_Db_Table_Events');
             }
             return $this->_eventsTable;
     }
-    
+
     /*
     * Fetch published events.
     * @author	Jens Moser <jenmo917@gmail.com>
     * @since	v0.1
-    * @return	Array with Admin_Model_DbTable_Row_Event
+    * @return	Array with Attend_Db_Table_Row_Event
     */
     public function fetchPublishedEvents()
     {
         $this->getEventsTable();
         return $this->_eventsTable->fetchAll($this->_eventsTable->select()->where('published = ?', 1));
     }
-    
-    
+
+
     /*
     * Return one event with specific event-id.
     * @author	Jens Moser <jenmo917@gmail.com>
     * @since	v0.1
-    * @return	Admin_Model_DbTable_Row_Event
-    */     
+    * @return	Attend_Db_Table_Row_Event
+    */
     public function getEvent($eventId)
     {
         $this->getEventsTable();

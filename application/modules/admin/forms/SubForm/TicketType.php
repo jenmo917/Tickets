@@ -77,7 +77,7 @@ class Admin_Form_SubForm_TicketType extends Generic_Form_SubForm_Base {
 		));
 
 		// Add ticket type id
-		$ticketTypeIdColNameForForm = Admin_Model_DbTable_Row_TicketType::getColumnNameForUrl('ticketTypeId', '_');
+		$ticketTypeIdColNameForForm = Attend_Db_Table_Row_TicketType::getColumnNameForUrl('ticketTypeId', '_');
 		$this->addElement('hidden',$ticketTypeIdColNameForForm, array(
 			'class'			=> $ticketTypeIdColNameForForm));
 

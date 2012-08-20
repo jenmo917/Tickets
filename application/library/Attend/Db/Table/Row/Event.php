@@ -1,8 +1,8 @@
 <?php
 
-class Admin_Model_DbTable_Row_TicketType extends Generic_Db_Table_Row_Abstract
+class Attend_Db_Table_Row_Event extends Generic_Db_Table_Row_Abstract
 {
-	const TABLE_CLASS = 'Admin_Db_Table_TicketTypes';
+	const TABLE_CLASS = 'Attend_Db_Table_Events';
 	/**
 	 * #@+
 	 * @access	protected
@@ -16,19 +16,20 @@ class Admin_Model_DbTable_Row_TicketType extends Generic_Db_Table_Row_Abstract
 
 	/**
 	 * Primary column is permission_id
-	 * @var		array
+	 * @var		string
 	 */
-	protected $_primary		= 'ticket_type_id';
+	protected $_primary		= 'event_id';
 	/**#@-*/
 
 	protected static $_columns
-		= array(	'ticketTypeId'	=> 'ticket_type_id',
-					'eventId'		=> 'event_id',
+		= array(	'eventId'		=> 'event_id',
 					'name'			=> 'name',
-					'price'			=> 'price',
-					'quantity'		=> 'quantity',
 					'details'		=> 'details',
-					'order'			=> 'order',
+					'location'		=> 'location',
+					'public'		=> 'public',
+					'published'		=> 'published',
+					'startTime'		=> 'start_time',
+					'endTime'		=> 'end_time',
 					'created'		=> 'created',
 					'updated'		=> 'updated');
 }

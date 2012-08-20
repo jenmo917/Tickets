@@ -1,18 +1,18 @@
 <?php
 
-class Admin_Model_DbTable_Events extends Generic_Db_Table_Abstract
+class Attend_Db_Table_TicketTypes extends Generic_Db_Table_Abstract
 {
 	/**
 	 * Table name constant.
 	 * @var const
 	 */
-	const TABLE_NAME 	= 'events';
+	const TABLE_NAME 	= 'ticket_types';
 
 	/**
 	 * Row class constant.
 	 * @var const
 	 */
-	const ROW_CLASS		= 'Admin_Model_DbTable_Row_Event';
+	const ROW_CLASS		= 'Attend_Db_Table_TicketTypes';
 
 	/**#@+
 	 * @access	private

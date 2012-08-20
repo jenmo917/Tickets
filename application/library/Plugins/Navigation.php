@@ -73,7 +73,7 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
 	 */
 	public function getEventMenu($params)
 	{
-		$eventIdColName = Admin_Model_DbTable_Row_Event::getColumnNameForUrl('eventId');
+		$eventIdColName = Attend_Db_Table_Row_Event::getColumnNameForUrl('eventId');
 		if (  isset($params[$eventIdColName]))
 		{
 			$pages = array(

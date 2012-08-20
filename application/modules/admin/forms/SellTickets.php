@@ -64,7 +64,7 @@ class Admin_Form_SellTickets extends Generic_Form_Base
 		));
 
 		// Add Ticket Type
-		$ticketTypeIdColName = Admin_Model_DbTable_Row_TicketType::getColumnNameForUrl('ticketTypeId', '_');
+		$ticketTypeIdColName = Attend_Db_Table_Row_TicketType::getColumnNameForUrl('ticketTypeId', '_');
 		$ticketType = new Admin_Form_Element_TicketTypeSelect($ticketTypeIdColName, array(
 			'label' => $this->_translator->translate('Ticket Type'),
 			'decorators' => $this->elementDecorators,
