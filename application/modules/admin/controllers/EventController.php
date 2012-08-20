@@ -31,6 +31,11 @@ class Admin_EventController extends Zend_Controller_Action
 		// Create model
 		$events = new Admin_Model_AdminEvents();
 
+		//Get form elements names.
+		$step1Name = Admin_Form_EventInfo::STEP_1;
+		$step2Name = Admin_Form_EventInfo::STEP_2;
+		$step3Name = Admin_Form_EventInfo::STEP_3;
+
 		// Get data
 		$data = $this->_request->getParams();
 
@@ -38,7 +43,7 @@ class Admin_EventController extends Zend_Controller_Action
 		$form = new Admin_Form_EventInfo();
 
 		// How many ticket type fieldsets to view in the form
-		if(!isset($data['step2']))
+		if(!isset($data[$step2Name]))
 		{
 			$numOfTicketTypes = 1;
 		}
@@ -49,16 +54,17 @@ class Admin_EventController extends Zend_Controller_Action
 			$temp = array();
 			// Reset order so it starts from 0.
 			$i = 0;
-			foreach($data['step2'] as $entry):
+			foreach($data[$step2Name] as $entry):
 				$entry['order'] = $i;
 				$temp[] = $entry;
 				$i++;
 			endforeach;
-			$data['step2'] = $temp;
+			$data[$step2Name] = $temp;
 
 			// How many ticket types to loop through?
-			$numOfTicketTypes = COUNT($data['step2']);
+			$numOfTicketTypes = COUNT($data[$step2Name]);
 		}
+
 		// Create form
 		$form->create($numOfTicketTypes);
 
@@ -66,29 +72,42 @@ class Admin_EventController extends Zend_Controller_Action
 		$this->view->form = $form;
 
 		// If form is valid
-		if(isset($data['submit']) && $form->isValid($data))
+		$formSubmitName = Admin_Form_EventInfo::SAVE_EVENT_SUBMIT;
+		if(isset($data[$formSubmitName]) && $form->isValid($data))
 		{
 			// Remove submit from data
-			unset($data['submit']);
+			unset($data[$formSubmitName]);
+
+			// Get form element names.
+			$nameEvent			= Attend_Db_Table_Row_Event::getColumnNameForUrl('name', '_');
+			$locationEvent		= Attend_Db_Table_Row_Event::getColumnNameForUrl('location', '_');
+			$startTimeEvent		= Attend_Db_Table_Row_Event::getColumnNameForUrl('startTime', '_');
+			$endTimeEvent		= Attend_Db_Table_Row_Event::getColumnNameForUrl('endTime', '_');
+			$detailsEvent		= Attend_Db_Table_Row_Event::getColumnNameForUrl('details', '_');
+			$publicEvent		= Attend_Db_Table_Row_Event::getColumnNameForUrl('public', '_');
 
 			// Fix params (public is saved with the rest of the event info from step 1)
-			$data['event'] = $data['step1'];
-			$data['event']['public'] = $data['step3']['public'];
+			$eventData = $data[$step1Name];
+			$eventData[$publicEvent] = $data[$step3Name][$publicEvent];
 
 			// Save event
-			$event = $events->createEvent($data['event']);
+			$event = $events->createEvent($eventData);
 
 			// Add message
 			$flashMessenger = $this->_helper->getHelper('FlashMessenger');
-			$flashMessenger->addMessage($event->name.' skapades!');
+			//TODO: Translate!
+			$flashMessenger->addMessage($event[Attend_Db_Table_Row_Event::getColumnName('name')].' skapades!');
 
 			// Save ticket types
-			foreach ($data['step2'] as $ticketTypeArray):
+			$eventIdEvent		= Attend_Db_Table_Row_Event::getColumnName('eventId');
+			$nameTicketType		= Attend_Db_Table_Row_TicketType::getColumnNameForUrl('name', '_');
+			$eventIdTicketType	= Attend_Db_Table_Row_TicketType::getColumnNameForUrl('eventId', '_');
+			foreach ($data[$step2Name] as $ticketTypeArray):
 				// Save it if name is != ''
-				if($ticketTypeArray['name'] != '')
+				if($ticketTypeArray[$nameTicketType] != '')
 				{
 					// Set event_id
-					$ticketTypeArray['event_id'] = $event->event_id;
+					$ticketTypeArray[$eventIdTicketType] = $event[$eventIdEvent];
 					// Save ticket type
 					$events->saveTicketType($ticketTypeArray);
 				}
@@ -402,7 +421,7 @@ class Admin_EventController extends Zend_Controller_Action
 		$events->deleteEvent($eventId);
 
 		// Set message
-		$flashMessenger->addMessage($event->name.' '.$translate->_('is now deleted'));
+		$flashMessenger->addMessage($event[Attend_Db_Table_Row_Event::getColumnName('name')].' '.$translate->_('is now deleted'));
 
 		// Redirect to admin/index
 		$this->_redirect($this->_helper->url->url(array('module' => 'admin'),"defaultRoute",true));

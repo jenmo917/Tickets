@@ -130,41 +130,42 @@ class Admin_Model_AdminEvents
 	{
 		$userInfoSession = new Login_Model_UserInfoSession();
 		$userId = $userInfoSession->getUserId();
-		$userIdColName	= Acl_Db_Table_Privileges::getColumnName('userId');
-		$eventIdColName	= Acl_Db_Table_Privileges::getColumnName('eventId');
-		$row = $this->saveEvent($event);
-		$privilegeSettings = array(	$userIdColName	=> $userId,
-									$eventIdColName	=> $row->getColumn('eventId'));
+		$userIdColName				= Acl_Db_Table_Row_Privilege::getColumnName('userId');
+		$eventIdPrivilegeColName	= Acl_Db_Table_Row_Privilege::getColumnName('eventId');
+		$eventIdEventColName		= Attend_Db_Table_Row_Event::getColumnName('eventId');
+		$rowArray = $this->saveEvent($event);
+		$privilegeSettings = array(	$userIdColName				=> $userId,
+									$eventIdPrivilegeColName	=> $rowArray[$eventIdEventColName]);
 		Acl_Factory::addDefaultPrivileges($privilegeSettings, $this->_defaultCategories['eventCreator']);
-		return $row;
+		return $rowArray;
 	}
 
 	/**
 	 * Save event.
 	 * @author	Jens Moser <jenmo917@gmail.com>
 	 * @since	v0.1
-	 * @return	Admin_Model_DbTable_Row_Event
+	 * @return	array of Attend_Db_Table_Row_Event
 	 */
 	public function saveEvent($event)
 	{
 		$this->getEventsTable();
-		if(isset($event['event_id']))
+		$eventIdColName		= Attend_Db_Table_Row_Event::getColumnName('eventId');
+		$eventIdFormName	= Attend_Db_Table_Row_Event::getColumnNameForUrl('eventId', '_');
+
+		if(isset($event[$eventIdColName]))
 		{
-			$row = $this->_eventsTable->fetchRow($this->_eventsTable->select()->where('event_id = ?', $event['event_id']));
+			$row = $this->_eventsTable->fetchRow(
+				$this->_eventsTable->select()->where($eventIdColName.' = ?', $event[$eventIdFormName]));
 		}
 		else
 		{
 			$row = $this->_eventsTable->createRow();
 		}
-		$row->name			= $event['name'];
-		$row->location		= $event['location'];
-		$row->details		= $event['details'];
-		$row->public		= $event['public'];
-		$row->start_time	= $event['start_time'];
-		$row->end_time		= $event['end_time'];
+
+		$row->setColumnsFromUrl($event, '_');
 
 		$row->save();
-		return $row;
+		return $row->toArray();
 	}
 
 	/**
@@ -282,35 +283,33 @@ class Admin_Model_AdminEvents
 	 * Save ticket type.
 	 * @author	Jens Moser <jenmo917@gmail.com>
 	 * @since	v0.1
-	 * @return	Admin_Model_DbTable_Row_TicketType
+	 * @return	Attend_Db_Table_Row_TicketType
 	 */
 	public function saveTicketType($ticketType)
 	{
-		$this->_ticketTypeTable = new Admin_Model_DbTable_TicketTypes();
-		if(isset($ticketType['ticket_type_id']) && $ticketType['ticket_type_id'] != '')
+		$ticketTypeIdColName		= Attend_Db_Table_Row_TicketType::getColumnName('ticketTypeId');
+		$ticketTypeIdFormName		= Attend_Db_Table_Row_TicketType::getColumnNameForUrl('ticketTypeId', '_');
+		$this->_ticketTypeTable = new Attend_Db_Table_TicketTypes();
+		if(isset($ticketType[$ticketTypeIdFormName]) && $ticketType[$ticketTypeIdFormName] != '')
 		{
-			$row = $this->_ticketTypeTable->fetchRow($this->_ticketTypeTable->select()->where('ticket_type_id = ?', $ticketType['ticket_type_id']));
+			$row = $this->_ticketTypeTable->fetchRow(
+				$this->_ticketTypeTable->select()->where($ticketTypeIdColName.' = ?', $ticketType[$ticketTypeIdFormName]));
 		}
 		else
 		{
 			$row = $this->_ticketTypeTable->createRow();
 		}
-		$row->name		= $ticketType['name'];
-		$row->quantity	= $ticketType['quantity'];
-		$row->event_id	= $ticketType['event_id'];
-		$row->price		= $ticketType['price'];
-		$row->details	= $ticketType['details'];
-		$row->order		= $ticketType['order'];
 
+		$row->setColumnsFromUrl($ticketType, '_');
 		$row->save();
-		return $row;
+		return $row->toArray();
 	}
 
 	/**
 	 * Return all ticket types (in order) with specific ticket-type-id.
 	 * @author	Jens Moser <jenmo917@gmail.com>
 	 * @since	v0.1
-	 * @return	Admin_Model_DbTable_Row_TicketType
+	 * @return	Attend_Db_Table_Row_TicketType
 	 */
 	public function getTicketTypes($eventId)
 	{

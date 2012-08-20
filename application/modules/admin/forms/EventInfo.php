@@ -138,7 +138,7 @@ class Admin_Form_EventInfo extends Generic_Form_Base
 		// Add ticket types
 		for ($i = 0; $i < $numOfTicketTypes; $i++)
 		{
-			$name = 'ticketType_'.$i;
+			$name = $i;
 			$ticketType = new Admin_Form_SubForm_TicketType(array(
 				'name' => $name,
 				'elementsBelongTo' => $name,
