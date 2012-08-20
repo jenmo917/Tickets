@@ -12,7 +12,7 @@ class Attend_Db_Table_TicketTypes extends Generic_Db_Table_Abstract
 	 * Row class constant.
 	 * @var const
 	 */
-	const ROW_CLASS		= 'Attend_Db_Table_TicketTypes';
+	const ROW_CLASS		= 'Attend_Db_Table_Row_TicketType';
 
 	/**#@+
 	 * @access	private
