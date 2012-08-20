@@ -23,8 +23,8 @@
         </tr>
     </thead>
 <?PHP
-	$eventsCols = Admin_Model_DbTable_Row_Event::getColumnNames('both');
-	$eventIdColNameUrl = Admin_Model_DbTable_Row_Event::getColumnNameForUrl('eventId');
+	$eventsCols			= Attend_Db_Table_Row_Event::getColumnNames('both');
+	$eventIdColNameUrl	= Attend_Db_Table_Row_Event::getColumnNameForUrl('eventId');
 	foreach ($this->events as $event): ?>
     <tr>
         <td><a href="<?PHP echo $this->url(array('lang' => $this->lang, 'module' => 'admin','controller' => 'event', 'action' => 'index',$eventIdColNameUrl => $event[$eventsCols['eventId']])); ?>"><?PHP echo $event['name']; ?></a></td>

@@ -2,20 +2,20 @@
 class Admin_Model_AdminEvents
 {
 	/**
-	 * Instance of Admin_Model_DbTable_Events
-	 * @var Admin_Model_DbTable_Events $_eventsTable
+	 * Instance of Attend_Db_Table_Events
+	 * @var Attend_Db_Table_Events $_eventsTable
 	 */
 	protected $_eventsTable;
 
 	/**
-	 * Instance of Admin_Model_DbTable_TicketTypes
-	 * @var Admin_Model_DbTable_TicketTypes $_ticketTypeTable
+	 * Instance of Attend_Db_Table_TicketTypes
+	 * @var Attend_Db_Table_TicketTypes $_ticketTypeTable
 	 */
 	protected $_ticketTypeTable;
 
 	/**
-	 * Instance of Admin_Model_DbTable_Tickets
-	 * @var Admin_Model_DbTable_Tickets $_ticketTable
+	 * Instance of Attend_Db_Table_Tickets
+	 * @var Attend_Db_Table_Tickets $_ticketTable
 	 */
 	protected $_ticketTable;
 
@@ -25,7 +25,7 @@ class Admin_Model_AdminEvents
 	 * Set Events table.
 	 * @author	Jens Moser <jenmo917@gmail.com>
 	 * @since	v0.1
-	 * @return	Admin_Model_DbTable_Events
+	 * @return	Attend_Db_Table_Events
 	 */
 	public function setTicketTable($dbTable)
 	{
@@ -33,7 +33,7 @@ class Admin_Model_AdminEvents
 		{
 			$dbTable = new $dbTable();
 		}
-		if (!$dbTable instanceof Admin_Model_DbTable_Tickets)
+		if (!$dbTable instanceof Attend_Db_Table_Tickets)
 		{
 			throw new Exception('Invalid table data gateway provided');
 		}
@@ -45,13 +45,13 @@ class Admin_Model_AdminEvents
 	 * Set or get Events table.
 	 * @author	Jens Moser <jenmo917@gmail.com>
 	 * @since	v0.1
-	 * @return	Admin_Model_DbTable_Events
+	 * @return	Attend_Db_Table_Events
 	 */
 	public function getTicketTable()
 	{
 		if (null === $this->_ticketTable)
 		{
-			$this->setTicketTable('Admin_Model_DbTable_Tickets');
+			$this->setTicketTable('Attend_Db_Table_Tickets');
 		}
 		return $this->_ticketTable;
 	}
@@ -60,7 +60,7 @@ class Admin_Model_AdminEvents
 	 * Set Events table.
 	 * @author	Jens Moser <jenmo917@gmail.com>
 	 * @since	v0.1
-	 * @return	Admin_Model_DbTable_Events
+	 * @return	Attend_Db_Table_Events
 	 */
 	public function setEventsTable($dbTable)
 	{
@@ -68,7 +68,7 @@ class Admin_Model_AdminEvents
 		{
 			$dbTable = new $dbTable();
 		}
-		if (!$dbTable instanceof Admin_Model_DbTable_Events)
+		if (!$dbTable instanceof Attend_Db_Table_Events)
 		{
 			throw new Exception('Invalid table data gateway provided');
 		}
@@ -80,13 +80,13 @@ class Admin_Model_AdminEvents
 	 * Set or get Events table.
 	 * @author	Jens Moser <jenmo917@gmail.com>
 	 * @since	v0.1
-	 * @return	Admin_Model_DbTable_Events
+	 * @return	Attend_Db_Table_Events
 	 */
 	public function getEventsTable()
 	{
 		if (null === $this->_eventsTable)
 		{
-			$this->setEventsTable('Admin_Model_DbTable_Events');
+			$this->setEventsTable('Attend_Db_Table_Events');
 		}
 		return $this->_eventsTable;
 	}
@@ -95,7 +95,7 @@ class Admin_Model_AdminEvents
 	 * Set Tickettypes table.
 	 * @author	Jens Moser <jenmo917@gmail.com>
 	 * @since	v0.1
-	 * @return	Admin_Model_DbTable_TicketTypes
+	 * @return	Attend_Db_Table_TicketTypes
 	 */
 	public function setTicketTypesTable($dbTable)
 	{
@@ -103,7 +103,7 @@ class Admin_Model_AdminEvents
 		{
 			$dbTable = new $dbTable();
 		}
-		if (!$dbTable instanceof Admin_Model_DbTable_TicketTypes)
+		if (!$dbTable instanceof Attend_Db_Table_TicketTypes)
 		{
 			throw new Exception('Invalid table data gateway provided');
 		}
@@ -115,13 +115,13 @@ class Admin_Model_AdminEvents
 	 * Set or get ticket type table.
 	 * @author	Jens Moser <jenmo917@gmail.com>
 	 * @since	v0.1
-	 * @return	Admin_Model_DbTable_TicketTypes
+	 * @return	Attend_Db_Table_TicketTypes
 	 */
 	public function getTicketTypesTable()
 	{
 		if (null === $this->_ticketTypeTable)
 		{
-			$this->setTicketTypesTable('Admin_Model_DbTable_TicketTypes');
+			$this->setTicketTypesTable('Attend_Db_Table_TicketTypes');
 		}
 		return $this->_ticketTypeTable;
 	}
@@ -189,7 +189,7 @@ class Admin_Model_AdminEvents
 	 * Publish or unpublish event
 	 * @author	Jens Moser <jenmo917@gmail.com>
 	 * @since	v0.1
-	 * @return	Admin_Model_DbTable_Row_Event
+	 * @return	Attend_Db_Table_Row_Event
 	 */
 	public function publishEvent($eventId)
 	{
@@ -212,7 +212,7 @@ class Admin_Model_AdminEvents
 	 * Fetch events .
 	 * @author	Jens Moser <jenmo917@gmail.com>
 	 * @since	v0.1
-	 * @return	Array with Admin_Model_DbTable_Row_Event
+	 * @return	Array with Attend_Db_Table_Row_Event
 	 */
 	public function fetchEvents($eventIds = array())
 	{
@@ -226,7 +226,7 @@ class Admin_Model_AdminEvents
 		else
 		{
 			$select = $this->_eventsTable->select();
-			$eventIdColName = Admin_Model_DbTable_Row_Event::getColumnName('eventId');
+			$eventIdColName = Attend_Db_Table_Row_Event::getColumnName('eventId');
 			foreach ($eventIds as $eventId)
 			{
 				$select->orWhere($eventIdColName.' = ?', $eventId);
@@ -241,7 +241,7 @@ class Admin_Model_AdminEvents
 	 * Return one event with specific event-id.
 	 * @author	Jens Moser <jenmo917@gmail.com>
 	 * @since	v0.1
-	 * @return	Admin_Model_DbTable_Row_Event
+	 * @return	Attend_Db_Table_Row_Event
 	 */
 	public function getEvent($eventId)
 	{
@@ -255,7 +255,7 @@ class Admin_Model_AdminEvents
 	 * Fetch event attendees.
 	 * @author	Jens Moser <jenmo917@gmail.com>
 	 * @since	v0.1
-	 * @return	Array with Admin_Model_DbTable_Row_Event
+	 * @return	Array with Attend_Db_Table_Row_Event
 	 */
 	public function fetchAttendees($eventId)
 	{
@@ -265,9 +265,9 @@ class Admin_Model_AdminEvents
 		$ticketName = $this->_ticketTable->getColumnName('name');
 		$ticketTicketTypeId = $this->_ticketTable->getColumnName('ticketTypeId');
 		$ticketEventId = $this->_ticketTable->getColumnName('eventId');
-		$ttTn = Admin_Model_DbTable_TicketTypes::getTableName();
-		$ttTicketTypeId = Admin_Model_DbTable_TicketTypes::getColumnName('ticketTypeId');
-		$ttName = Admin_Model_DbTable_TicketTypes::getColumnName('name');
+		$ttTn = Attend_Db_Table_TicketTypes::getTableName();
+		$ttTicketTypeId = Attend_Db_Table_TicketTypes::getColumnName('ticketTypeId');
+		$ttName = Attend_Db_Table_TicketTypes::getColumnName('name');
 
 		$select = $this->_ticketTable->select();
 		$select->setIntegrityCheck(false)
@@ -321,8 +321,8 @@ class Admin_Model_AdminEvents
 		$ttEventId = $this->_ticketTypeTable->getColumnName('eventId');
 		$ttOrder = $this->_ticketTypeTable->getColumnName('order');
 
-		$tTn = Admin_Model_DbTable_Tickets::getTableName();
-		$tTicketTypeId = Admin_Model_DbTable_Tickets::getColumnName('ticketTypeId');
+		$tTn = Attend_Db_Table_Tickets::getTableName();
+		$tTicketTypeId = Attend_Db_Table_Tickets::getColumnName('ticketTypeId');
 		$select = $this->_ticketTypeTable->select();
 		$select->setIntegrityCheck(false)
 		->from(	$ttTn,
@@ -341,7 +341,7 @@ class Admin_Model_AdminEvents
 	 * Return one ticket type with specific ticket-type-id.
 	 * @author	Jens Moser <jenmo917@gmail.com>
 	 * @since	v0.1
-	 * @return	Admin_Model_DbTable_Row_TicketType
+	 * @return	Attend_Db_Table_Row_TicketType
 	 */
 	public function getTicketType($ticketTypeId)
 	{
@@ -367,7 +367,7 @@ class Admin_Model_AdminEvents
 	 * Save ticket.
 	 * @author	Jens Moser <jenmo917@gmail.com>
 	 * @since	v0.1
-	 * @return	Admin_Model_DbTable_Row_Ticket
+	 * @return	Attend_Db_Table_Row_Ticket
 	 */
 	public function saveTicket($ticket)
 	{
@@ -376,7 +376,7 @@ class Admin_Model_AdminEvents
 		if(isset($ticket['ticket_id']))
 		{
 			$row = $this->_ticketTable->fetchRow($this->_ticketTable->select()
-			->where(Admin_Model_DbTable_Tickets::getColumnName('ticketId'). ' = ?', $ticket['ticket_id']));
+			->where(Attend_Db_Table_Tickets::getColumnName('ticketId'). ' = ?', $ticket['ticket_id']));
 		}
 		else
 		{
