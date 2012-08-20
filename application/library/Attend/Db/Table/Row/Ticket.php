@@ -24,7 +24,7 @@ class Attend_Db_Table_Row_Ticket extends Generic_Db_Table_Row_Abstract
 	protected static $_columns
 		= array(	'ticketId'		=> 'ticket_id',
 					'eventId'		=> 'event_id',
-					'user_id'		=> 'user_id',
+					'userId'		=> 'user_id',
 					'name'			=> 'name',
 					'email'			=> 'email',
 					'liuId'			=> 'liu_id',
