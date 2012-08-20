@@ -23,10 +23,15 @@ class Admin_Validate_TicketTypePrice extends Zend_Validate_Abstract
 		self::ERROR => $this->_translator->translate('Please enter a number').'.',
 		);
 
-		unset($context['price']);
-		unset($context['order']);
-		unset($context['ticket_type_id']);
-
+		$unsetArr = array(
+			'ticketTypeIdElementName'	=> Attend_Db_Table_Row_TicketType::getColumnNameForUrl('ticketTypeId', '_'),
+			'priceElementName'		=> Attend_Db_Table_Row_TicketType::getColumnNameForUrl('price', '_'),
+			'orderElementName'			=> Attend_Db_Table_Row_TicketType::getColumnNameForUrl('order', '_'),);
+		foreach ($unsetArr as $unset)
+		{
+			if (isset($context[$unset]))
+			unset($context[$unset]);
+		}
 		if(isset($value) && $value != '' && !is_numeric($value))
 		{
 			$this->_error(self::ERROR);

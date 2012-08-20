@@ -22,9 +22,15 @@ class Admin_Validate_TicketTypeQuantity extends Zend_Validate_Abstract
 		self::ERROR => $this->_translator->translate('Please enter a number').'.',
 		);
 
-		unset($context['quantity']);
-		unset($context['order']);
-		unset($context['ticket_type_id']);
+		$unsetArr = array(
+			'ticketTypeIdElementName'	=> Attend_Db_Table_Row_TicketType::getColumnNameForUrl('ticketTypeId', '_'),
+			'quantityElementName'		=> Attend_Db_Table_Row_TicketType::getColumnNameForUrl('quantity', '_'),
+			'orderElementName'			=> Attend_Db_Table_Row_TicketType::getColumnNameForUrl('order', '_'),);
+		foreach ($unsetArr as $unset)
+		{
+			if (isset($context[$unset]))
+				unset($context[$unset]);
+		}
 
 		if(isset($value) && $value != '' && !is_numeric($value))
 		{

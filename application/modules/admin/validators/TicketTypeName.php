@@ -23,9 +23,15 @@ class Admin_Validate_TicketTypeName extends Zend_Validate_Abstract
 		self::ERROR => $this->_translator->translate('Please provide a ticket name').'.',
 		);
 
-		unset($context['name']);
-		unset($context['order']);
-		unset($context['ticket_type_id']);
+		$unsetArr = array(
+			'ticketTypeIdElementName'	=> Attend_Db_Table_Row_TicketType::getColumnNameForUrl('ticketTypeId', '_'),
+			'nameElementName'			=> Attend_Db_Table_Row_TicketType::getColumnNameForUrl('name', '_'),
+			'orderElementName'			=> Attend_Db_Table_Row_TicketType::getColumnNameForUrl('order', '_'),);
+		foreach ($unsetArr as $unset)
+		{
+			if (isset($context[$unset]))
+			unset($context[$unset]);
+		}
 
 		foreach ($context as $data):
 		if(($value == '' || !isset($value)) && isset($data) && $data != '')
