@@ -4,7 +4,7 @@
  * @author		Daniel Josefsson
  * @version	0.1
  */
-class Acl_Db_Table_RolesInheritances extends Acl_Db_Table_Abstract
+class Acl_Db_Table_RolesInheritances extends Generic_Db_Table_Abstract
 {
 		/**
 	* Table name constant.

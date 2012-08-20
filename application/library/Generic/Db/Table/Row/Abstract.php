@@ -75,7 +75,7 @@ class Generic_Db_Table_Row_Abstract extends Zend_Db_Table_Row_Abstract
 		return $vars['_columns'][$columnName];
 	}
 
-public static function getColumnNames($option = null)
+	public static function getColumnNames($option = null)
 	{
 		$vars = get_class_vars(get_called_class());
 
@@ -112,5 +112,25 @@ public static function getColumnNames($option = null)
 		self::getColumnName($columnName);
 		$separated = preg_replace('%(?<!^)\p{Lu}%usD', $separator.'$0', $columnName);
 		return mb_strtolower($separated, 'utf-8');
+	}
+
+	public function setColumnsFromUrl(array $data, $separator = '-', $capitalizeFirstCharacter = false)
+	{
+		foreach ($data as $urlKey => $datum)
+		{
+			$this->setColumnFromUrl($urlKey, $datum, $separator, $capitalizeFirstCharacter);
+		}
+		return $this;
+	}
+
+	public function setColumnFromUrl($urlKey, $datum, $separator, $capitalizeFirstCharacter = false)
+	{
+		$key = str_replace(' ', '', ucwords(str_replace($separator, ' ', $urlKey)));
+
+		if (!$capitalizeFirstCharacter) {
+			$key[0] = strtolower($key[0]);
+		}
+		$this->setColumn($key, $datum);
+		return $this;
 	}
 }

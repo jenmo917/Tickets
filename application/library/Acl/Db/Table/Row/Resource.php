@@ -5,7 +5,7 @@
  * @version	0.1
  * @date		2012-05-18
  */
-class Acl_Db_Table_Row_Resource extends Acl_Db_Table_Row_Abstract
+class Acl_Db_Table_Row_Resource extends Generic_Db_Table_Row_Abstract
 {
 	const TABLE_CLASS = 'Acl_Db_Table_Resources';
 	/**

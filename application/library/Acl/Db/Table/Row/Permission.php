@@ -4,7 +4,7 @@
  * @author		Daniel Josefsson
  * @version	0.1
  */
-class Acl_Db_Table_Row_Permission extends Acl_Db_Table_Row_Abstract
+class Acl_Db_Table_Row_Permission extends Generic_Db_Table_Row_Abstract
 {
 	const TABLE_CLASS = 'Acl_Db_Table_Permissions.';
 	/**

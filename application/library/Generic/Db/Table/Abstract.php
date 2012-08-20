@@ -39,4 +39,18 @@ class Generic_Db_Table_Abstract extends Zend_Db_Table_Abstract
 		$rowClass = static::ROW_CLASS;
 		return $rowClass::getColumnNames($option);
 	}
+
+	public function setColumnsFromUrl(array $data, $separator = '-', $capitalizeFirstCharacter = false)
+	{
+		$rowClass = static::ROW_CLASS;
+		$rowClass->setColumnsFromUrl($data, $separator, $capitalizeFirstCharacter);
+		return $this;
+	}
+
+	public function setColumnFromUrl($urlKey, $datum, $separator = '-', $capitalizeFirstCharacter = false)
+	{
+		$rowClass = static::ROW_CLASS;
+		$rowClass->setColumnsFromUrl($urlKey, $datum, $separator, $capitalizeFirstCharacter);
+		return $this;
+	}
 }
