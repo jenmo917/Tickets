@@ -38,9 +38,6 @@ class Admin_EventController extends Zend_Controller_Action
 
 		// Get data
 		$data = $this->_request->getPost();
-		echo "<pre>";
-			var_dump($data);
-		echo "</pre>";
 		// Create form
 		$form = new Admin_Form_EventInfo();
 
