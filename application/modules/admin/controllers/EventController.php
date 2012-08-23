@@ -37,33 +37,18 @@ class Admin_EventController extends Zend_Controller_Action
 		$step3Name = Admin_Form_EventInfo::STEP_3;
 
 		// Get data
-		$data = $this->_request->getParams();
-
+		$data = $this->_request->getPost();
+		echo "<pre>";
+			var_dump($data);
+		echo "</pre>";
 		// Create form
 		$form = new Admin_Form_EventInfo();
 
 		// How many ticket type fieldsets to view in the form
 		if(!isset($data[$step2Name]))
-		{
 			$numOfTicketTypes = 1;
-		}
-		else
-		{
-			// Fix array so it starts with [0], [1], [2],..
-			// jQuery in the form is the problem.
-			$temp = array();
-			// Reset order so it starts from 0.
-			$i = 0;
-			foreach($data[$step2Name] as $entry):
-				$entry['order'] = $i;
-				$temp[] = $entry;
-				$i++;
-			endforeach;
-			$data[$step2Name] = $temp;
-
-			// How many ticket types to loop through?
+		else // How many ticket types to loop through?
 			$numOfTicketTypes = COUNT($data[$step2Name]);
-		}
 
 		// Create form
 		$form->create($numOfTicketTypes);
@@ -71,47 +56,22 @@ class Admin_EventController extends Zend_Controller_Action
 		// Assign form to view
 		$this->view->form = $form;
 
-		// If form is valid
-		$formSubmitName = Admin_Form_EventInfo::SAVE_EVENT_SUBMIT;
+		// If form is valid, save event and ticket types.
+		$formSubmitName = $form::SAVE_EVENT_SUBMIT;
 		if(isset($data[$formSubmitName]) && $form->isValid($data))
 		{
 			// Remove submit from data
 			unset($data[$formSubmitName]);
 
-			// Get form element names.
-			$nameEvent			= Attend_Db_Table_Row_Event::getColumnNameForUrl('name', '_');
-			$locationEvent		= Attend_Db_Table_Row_Event::getColumnNameForUrl('location', '_');
-			$startTimeEvent		= Attend_Db_Table_Row_Event::getColumnNameForUrl('startTime', '_');
-			$endTimeEvent		= Attend_Db_Table_Row_Event::getColumnNameForUrl('endTime', '_');
-			$detailsEvent		= Attend_Db_Table_Row_Event::getColumnNameForUrl('details', '_');
-			$publicEvent		= Attend_Db_Table_Row_Event::getColumnNameForUrl('public', '_');
-
-			// Fix params (public is saved with the rest of the event info from step 1)
-			$eventData = $data[$step1Name];
-			$eventData[$publicEvent] = $data[$step3Name][$publicEvent];
-
 			// Save event
-			$event = $events->createEvent($eventData);
+			$event = $events->createEvent($data);
 
 			// Add message
+			$translate = Zend_Registry::get('Zend_Translate');
 			$flashMessenger = $this->_helper->getHelper('FlashMessenger');
-			//TODO: Translate!
-			$flashMessenger->addMessage($event[Attend_Db_Table_Row_Event::getColumnName('name')].' skapades!');
+			$eventName = Attend_Db_Table_Row_Event::getColumnName('name');
+			$flashMessenger->addMessage($event[$eventName].' '.$translate->_('created').'!');
 
-			// Save ticket types
-			$eventIdEvent		= Attend_Db_Table_Row_Event::getColumnName('eventId');
-			$nameTicketType		= Attend_Db_Table_Row_TicketType::getColumnNameForUrl('name', '_');
-			$eventIdTicketType	= Attend_Db_Table_Row_TicketType::getColumnNameForUrl('eventId', '_');
-			foreach ($data[$step2Name] as $ticketTypeArray):
-				// Save it if name is != ''
-				if($ticketTypeArray[$nameTicketType] != '')
-				{
-					// Set event_id
-					$ticketTypeArray[$eventIdTicketType] = $event[$eventIdEvent];
-					// Save ticket type
-					$events->saveTicketType($ticketTypeArray);
-				}
-			endforeach;
 			$this->_redirect($this->_helper->url->url(array('module' => 'admin'),null, true));
 		}
 	}
@@ -237,6 +197,9 @@ class Admin_EventController extends Zend_Controller_Action
 		$get  = $this->getRequest()->getQuery();
 
 		$params = $this->getRequest()->getParams();
+		echo "<pre>";
+			var_dump('post', $post, 'get', $get, 'params', $params);
+		echo "</pre>";
 
 		$eventIdColNameUrl = Attend_Db_Table_Row_Event::getColumnNameForUrl('eventId');
 		$eventIdColNameForm = Attend_Db_Table_Row_Event::getColumnNameForUrl('eventId', '_');
@@ -491,4 +454,3 @@ class Admin_EventController extends Zend_Controller_Action
 		$this->view->messages = $flashMessenger->getMessages();
 	}
 }
-
