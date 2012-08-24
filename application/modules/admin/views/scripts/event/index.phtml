@@ -1,11 +1,13 @@
 <h1>
-	<?PHP echo $this->event->name; ?>
+	<?PHP
+	$eventColNames = Attend_Db_Table_Row_Event::getColumnNames('both');
+	echo $this->event[$eventColNames['name']]; ?>
 </h1>
 <h3>
     <?PHP echo $this->translate->_('Overview'); ?>
 </h3>
 <p>
-<?PHP echo $this->event->location."<br/>"; ?> <?PHP echo $this->event->start_time; ?> - <?PHP echo $this->event->end_time."<br/>"; ?>
+<?PHP echo $this->event[$eventColNames['location']]."<br/>"; ?> <?PHP echo $this->event[$eventColNames['startTime']]; ?> - <?PHP echo $this->event[$eventColNames['endTime']]."<br/>"; ?>
 </p>
 <h3>
     Eventstats
