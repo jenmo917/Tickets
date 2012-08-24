@@ -44,7 +44,8 @@ class Admin_Form_Element_TicketTypeSelect extends Zend_Form_Element_Select {
 	public function create(array $ticketTypes)
 	{
 		$ticketTypeForm = Attend_Db_Table_Row_TicketType::getColumnNames('both', '_');
-		foreach ($result as $ticketType)
+		$ticketTypeForm['soldTickets'] = 'sold_tickets';
+		foreach ($ticketTypes as $ticketType)
 		{
 			if($ticketType[$ticketTypeForm['quantity']] >
 				$ticketType[$ticketTypeForm['soldTickets']])
@@ -56,7 +57,7 @@ class Admin_Form_Element_TicketTypeSelect extends Zend_Form_Element_Select {
 				$text .=	$ticketType[$ticketTypeForm['price']].'kr - ';
 				$text .=	$num.$this->_translator->translate(' tickets left');
 
-				$this->addMultiOption($ticketType[$ticketTypeForm['name']], $text);
+				$this->addMultiOption($ticketType[$ticketTypeForm['ticketTypeId']], $text);
 			}
 		}
 	}

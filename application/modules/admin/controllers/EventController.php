@@ -43,9 +43,6 @@ class Admin_EventController extends Zend_Controller_Action
 		// Initiate model
 		$events = new Admin_Model_AdminEvents();
 		$status = $events->handleFormData($formData);
-		echo "<pre>";
-			var_dump($status);
-		echo "</pre>";
 
 		// Send form to view
 		$this->view->form = $events->getEventInfoForm();
@@ -92,9 +89,14 @@ class Admin_EventController extends Zend_Controller_Action
 	 */
 	public function sellAction()
 	{
-		// Fetch event
+		// Element names needed.
 		$eventIdColName = Attend_Db_Table_Row_Event::getColumnNameForUrl('eventId');
-		$ticketTypeIdColName = Attend_Db_Table_Row_TicketType::getColumnNameForUrl('ticketTypeId', '_');
+		$ticketTypeFormNames = Attend_Db_Table_Row_TicketType::getColumnNames('both', '_');
+		$ticketTypeColNames = Attend_Db_Table_Row_TicketType::getColumnNames('both');
+		//add soldTickets to above arrays, this is a special comeing from getTicketTypes.
+		$ticketTypeFormNames['soldTickets'] = 'sold_tickets';
+		$ticketTypeColNames['soldTickets'] = 'sold_tickets';
+
 		$events = new Admin_Model_AdminEvents();
 		$flashMessenger = $this->_helper->getHelper('FlashMessenger');
 		$params = $this->getRequest()->getParams();
@@ -108,22 +110,32 @@ class Admin_EventController extends Zend_Controller_Action
 		// Create form
 		$form = new Admin_Form_SellTickets();
 		$form->setEventID($params[$eventIdColName]);
-		$form->create();
-		$params = $this->getRequest()->getParams();
-
-		if(isset($params['submit']) && $form->isValid($params))
+		$ticketTypes = $events->getTicketTypes($params[$eventIdColName]);
+		$ticketTypesForm = array();
+		foreach ($ticketTypes as $ticketType)
 		{
-			// Initiate Event model
-			$adminEvent = new Admin_Model_AdminEvents();
+			$newTicketType = array();
+			foreach (array_keys($ticketTypeColNames) as $key)
+			{
+				$newTicketType[$ticketTypeFormNames[$key]] = $ticketType[$ticketTypeColNames[$key]];
+			};
+			$ticketTypesForm[] = $newTicketType;
+		}
+		$form->create($ticketTypesForm);
+		$params = $this->getRequest()->getParams();
+		$post = $this->getRequest()->getPost();
 
+		if(isset($post[Admin_Form_SellTickets::REGISTER_TICKET_SUBMIT]) && $form->isValid($params))
+		{
+			unset($post[Admin_Form_SellTickets::REGISTER_TICKET_SUBMIT]);
 			// Initiate Mailer object
 			$htmlMailer = new Generic_HtmlMailer();
 
 			// Save ticket to DB
-			$ticket = $adminEvent->saveTicket($params);
+			$ticket = $events->saveTicket($post);
 
 			// Get ticket price
-			$ticketType = $adminEvent->getTicketType($params[$ticketTypeIdColName]);
+			$ticketType = $events->getTicketType($params[$ticketTypeFormNames['ticketTypeId']]);
 
 			// If invoice
 			if($params['payment'] == 'invoice')

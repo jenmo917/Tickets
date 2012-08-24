@@ -402,7 +402,7 @@ class Admin_Model_AdminEvents
 					array())
 		->group($ttTn.'.'.$ttTicketTypeId)
 		->order($ttTn.'.'.$ttOrder);
-		return $this->_ticketTypeTable->fetchAll($select);
+		return $this->_ticketTypeTable->fetchAll($select)->toArray();
 	}
 
 	/**
@@ -442,7 +442,7 @@ class Admin_Model_AdminEvents
 	{
 		$this->getTicketTable();
 		$ticketIdCol = Attend_Db_Table_Row_Ticket::getColumnName('ticketId');
-		$ticketIdForm = Attend_Db_Table_Row_Ticket::getColumnNameFromUrl('ticketId', '_');
+		$ticketIdForm = Attend_Db_Table_Row_Ticket::getColumnNameForUrl('ticketId', '_');
 
 
 		if(isset($ticket[$formNames[$ticketIdForm]]))
