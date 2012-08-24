@@ -16,9 +16,9 @@ class Admin_Form_SubForm_TicketType extends Generic_Form_SubForm_Base {
 	 */
 	public function setEventId($eventId)
 	{
-		$hidden = $this->createElement('hidden', 'event_id');
-		$hidden->setValue($eventId);
-		$this->addElement($hidden);
+		$nameElementName	= Attend_Db_Table_Row_TicketType::getColumnNameForUrl('name', '_');
+		$eventIdElement		= $this->getElement('hidden', $nameElementName);
+		$eventIdElement->setValue($eventId);
 	}
 
 	/**
@@ -81,14 +81,30 @@ class Admin_Form_SubForm_TicketType extends Generic_Form_SubForm_Base {
 		// Add submit button
 		$this->addElement('submit', self::REMOVE_TICKET_TYPE_SUBMIT, array(
 			'label' => $this->_translator->translate('Remove Ticket Type'),
-			'class' => 'remove_ticket_type'
+			'class' => 'remove_ticket_type',
+			'disabled'		=> true,
 		));
 
 		// Add ticket type id
 		$this->addElement('hidden',$ticketTypeIdElementName, array(
 			'class'			=> 'ticket_type_id'));
 
+		// Add event id
+		$this->addElement('hidden',$eventIdElementName, array(
+			'class'			=> 'ticket_type_id'));
+
 		// Add hidden order num
 		$this->addElement('hidden',$orderElementName, array('class' => 'order'));
+	}
+
+	public function removeButtonDisabled($bool)
+	{
+		if (is_bool($bool))
+		{
+			if (true === $bool)
+				$this->getElement(self::REMOVE_TICKET_TYPE_SUBMIT)->setAttrib('disabled', $bool);
+			else
+				$this->getElement(self::REMOVE_TICKET_TYPE_SUBMIT)->setAttrib('disabled', null);
+		}
 	}
 }

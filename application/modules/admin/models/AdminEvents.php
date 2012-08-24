@@ -21,6 +21,29 @@ class Admin_Model_AdminEvents
 
 	protected $_defaultCategories = array('eventCreator' => 'event-creator',);
 
+	protected $_eventInfoForm;
+
+	const VALID					= 'valid';
+	const NOT_VALID				= 'notValid';
+	const EVENT_CREATED			= 'eventCreated';
+	const EVENT_SAVED			= 'eventSaved';
+	const EVENT_DELETED			= 'eventDeleted';
+	const TICKET_TYPE_ADDED		= 'ticketTypeAdded';
+	const TICKET_TYPE_REMOVED	= 'ticketTypeDeleted';
+	const FROM_FORM				= 'fromForm';
+	const FROM_DB				= 'fromDb';
+
+	public function __construct()
+	{
+		$this->_eventInfoForm = new Admin_Form_EventInfo();
+	}
+
+
+	public function getEventInfoForm()
+	{
+		return $this->_eventInfoForm;
+	}
+
 	/**
 	 * Set Events table.
 	 * @author	Jens Moser <jenmo917@gmail.com>
@@ -174,7 +197,9 @@ class Admin_Model_AdminEvents
 		$userId = $userInfoSession->getUserId();
 		$this->getEventsTable();
 
-		if(isset($eventData[$eventIdFormName]))
+		if(	isset($eventData[$eventIdFormName]) &&
+			is_string($eventData[$eventIdFormName]) &&
+			strcmp($eventData[$eventIdFormName], ''))
 		{
 			$row = $this->_eventsTable->fetchRow(
 				$this->_eventsTable->select()->where(	$eventIdColName.' = ?',
@@ -429,5 +454,194 @@ class Admin_Model_AdminEvents
 
 		$row->save();
 		return $row->toArray();
+	}
+
+	public function addTicketTypeSubForms($numTicketTypes)
+	{
+		for($i = 0; $i < $numTicketTypes; $i++)
+		{
+			$this->_eventInfoForm->addTicketType();
+		}
+	}
+
+	public function submittedTicketTypeInfo($ticketTypesSubFormData)
+	{
+		$numTicketTypes = 0;
+		$removeTicketTypeSubmitSet = false;
+		$ticketTypeRemoveSubmit = Admin_Form_SubForm_TicketType::REMOVE_TICKET_TYPE_SUBMIT;
+
+		if ( isset($ticketTypesSubFormData) )
+		{
+			for ( reset($ticketTypesSubFormData); !is_null($key = key($ticketTypesSubFormData)); next($ticketTypesSubFormData) )
+			{
+				if ( is_int($key) )
+				{
+					$numTicketTypes++;
+					if ( isset($ticketTypesSubFormData[$key][$ticketTypeRemoveSubmit]) )
+						$removeTicketTypeSubmitSet = $key;
+				}
+			}
+		}
+		return array($numTicketTypes, $removeTicketTypeSubmitSet);
+	}
+
+	public function removeTicketType($subFormData, $eventId)
+	{
+		// Get element names needed.
+		$eventIdColName = Attend_Db_Table_Row_TicketType::getColumnName('eventId');
+		$ticketTypeIdColName = Attend_Db_Table_Row_TicketType::getColumnName('ticketTypeId');
+		$eventIdFormName = Attend_Db_Table_Row_TicketType::getColumnNameForUrl('eventId', '_');
+
+		// Split the input data to key value and get event id.
+		$formValues = current($subFormData);
+		$eventIdFormValue = $formValues[$eventIdFormName];
+		$subFormIndex = key($subFormData);
+		// Make sure that the event id value is not altered.
+		if ( 	!is_null($eventIdFormValue) && is_string($eventIdFormValue) &&
+				strcmp($eventIdFormValue, '') && strcmp($eventIdFormValue, $eventId) )
+			throw new Zend_Exception("Given event ids are not consistent. ".$eventIdFormValue.'.'. $eventId);
+
+		// Delete ticket type from database if it exists.
+		$this->getTicketTypesTable();
+		$ticketTypeId = $formValues[$ticketTypeIdColName];
+		$row = null;
+		// Make sure it exists.
+		if ( 	is_string($ticketTypeId) && strcmp($ticketTypeId, ''))
+		{
+			$select = $this->_ticketTypeTable->select()
+						->where($eventIdColName		.' = ?', $eventId)
+						->where($ticketTypeIdColName.' = ?', $ticketTypeId);
+			$row = $this->_ticketTypeTable->fetchRow($select);
+		}
+		// If it did exist, delete it.
+		if ( $row instanceof Attend_Db_Table_Row_TicketType )
+			$row->delete();
+
+		// Remove from form.
+		return $this->_eventInfoForm->removeTicketType($subFormIndex);
+	}
+
+	public function handleFormData($formData)
+	{
+		// Return array
+		$return = array();
+		// Get form elements names.
+		$step1Name = Admin_Form_EventInfo::STEP_1;
+		$step2Name = Admin_Form_EventInfo::STEP_2;
+		$step3Name = Admin_Form_EventInfo::STEP_3;
+
+		// Action buttons.
+		$eventSaveSubmit = Admin_Form_EventInfo::SAVE_EVENT_SUBMIT;
+		$ticketTypeNewSubmit = Admin_Form_EventInfo::NEW_TICKET_TYPE_SUBMIT;
+		// The $ticketTypeRemoveSubmit exists on several places and are nested in sub forms, following variable
+		// is used to tell wether such a button is pressed.
+
+		// Form element names needed.
+		$formEventEventId = Attend_Db_Table_Row_Event::getColumnNameForUrl('eventId', '_');
+
+		// Get number of ticket types submitted and decide whether remove ticket type submit is set.
+		if ( isset($formData[$step2Name]) )
+		{
+			list($numTicketTypes, $removeTicketTypeSubmitSet)
+			= $this->submittedTicketTypeInfo($formData[$step2Name]);
+		}
+		else
+		{
+			$removeTicketTypeSubmitSet = false;
+			$numTicketTypes = 0;
+		}
+
+		// If neccesary, add ticket type subforms.
+		if (1 < $numTicketTypes)
+		$this->addTicketTypeSubForms($numTicketTypes - 1);
+
+		// User has tried to save the event.
+		if ( isset($formData[$eventSaveSubmit]) )
+		{
+			// Make sure that the input is valid.
+			if ( $this->_eventInfoForm->isValid($formData) )
+			{
+				$return[] = self::VALID;
+				$eventCols = Attend_Db_Table_Row_Event::getColumnNames('both');
+				// If no event-id is set, this is a new event and it should be created.
+				if ( 	!isset($formData[$step1Name][$formEventEventId]) ||
+						is_string($formData[$step1Name][$formEventEventId]) &&
+						!strcmp($formData[$step1Name][$formEventEventId], '') )
+				{
+					$return[] = self::EVENT_CREATED;
+					$event = $this->createEvent($formData);
+					$return['eventName'] = $event[$eventCols['name']];
+				}
+				else
+				{
+					$return[] = self::EVENT_SAVED;
+					$event = $this->saveEvent($formData);
+					$return['eventName'] = $event[$eventCols['name']];
+				}
+			}
+			else
+			{
+				$return[] = self::NOT_VALID;
+			}
+		}
+		elseif (isset($formData[$step2Name][$ticketTypeNewSubmit]))
+		{
+			$this->addTicketTypeSubForms(1);
+			$return[] = self::TICKET_TYPE_ADDED;
+		}
+		elseif (false !== $removeTicketTypeSubmitSet)
+		{
+			$remove = array($removeTicketTypeSubmitSet => $formData[$step2Name][$removeTicketTypeSubmitSet]);
+			$this->removeTicketType($remove, $formData[$step1Name][$formEventEventId]);
+			$return[] = self::TICKET_TYPE_REMOVED;
+
+		}
+
+		// Populate form with data from post if available and from db if event id is set in url.
+		if ( 	isset($formData[$eventSaveSubmit]) ||
+				isset($formData[$step2Name][$ticketTypeNewSubmit]) ||
+				true === $removeTicketTypeSubmitSet)
+		{
+			$return[] = self::FROM_FORM;
+			$this->_eventInfoForm->populate($formData);
+		}
+		elseif (isset($formData[$step1Name][$formEventEventId])) //
+		{
+			$return[] = self::FROM_DB;
+			// Set Event id when editing.
+			$eventId = $formData[$step1Name][$formEventEventId];
+			$event = $this->getEvent($eventId);
+			$this->_eventInfoForm->setEventId($eventId);
+			// Form isnt submitted so vi have to populate with data from the database
+			$eventForm = Attend_Db_Table_Row_Event::getColumnNames('both', '_');
+			$eventCols = Attend_Db_Table_Row_Event::getColumnNames('both');
+			// Form step 1
+			foreach (array_keys($eventForm) as $key)
+			{
+				$vars[$step1Name][$eventForm[$key]] = $event[$eventCols[$key]];
+			}
+
+			// Form step 2
+			$ticketTypes = $this->getTicketTypes($eventId);
+			$vars[$step2Name] = array();
+			$ticketTypeForm = Attend_Db_Table_Row_TicketType::getColumnNames('both', '_');
+			$ticketTypeCols = Attend_Db_Table_Row_TicketType::getColumnNames('both');
+			foreach ($ticketTypes as $ticketType)
+			{
+				$data = array();
+				foreach (array_keys($ticketTypeForm) as $key)
+				{
+					$data[$ticketTypeForm[$key]] = $ticketType[$ticketTypeCols[$key]];
+				}
+				$vars[$step2Name][] = $data;
+			}
+
+			// Form step 3
+			$vars[$step3Name] = array(
+			$eventForm['public'] => $event[$eventCols['public']]
+			);
+			$this->_eventInfoForm->populate($vars);
+		}
+		return $return;
 	}
 }

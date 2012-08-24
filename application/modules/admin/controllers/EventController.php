@@ -28,46 +28,36 @@ class Admin_EventController extends Zend_Controller_Action
 	 */
 	public function createEventAction()
 	{
-		// Create model
-		$events = new Admin_Model_AdminEvents();
+		// Initiate vars/objects.
+		$flashMessenger = $this->_helper->getHelper('FlashMessenger');
+
+		// $translate is important for translation to work
+		$translate = Zend_Registry::get('Zend_Translate');
 
 		//Get form elements names.
 		$step1Name = Admin_Form_EventInfo::STEP_1;
-		$step2Name = Admin_Form_EventInfo::STEP_2;
-		$step3Name = Admin_Form_EventInfo::STEP_3;
 
-		// Get data
-		$data = $this->_request->getPost();
-		// Create form
-		$form = new Admin_Form_EventInfo();
+		// Set up data to send to admin events
+		$formData = $this->getRequest()->getPost();
 
-		// How many ticket type fieldsets to view in the form
-		if(!isset($data[$step2Name]))
-			$numOfTicketTypes = 1;
-		else // How many ticket types to loop through?
-			$numOfTicketTypes = COUNT($data[$step2Name]);
+		// Initiate model
+		$events = new Admin_Model_AdminEvents();
+		$status = $events->handleFormData($formData);
+		echo "<pre>";
+			var_dump($status);
+		echo "</pre>";
 
-		// Create form
-		$form->create($numOfTicketTypes);
+		// Send form to view
+		$this->view->form = $events->getEventInfoForm();
 
-		// Assign form to view
-		$this->view->form = $form;
-
-		// If form is valid, save event and ticket types.
-		$formSubmitName = $form::SAVE_EVENT_SUBMIT;
-		if(isset($data[$formSubmitName]) && $form->isValid($data))
+		// If created event is in the status array. Display it for the user.
+		if(in_array($events::EVENT_CREATED, $status))
 		{
-			// Remove submit from data
-			unset($data[$formSubmitName]);
-
-			// Save event
-			$event = $events->createEvent($data);
-
 			// Add message
 			$translate = Zend_Registry::get('Zend_Translate');
 			$flashMessenger = $this->_helper->getHelper('FlashMessenger');
-			$eventName = Attend_Db_Table_Row_Event::getColumnName('name');
-			$flashMessenger->addMessage($event[$eventName].' '.$translate->_('created').'!');
+			$flashMessenger->addMessage($status['eventName'].' '.$translate->_('created').'!');
+			$this->view->messages = $flashMessenger->getMessages();
 
 			$this->_redirect($this->_helper->url->url(array('module' => 'admin'),null, true));
 		}
@@ -189,161 +179,37 @@ class Admin_EventController extends Zend_Controller_Action
 		// $translate is important for translation to work
 		$translate = Zend_Registry::get('Zend_Translate');
 
-		// FIX: Get params??
-		$post = $this->getRequest()->getPost();
-		$get  = $this->getRequest()->getQuery();
+		//Get form elements names.
+		$step1Name = Admin_Form_EventInfo::STEP_1;
 
-		$params = $this->getRequest()->getParams();
-		echo "<pre>";
-			var_dump('post', $post, 'get', $get, 'params', $params);
-		echo "</pre>";
+		// Set up data to send to admin events
+		$formData = $this->getRequest()->getPost();
 
+		// Get event id. Form has lower priority due to it can not be validated through RBAC.
 		$eventIdColNameUrl = Attend_Db_Table_Row_Event::getColumnNameForUrl('eventId');
 		$eventIdColNameForm = Attend_Db_Table_Row_Event::getColumnNameForUrl('eventId', '_');
-		if(isset($params[$eventIdColNameUrl]))
+		$eventIdParam = $this->getRequest()->getParam($eventIdColNameUrl);
+		if(	!isset($formData[$step1Name][$eventIdColNameForm]) ||
+			( !is_null($eventIdParam) && $formData[$step1Name][$eventIdColNameForm] !== $eventIdParam ) )
 		{
-			$eventId = $params[$eventIdColNameUrl];
+			$formData[$step1Name][$eventIdColNameForm] = $eventIdParam;
 		}
 
 		// Initiate model
 		$events = new Admin_Model_AdminEvents();
-
-		// Fix between post and get vars.
-		if(isset($post[$eventIdColNameForm]))
-		{
-			$eventId = $post[$eventIdColNameForm];
-		}
-		elseif(isset($get[$eventIdColNameUrl]))
-		{
-			$eventId = $get[$eventIdColNameUrl];
-		}
-
-		// Fetch event
-		$event = $events->getEvent($eventId);
-		// Fetch ticket types
-		$ticketTypes = $events->getTicketTypes($eventId);
-
-		// Create form with correct number of ticket types
-		if(isset($post['submit']))
-		{
-			// Fix array so it starts with [0], [1], [2],..
-			// jQuery in the form is the problem.
-			$temp = array();
-			foreach($post['step2'] as $entry):
-			$temp[] = $entry;
-			endforeach;
-			$post['step2'] = $temp;
-
-			$numOfTicketTypes = COUNT($post['step2']);
-		}
-		else
-		{
-			// How many ticket type fieldsets to view in the form
-			$numOfTicketTypes = COUNT($ticketTypes);
-		}
-
-		// Create form
-		$form = new Admin_Form_EventInfo();
-
-		// Create at least one ticket type form
-		if($numOfTicketTypes == 0){
-			$numOfTicketTypes = 1;
-		}
-		$form->create($numOfTicketTypes);
-
-		// If form is valid
-		if(isset($post['submit']) && $form->isValid($post))
-		{
-			// Prepare data
-			$eventData = $post['step1'];
-			$eventData['event_id'] = $eventId;
-			$eventData['public']   = $post['step3']['public'];
-			$ticketTypeData = $post['step2'];
-
-			// Save event
-			$events->saveEvent($eventData);
-
-			// Set message
-			$flashMessenger->addMessage($translate->_('Event is now updated'));
-
-			// Save ticket types
-			foreach ($ticketTypeData as $ticketTypeArray):
-
-				$ticketTypeArray['event_id'] = $eventId;
-
-				// If ticket type exists and the name isnt set, it will be removed.
-				if(isset($ticketTypeArray['ticket_type_id']) && $ticketTypeArray['name'] == '')
-				{
-					// Delete ticket type
-					$events->deleteTicketType($ticketTypeArray['ticket_type_id']);
-				}
-				else
-				{
-					// save ticket type
-					$events->saveTicketType($ticketTypeArray);
-				}
-			endforeach;
-			// Redirect to admin/index
-			$this->_redirect($this->_helper->url->url(array('module' => 'admin'),"defaultRoute",true));
-		}
-
-		// Populate form with data.
-		if(isset($post['submit']))
-		{
-			// Form is submitted so we choose the posted data
-			$vars = $post;
-		}
-		else
-		{
-			// Form isnt submitted so vi have to populate with data from the database
-
-			// Form step 1
-			$step1 = array(
-				'name'		=> $event->name,
-				'location'	=> $event->location,
-				'details'	=> $event->details,
-				'start_time'=> $event->start_time,
-				'end_time'	=> $event->end_time,
-			);
-
-			// Form step 2
-			$step2 = array();
-			// Reset order so it starts from 0.
-			$i = 0;
-			foreach ($ticketTypes as $ticketType):
-			//var_dump($ticketType);
-				$data = array(
-					'name'				=> $ticketType->name,
-					'quantity'			=> $ticketType->quantity,
-					'price'				=> $ticketType->price,
-					'details'			=> $ticketType->details,
-					'ticket_type_id'	=> $ticketType->ticket_type_id,
-					'order'				=> $i
-				);
-				$i++;
-				$step2[] = $data;
-			endforeach;
-
-			// Form step 3
-			$step3 = array(
-				'public' => $event->public
-			);
-
-			// Form steps
-			$vars = array(
-				'step1' => $step1,
-				'step2' => $step2,
-				'step3' => $step3
-			);
-		}
-		// Populate form with data
-		$form->populate($vars);
-
-		// Set EventId when edit
-		$form->setEventId($eventId);
+		$status = $events->handleFormData($formData);
 
 		// Send form to view
-		$this->view->form = $form;
+		$this->view->form = $events->getEventInfoForm();
+
+		if(in_array($events::EVENT_SAVED, $status))
+		{
+			// Add message
+			$translate = Zend_Registry::get('Zend_Translate');
+			$flashMessenger = $this->_helper->getHelper('FlashMessenger');
+			$flashMessenger->addMessage($status['eventName'].' '.$translate->_('saved').'!');
+			$this->view->messages = $flashMessenger->getMessages();
+		}
 	}
 
 	/**
