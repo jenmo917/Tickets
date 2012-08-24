@@ -1,5 +1,7 @@
 <h1>
-	<?PHP echo $this->escape($this->event->name); ?>
+	<?PHP
+	$eventNameCol = Attend_Db_Table_Row_Event::getColumnName('name');
+	echo $this->escape($this->event[$eventNameCol]); ?>
 </h1>
 <h3>
     <?PHP echo $this->translate->_('Attendees'); ?>
