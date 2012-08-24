@@ -160,8 +160,9 @@ class Admin_Model_AdminEvents
 		$eventIdColName		= Attend_Db_Table_Row_Event::getColumnName('eventId');
 		$eventIdFormName	= Attend_Db_Table_Row_Event::getColumnNameForUrl('eventId', '_');
 
-		$nameTicketType		= Attend_Db_Table_Row_TicketType::getColumnNameForUrl('name', '_');
-		$eventIdTicketType	= Attend_Db_Table_Row_TicketType::getColumnNameForUrl('eventId', '_');
+		$nameTicketType			= Attend_Db_Table_Row_TicketType::getColumnNameForUrl('name', '_');
+		$eventIdTicketType		= Attend_Db_Table_Row_TicketType::getColumnNameForUrl('eventId', '_');
+		$ticketTypeIdTicketType	= Attend_Db_Table_Row_TicketType::getColumnNameForUrl('ticketTypeId', '_');
 
 		// Fix params (public is saved with the rest of the event info from step 1)
 		$eventData = $formData[$step1Name];
@@ -173,7 +174,7 @@ class Admin_Model_AdminEvents
 		$userId = $userInfoSession->getUserId();
 		$this->getEventsTable();
 
-		if(isset($eventData[$eventIdColName]))
+		if(isset($eventData[$eventIdFormName]))
 		{
 			$row = $this->_eventsTable->fetchRow(
 				$this->_eventsTable->select()->where(	$eventIdColName.' = ?',
@@ -185,16 +186,25 @@ class Admin_Model_AdminEvents
 		$row->setColumnsFromUrl($eventData, '_')->save();
 
 		// Save ticket types.
+		// Reset order.
+		$orderForm = Attend_Db_Table_Row_TicketType::getColumnNameForUrl('order', '_');
+		$order = 1;
 		foreach ($ticketTypesData as $ticketType)
 		{
 		// Save it if name is != ''
 			if($ticketType[$nameTicketType] != '')
 			{
-			// Set event_id
-			$ticketType[$eventIdTicketType] = $row[$eventIdColName];
-			// Save ticket type
-			$this->saveTicketType($ticketType);
+				// Set event id
+				$ticketType[$eventIdTicketType] = $row[$eventIdColName];
+				// reset order
+				$ticketType[$orderForm] = $order;
+				$order++;
+				// Save ticket type
+				$this->saveTicketType($ticketType);
 			}
+			// If no name is set and a ticket id is set, the ticket is removed.
+			elseif (isset($ticketTypeArray[$ticketTypeIdTicketType]))
+			$events->deleteTicketType($ticketTypeArray[$ticketTypeIdTicketType]);
 		}
 		return $row->toArray();
 	}
@@ -273,14 +283,14 @@ class Admin_Model_AdminEvents
 	 * Return one event with specific event-id.
 	 * @author	Jens Moser <jenmo917@gmail.com>
 	 * @since	v0.1
-	 * @return	Attend_Db_Table_Row_Event
+	 * @return	array of Attend_Db_Table_Row_Event
 	 */
 	public function getEvent($eventId)
 	{
 		$this->getEventsTable();
 		$select = $this->_eventsTable->select()
 				->where($this->_eventsTable->getColumnName('eventId').' = ?', $eventId);
-		return $row = $this->_eventsTable->fetchRow($select);
+		return $row = $this->_eventsTable->fetchRow($select)->toArray();
 	}
 
 	/**
@@ -390,37 +400,34 @@ class Admin_Model_AdminEvents
 	public function deleteTicketType($ticketTypeId)
 	{
 		$this->getTicketTypesTable();
-		$this->_ticketTypeTable->delete($this->_ticketTypeTable->getAdapter()->quoteInto('ticket_type_id = ?', $ticketTypeId));
+		$ticketTypeIdCol = $this->_ticketTypeTable->getColumnName('ticketTypeId');
+		$this->_ticketTypeTable->delete($this->_ticketTypeTable->getAdapter()->quoteInto($ticketTypeIdCol.' = ?', $ticketTypeId));
 	}
 
 	/**
 	 * Save ticket.
 	 * @author	Jens Moser <jenmo917@gmail.com>
 	 * @since	v0.1
-	 * @return	Attend_Db_Table_Row_Ticket
+	 * @return	array from Attend_Db_Table_Row_Ticket
 	 */
 	public function saveTicket($ticket)
 	{
 		$this->getTicketTable();
+		$ticketIdCol = Attend_Db_Table_Row_Ticket::getColumnName('ticketId');
+		$ticketIdForm = Attend_Db_Table_Row_Ticket::getColumnNameFromUrl('ticketId', '_');
 
-		if(isset($ticket['ticket_id']))
+
+		if(isset($ticket[$formNames[$ticketIdForm]]))
 		{
 			$row = $this->_ticketTable->fetchRow($this->_ticketTable->select()
-			->where(Attend_Db_Table_Tickets::getColumnName('ticketId'). ' = ?', $ticket['ticket_id']));
+			->where($ticketIdCol. ' = ?', $ticket[$formNames[$ticketIdForm]]));
 		}
 		else
-		{
 			$row = $this->_ticketTable->createRow();
-		}
 
-		$row->setColumn('name', $ticket['name'])
-			->setColumn('eventId', $ticket['event_id'])
-			->setColumn('email', $ticket['email'])
-			->setColumn('liuId', $ticket['liuid'])
-			->setColumn('ticketTypeId', $ticket['ticket_type_id'])
-			->setColumn('payment', $ticket['payment']);
+		$row->setColumnsFromUrl($ticket, '_');
 
 		$row->save();
-		return $row;
+		return $row->toArray();
 	}
 }

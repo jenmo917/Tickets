@@ -22,9 +22,9 @@ class Admin_Form_EventInfo extends Generic_Form_Base
 	 */
 	public function setEventId($eventId)
 	{
-		$hidden = $this->createElement('hidden', 'event_id');
+		$eventIdElementName		= Attend_Db_Table_Row_Event::getColumnNameForUrl('eventId', '_');
+		$hidden = $this->getSubForm(self::STEP_1)->getElement($eventIdElementName);
 		$hidden->setValue($eventId);
-		$this->addElement($hidden);
 	}
 
 	/**
@@ -54,6 +54,7 @@ class Admin_Form_EventInfo extends Generic_Form_Base
 		$endTimeElementName		= Attend_Db_Table_Row_Event::getColumnNameForUrl('endTime', '_');
 		$detailsElementName		= Attend_Db_Table_Row_Event::getColumnNameForUrl('details', '_');
 		$publicElementName		= Attend_Db_Table_Row_Event::getColumnNameForUrl('public', '_');
+		$eventIdElementName		= Attend_Db_Table_Row_Event::getColumnNameForUrl('eventId', '_');
 
 		/*
 		 * Overall actions
@@ -131,6 +132,10 @@ class Admin_Form_EventInfo extends Generic_Form_Base
 			'cols'			=> '130',
 			'rows'			=> '2',
 		));
+
+		$step1->addElement('hidden', $eventIdElementName, array(
+			'label'			=>$this->_translator->translate('eventId'),
+			'value'			=> null));
 
 		/*
 		 * STEP 2
