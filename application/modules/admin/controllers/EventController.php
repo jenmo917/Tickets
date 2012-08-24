@@ -131,6 +131,8 @@ class Admin_EventController extends Zend_Controller_Action
 			// Initiate Mailer object
 			$htmlMailer = new Generic_HtmlMailer();
 
+			// Add event id to post
+			$post[$ticketTypeFormNames['eventId']] = $params[$eventIdColName];
 			// Save ticket to DB
 			$ticket = $events->saveTicket($post);
 
