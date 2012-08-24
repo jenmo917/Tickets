@@ -75,7 +75,7 @@ class Generic_Db_Table_Row_Abstract extends Zend_Db_Table_Row_Abstract
 		return $vars['_columns'][$columnName];
 	}
 
-	public static function getColumnNames($option = null)
+	public static function getColumnNames($option = null, $delimiter = null)
 	{
 		$vars = get_class_vars(get_called_class());
 
@@ -93,13 +93,22 @@ class Generic_Db_Table_Row_Abstract extends Zend_Db_Table_Row_Abstract
 		switch ($option) {
 			case null:
 			case 'columns':
-				$result = array_values($vars['_columns']);
+				if (null === $delimiter)
+					$result = array_values($vars['_columns']);
+				else
+					foreach (array_keys($vars['_columns']) as $key)
+						$result[] = self::getColumnNameForUrl($key, $delimiter);
+
 				break;
 			case 'keys':
 				$result = array_keys($vars['_columns']);
 				break;
 			case 'both':
-				$result = $vars['_columns'];
+				if (null === $delimiter)
+					$result = $vars['_columns'];
+				else
+					foreach (array_keys($vars['_columns']) as $key)
+						$result[$key] = self::getColumnNameForUrl($key, $delimiter);
 				break;
 			default:
 				break;
