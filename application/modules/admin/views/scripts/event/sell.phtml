@@ -1,5 +1,7 @@
 <h1>
-	<?PHP echo $this->event->name; ?>
+<?PHP
+	$nameCol = Attend_Db_Table_Row_Event::getColumnName('name');
+	echo $this->event[$nameCol]; ?>
 </h1>
 <h3>
     <?PHP echo $this->translate->_('Sell Tickets'); ?>
