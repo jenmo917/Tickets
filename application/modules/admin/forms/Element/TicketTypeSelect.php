@@ -35,15 +35,28 @@ class Admin_Form_Element_TicketTypeSelect extends Zend_Form_Element_Select {
 		$this->addMultiOption('', $this->_translator->translate('Select Ticket Type'));
 	}
 
-	public function create($ticketTypes)
+	/**
+	 * Initiates ticket types in the multioption choise.
+	 * @author	Daniel Josefsson <dannejosefsson@gmail.com>
+	 * @since	v0.1
+	 * @param	array $ticketTypes
+	 */
+	public function create(array $ticketTypes)
 	{
-		$ticketTypeIdColName = Attend_Db_Table_Row_TicketType::getColumnNames('both', '_');
+		$ticketTypeForm = Attend_Db_Table_Row_TicketType::getColumnNames('both', '_');
 		foreach ($result as $ticketType)
 		{
-			if($ticketType['quantity'] > $ticketType['sold_tickets'])
+			if($ticketType[$ticketTypeForm['quantity']] >
+				$ticketType[$ticketTypeForm['soldTickets']])
 			{
-				$num = $ticketType['quantity']-$ticketType['sold_tickets'];
-				$this->addMultiOption($ticketType[$ticketTypeIdColName], $ticketType['name'].' - '.$ticketType['price'].'kr - '.$num.$this->_translator->translate(' tickets left'));
+				$num = $ticketType[$ticketTypeForm['quantity']] -
+						$ticketType[$ticketTypeForm['soldTickets']];
+
+				$text  =	$ticketType[$ticketTypeForm['name']].' - ';
+				$text .=	$ticketType[$ticketTypeForm['price']].'kr - ';
+				$text .=	$num.$this->_translator->translate(' tickets left');
+
+				$this->addMultiOption($ticketType[$ticketTypeForm['name']], $text);
 			}
 		}
 	}

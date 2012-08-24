@@ -95,4 +95,17 @@ class Admin_Form_SellTickets extends Generic_Form_Base
 		$this->addElement('submit', self::REGISTER_TICKET_SUBMIT, array(
 			'label' => $this->_translator->translate('Register Ticket')));
 	}
+
+	/**
+	 * Initiates ticket types in the multioption choise by transferring
+	 * the ticket type data to the specific element.
+	 * @author	Daniel Josefsson <dannejosefsson@gmail.com>
+	 * @since	v0.1
+	 * @param	array $ticketTypes
+	 */
+	public function create(array $ticketTypes)
+	{
+		$ticketTypeIdElementName	= Attend_Db_Table_Row_Ticket::getColumnNameForUrl('ticketTypeId', '_');
+		$this->getElement($ticketTypeIdElementName)->create($ticketTypes);
+	}
 }
