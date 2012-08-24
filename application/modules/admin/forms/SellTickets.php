@@ -26,12 +26,12 @@ class Admin_Form_SellTickets extends Generic_Form_Base
 	}
 
 	/**
-	 * This function add all form elements
+	 * This function adds all form elements, run create to set the valid ticket typs.
 	 * @author	Jens Moser <jenmo917@gmail.com>
 	 * @since	v0.1
 	 * @return	null
 	 */
-	public function create()
+	public function init()
 	{
 		// Form element names
 		$nameElementName			= Attend_Db_Table_Row_Ticket::getColumnNameForUrl('name', '_');
@@ -49,7 +49,7 @@ class Admin_Form_SellTickets extends Generic_Form_Base
 			'required'		=> false,
 			'filters'		=> array('StringTrim','StripTags'),
 			'validators'	=> array('Alnum'),
-			'errorMessages'	=> $this->_translator->translate('Only digits and letters in LiU-ID please').'.',
+			'errorMessages'	=> array($this->_translator->translate('Only digits and letters in LiU-ID please').'.'),
 		));
 
 		// Add Name
@@ -58,7 +58,7 @@ class Admin_Form_SellTickets extends Generic_Form_Base
 			'required'		=> true,
 			'filters'		=> array('StringTrim','StripTags'),
 			'validators'	=> array('notEmpty'),
-			'errorMessages'	=> $this->_translator->translate('Name please').'.',
+			'errorMessages'	=> array($this->_translator->translate('Name please').'.'),
 		));
 
 		// Add Email
@@ -67,25 +67,25 @@ class Admin_Form_SellTickets extends Generic_Form_Base
 			'required'		=> true,
 			'filters'		=> array('StringTrim','StripTags'),
 			'validators'	=> array('EmailAddress'),
-			'errorMessages'	=> $this->_translator->translate('Email please').'.',
+			'errorMessages'	=> array($this->_translator->translate('Email please').'.'),
 		));
 
 		// Add Ticket Type
 		$ticketType = new Admin_Form_Element_TicketTypeSelect($ticketTypeIdElementName, array(
 			'label'			=> $this->_translator->translate('Ticket Type'),
 			'decorators'	=> $this->elementDecorators,
-			'errorMessages'	=> $this->_translator->translate('Ticket Type please'),
+			'errorMessages'	=> array($this->_translator->translate('Ticket Type please')),
 			'required'		=> true,
 		));
 		$ticketType->setEventID($this->_eventID);
-		$ticketType->create();
+		//$ticketType->create();
 		$this->addElement($ticketType);
 
 		// Add Cash or Invoice
 		$this->addElement('radio',$paymentElementName, array(
 			'label'			=> $this->_translator->translate('Payment Options'),
 			'required'		=> true,
-			'errorMessages'	=> $this->_translator->translate('Select payment type please'),
+			'errorMessages'	=> array($this->_translator->translate('Select payment type please')),
 			'multiOptions'	=> array(
 				"cash"		=> $this->_translator->translate('Cash'),
 				"invoice"	=> $this->_translator->translate('Send Invoice')),
