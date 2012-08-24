@@ -172,7 +172,7 @@ class Admin_Model_AdminEvents
 	 * @since	v0.1
 	 * @return	array of Attend_Db_Table_Row_Event
 	 */
-	public function saveEvent($formData)
+	public function saveEvent(&$formData)
 	{
 		// Get form element names.
 		$step1Name = Admin_Form_EventInfo::STEP_1;
@@ -190,7 +190,7 @@ class Admin_Model_AdminEvents
 		// Fix params (public is saved with the rest of the event info from step 1)
 		$eventData = $formData[$step1Name];
 		$eventData[$publicEventForm] = $formData[$step3Name][$publicEventForm];
-		$ticketTypesData = $formData[$step2Name];
+		$ticketTypesData = &$formData[$step2Name];
 
 		// Save the event.
 		$userInfoSession = new Login_Model_UserInfoSession();
@@ -214,7 +214,7 @@ class Admin_Model_AdminEvents
 		// Reset order.
 		$orderForm = Attend_Db_Table_Row_TicketType::getColumnNameForUrl('order', '_');
 		$order = 1;
-		foreach ($ticketTypesData as $ticketType)
+		foreach ($ticketTypesData as $key => $ticketType)
 		{
 		// Save it if name is != ''
 			if($ticketType[$nameTicketType] != '')
@@ -228,8 +228,11 @@ class Admin_Model_AdminEvents
 				$this->saveTicketType($ticketType);
 			}
 			// If no name is set and a ticket id is set, the ticket is removed.
-			elseif (isset($ticketTypeArray[$ticketTypeIdTicketType]))
-			$events->deleteTicketType($ticketTypeArray[$ticketTypeIdTicketType]);
+			elseif (isset($ticketType[$ticketTypeIdTicketType]))
+			{
+				$this->removeTicketType(array( $key => $ticketType), $ticketType[$eventIdTicketType]);
+				unset($ticketTypesData[$key]);
+			}
 		}
 		return $row->toArray();
 	}

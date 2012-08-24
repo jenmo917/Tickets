@@ -183,11 +183,15 @@ class Admin_Form_EventInfo extends Generic_Form_Base
 			{
 				$step2->getSubForm($i)->setOrder($i+1);
 			}
-			if (1 >= $this->_numOfTickets)
+			if (1 === $this->_numOfTickets)
 			{
 				$subForms = $step2->getSubForms();
 				$onlySubForm = current($subForms);
 				$onlySubForm->removeButtonDisabled(true);
+			}
+			elseif (0 === $this->_numOfTickets)
+			{
+				$this->addTicketType();
 			}
 			return true;
 		}
