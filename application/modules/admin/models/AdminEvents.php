@@ -291,7 +291,8 @@ class Admin_Model_AdminEvents
 		$this->getEventsTable();
 		if ( empty($eventIds) )
 		{
-			return $this->_eventsTable->fetchAll()->toArray();
+			$rowSet = $this->_eventsTable->fetchAll();
+			return ($rowSet instanceof Zend_Db_Table_Rowset_Abstract)? $rowSet->toArray(): null;
 		}
 		else
 		{
@@ -301,7 +302,8 @@ class Admin_Model_AdminEvents
 			{
 				$select->orWhere($eventIdColName.' = ?', $eventId);
 			}
-			return $this->_eventsTable->fetchAll($select)->toArray();
+			$rowSet = $this->_eventsTable->fetchAll($select);
+			return ($rowSet instanceof Zend_Db_Table_Rowset_Abstract)? $rowSet->toArray(): null;
 		}
 
 
@@ -318,7 +320,9 @@ class Admin_Model_AdminEvents
 		$this->getEventsTable();
 		$select = $this->_eventsTable->select()
 				->where($this->_eventsTable->getColumnName('eventId').' = ?', $eventId);
-		return $row = $this->_eventsTable->fetchRow($select)->toArray();
+		$row = $this->_eventsTable->fetchRow($select);
+
+		return ($row instanceof Attend_Db_Table_Row_Event)? $row->toArray(): null;
 	}
 
 	/**
@@ -402,7 +406,8 @@ class Admin_Model_AdminEvents
 					array())
 		->group($ttTn.'.'.$ttTicketTypeId)
 		->order($ttTn.'.'.$ttOrder);
-		return $this->_ticketTypeTable->fetchAll($select)->toArray();
+		$rowSet = $this->_ticketTypeTable->fetchAll($select);
+		return ($rowSet instanceof Zend_Db_Table_Rowset_Abstract)? $rowSet->toArray(): null;
 	}
 
 	/**
