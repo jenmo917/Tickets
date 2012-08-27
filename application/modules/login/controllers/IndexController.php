@@ -62,8 +62,21 @@ class Login_IndexController extends Zend_Controller_Action
 		{
 			if ($loginResult = $this->_userInfoSession->serviceLogin($liuServiceName, $ticket))
 			{
+				if ( true === $loginResult )
+				{
+					$request = $this->getRequest();
+
+					if (null !== $redirect = $request->getParam('redirect'))
+					{
+						foreach ($redirect as $key => $value)
+						{
+							$url[$key] = $value;
+						}
+						$this->_redirect($this->_helper->url->url($url, "defaultRoute",true));
+					}
+				}
 				// Show Register new user form.
-				if(!strcmp('notFound', $loginResult))
+				elseif(!strcmp('notFound', $loginResult))
 				{
 					// TODO: Translate!
 					$mess  = "You are about to create a new user. ";
