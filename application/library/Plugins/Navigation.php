@@ -45,7 +45,7 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
 				'privilege'	=> 'resourceStackCheck',
 			),
 			array(
-				'label'		=> 'Sign in', //TODO: Translate!
+				'label'		=> $this->_translate->translate('Sign in'),
 				'module'	=> 'login',
 				'controller'=> 'index',
 				'action'	=> 'index',
@@ -53,7 +53,7 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
 				'privilege'	=> 'resourceStackCheck',
 			),
 			array(
-				'label'		=> 'Sign out', //TODO: Translate!
+				'label'		=> $this->_translate->translate('Sign out'),
 				'module'	=> 'login',
 				'controller'=> 'index',
 				'action'	=> 'logout',
@@ -73,6 +73,8 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
 	 */
 	public function getEventMenu($params)
 	{
+		$del = $this->_delimiter;
+		$pre = $this->_pagePrefix;
 		$eventIdColName = Attend_Db_Table_Row_Event::getColumnNameForUrl('eventId');
 		if (  isset($params[$eventIdColName]))
 		{
@@ -82,21 +84,27 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
 					'module'	=> 'admin',
 					'controller'=> 'event',
 					'action'	=> 'index',
-					'params'	=> array($eventIdColName => $params[$eventIdColName])
+					'params'	=> array($eventIdColName => $params[$eventIdColName]),
+					'resource'	=> $pre.$del.'admin'.$del.'event'.$del.'index',
+					'privilege'	=> 'resourceStackCheck',
 				),
 				array(
 					'label'		=> $this->_translate->translate('Sell Tickets'),
 					'module'	=> 'admin',
 					'controller'=> 'event',
 					'action'	=> 'sell',
-					'params'	=> array($eventIdColName => $params[$eventIdColName])
+					'params'	=> array($eventIdColName => $params[$eventIdColName]),
+					'resource'	=> $pre.$del.'admin'.$del.'event'.$del.'sell',
+					'privilege'	=> 'resourceStackCheck',
 				),
 				array(
 					'label'		=> $this->_translate->translate('Attendees'),
 					'module'	=> 'admin',
 					'controller'=> 'event',
 					'action'	=> 'attendees',
-					'params'	=> array($eventIdColName => $params[$eventIdColName])
+					'params'	=> array($eventIdColName => $params[$eventIdColName]),
+					'resource'	=> $pre.$del.'admin'.$del.'event'.$del.'attendees',
+					'privilege'	=> 'resourceStackCheck',
 				),
 			);
 		}
