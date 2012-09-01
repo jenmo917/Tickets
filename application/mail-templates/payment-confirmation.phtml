@@ -1,32 +1,24 @@
 <?PHP echo $this->translate->_('Hello'); ?>,
 <br/><br/>
 <?PHP echo $this->translate->_('We have received your payment'); ?>.
+<h2><?PHP echo $this->ticketType; ?></h2>
 <table>
-	<tbody><tr><td><h2><?PHP echo $this->ticketType; ?></h2>
-	<table>
-		<tbody><tr>
-			<td>
-				<?PHP echo $this->translate->_('Name'); ?> 
-			</td>
-			<td>
-				<?PHP echo $this->name; ?>
-            </td>
+	<tbody>
+		<tr>
+			<td><?PHP echo $this->translate->_('Name'); ?></td>
+			<td><?PHP echo $this->name; ?></td>
 		</tr>
 		<tr>
+			<td><?PHP echo $this->translate->_('Email'); ?></td>
 			<td>
-				<?PHP echo $this->translate->_('Email'); ?> 
+				<a href="mailto:<?PHP echo $this->email; ?>" target="_blank">
+					<?PHP echo $this->email; ?>
+				</a>
 			</td>
-			<td>
-				<a href="mailto:<?PHP echo $this->email; ?>" target="_blank"><?PHP echo $this->email; ?></a>
-            </td>
 		</tr>
 		<tr>
-			<td>
-				<?PHP echo $this->translate->_('Price'); ?>
-			</td>
-			<td>
-				<?PHP echo $this->price; ?> SEK
-			</td>
+			<td><?PHP echo $this->translate->_('Price'); ?></td>
+			<td><?PHP echo $this->price; ?> SEK</td>
 		</tr>
 	</tbody>
 </table>
