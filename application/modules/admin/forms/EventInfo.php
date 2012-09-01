@@ -113,8 +113,8 @@ class Admin_Form_EventInfo extends Generic_Form_Base
 					'required'		=> false,
 					'filters'		=> array('StringTrim','StripTags'),
 					'errorMessages'	=> array(),
-					'cols'			=> '130',
-					'rows'			=> '2',
+					'cols'			=> '50',
+					'rows'			=> '6',
 		));
 
 		$step1->addElement('hidden', $formNames['eventId'], array(

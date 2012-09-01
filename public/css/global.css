@@ -157,6 +157,36 @@ table{
     display: inline;
 }
 
+.subform-ol{
+	padding: 0px;
+}
+
+.subform-li label{
+	width: 7em;
+	float: left;
+	text-align: right;
+	margin-right: 0.5em;
+	display: block
+}
+
+.subform-li{
+	margin: 10px;
+}
+
+.form-ol{
+	padding: 0px;
+}
+
+.form-li label{
+	width: 7em;
+	float: left;
+	text-align: right;
+	margin-right: 0.5em;
+	display: block
+}
+.form-li{
+	margin: 10px;
+}
 /* Choose date
  * Creates a little calendar icon
  * instead of a text link for "Choose date"

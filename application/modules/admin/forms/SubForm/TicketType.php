@@ -74,8 +74,8 @@ class Admin_Form_SubForm_TicketType extends Generic_Form_SubForm_Base {
 			'required'		=> false,
 			'class'			=> 'details',
 			'filters'		=> array('StringTrim','StripTags'),
-			'rows'			=> '2',
-			'cols'			=> '130',
+			'rows'			=> '6',
+			'cols'			=> '50',
 		));
 
 		// Add submit button

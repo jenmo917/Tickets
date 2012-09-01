@@ -42,10 +42,21 @@ foreach ($this->attendees as $att):
             <?PHP echo $this->escape($att['email']); ?>
         </td>
         <td>
-            <?PHP echo $this->escape($att['ticket_type_name']); ?> | <a href="">Utlämnad</a>
+            <?PHP echo $this->escape($att['ticket_type_name']); ?>
         </td>
         <td>
-            <?PHP echo $this->escape($att['payment']); ?>
+            <?PHP
+			
+			if($this->escape($att['payment']))
+			{
+				echo $this->translate->_('Cash');
+			}
+			else
+			{
+				echo $this->translate->_('Invoice');
+			}
+			
+			?>
         </td>
         <td>
             <?PHP echo "";//$att->ocr; ?>
