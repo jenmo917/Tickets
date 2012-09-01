@@ -4,6 +4,8 @@ README.txt
 demos/
 extras/documentation
 .project
+.buildpath
+.settings/
 *~
 *.bak
 application/cache/zend_cache*

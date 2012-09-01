@@ -30,7 +30,19 @@
         <td><a href="<?PHP echo $this->url(array('lang' => $this->lang, 'module' => 'admin','controller' => 'event', 'action' => 'index',$eventIdColNameUrl => $event[$eventsCols['eventId']])); ?>"><?PHP echo $event['name']; ?></a></td>
         <td><?PHP echo $event[$eventsCols['startTime']]; ?></td>
         <td>
-            <?PHP if($event[$eventsCols['published']]){ echo "<div style='color: green'>".$this->translate->_('Live'); }else{ echo "<div style='color: red;'>".$this->translate->_('Draft'); } ?></div>
+		<?php
+		if($event[$eventsCols['published']])
+		{
+			$style = "style='color: green;'";
+			$text = $this->translate->_('Live');
+		}
+		else
+		{
+			$style = "style='color: red;'";
+			$text = $this->translate->_('Draft');
+		}
+		?>
+			<div <?PHP echo $style ?>><?php echo $text;?></div>
         </td>
         <td><a href="<?PHP echo $this->url(array('lang' => $this->lang, 'module' => 'admin','controller' => 'event', 'action' => 'edit',$eventIdColNameUrl => $event[$eventsCols['eventId']])); ?>"><?PHP echo $this->translate->_('Edit'); ?></a>
             | <a href="<?PHP echo $this->url(array('lang' => $this->lang, 'module' => 'admin','controller' => 'event', 'action' => 'delete',$eventIdColNameUrl => $event[$eventsCols['eventId']])); ?>"><?PHP echo $this->translate->_('Delete'); ?></a>

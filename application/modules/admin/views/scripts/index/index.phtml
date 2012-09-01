@@ -27,7 +27,19 @@
         <td><a href="<?PHP echo $this->url(array('lang' => $this->lang, 'module' => 'admin','controller' => 'event', 'action' => 'index','event_id' => $event->event_id)); ?>"><?PHP echo $event->name; ?></a></td>
         <td><?PHP echo $event->start_time; ?></td>
         <th>
-            <?PHP if($event->published){ echo "<div style='color: green'>".$this->translate->_('Live'); }else{ echo "<div style='color: red;'>".$this->translate->_('Draft'); } ?></div>
+		<?php
+		if($event->published)
+		{
+			$style = "style='color: green;'";
+			$text = $this->translate->_('Live');
+		}
+		else
+		{
+			$style = "style='color: red;'";
+			$text = $this->translate->_('Draft');
+		}
+		?>
+			<div <?PHP echo $style ?>><?php echo $text;?></div>
         </th>
         <td><a href="<?PHP echo $this->url(array('lang' => $this->lang, 'module' => 'admin','controller' => 'event', 'action' => 'edit','event_id' => $event->event_id)); ?>"><?PHP echo $this->translate->_('Edit'); ?></a> 
             | <a href="<?PHP echo $this->url(array('lang' => $this->lang, 'module' => 'admin','controller' => 'event', 'action' => 'delete','event_id' => $event->event_id)); ?>"><?PHP echo $this->translate->_('Delete'); ?></a> 
