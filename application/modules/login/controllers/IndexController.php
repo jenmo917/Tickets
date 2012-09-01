@@ -78,10 +78,9 @@ class Login_IndexController extends Zend_Controller_Action
 				// Show Register new user form.
 				elseif(!strcmp('notFound', $loginResult))
 				{
-					// TODO: Translate!
-					$mess  = "You are about to create a new user. ";
-					$mess .= "To use our services, we need your permission to save your login service user id. ";
-					$mess .= "We will never store your password, this is the beauty with using external login services.";
+					$translate = Zend_Registry::get('Zend_Translate');
+					$mess = $translate->translate("You are about to create a new user.");
+					$mess .= " ". $translate->translate("User Agreement message");
 					$this->_helper->flashMessenger->addMessage($mess);
 					$this->view->form = new Login_Form_Confirm();
 					$this->view->message = array_merge
