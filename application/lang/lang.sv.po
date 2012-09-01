@@ -1,325 +1,360 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Attend\n"
+"Project-Id-Version: TDDD27\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-20 11:47+0100\n"
-"PO-Revision-Date: 2012-07-20 11:48+0100\n"
-"Last-Translator: Jens Moser <jenmo917@gmail.com>\n"
-"Language-Team: Automagisk\n"
+"POT-Creation-Date: 2012-09-01 20:09+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Daniel Josefsson <danjo140@student.liu.se>\n"
+"Language-Team: Automagisk <language@automagisk.nu>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-KeywordsList: translate\n"
-"X-Poedit-Basepath: C:\\wamp\\www\\tddd27\n"
-"X-Poedit-Language: Swedish\n"
-"X-Poedit-Country: SWEDEN\n"
-"X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-SearchPath-0: C:\\wamp\\www\\tddd27\n"
 
-#: C:\wamp\www\tddd27/application/library/plugins/Navigation.php:20
+#: application/library/Plugins/Navigation.php:24
 msgid "Start"
 msgstr "Start"
 
-#: C:\wamp\www\tddd27/application/library/plugins/Navigation.php:26
+#: application/library/Plugins/Navigation.php:32
+#: application/modules/admin/views/scripts/event/create-event.phtml:2
 msgid "Create Event"
 msgstr "Skapa Event"
 
-#: C:\wamp\www\tddd27/application/library/plugins/Navigation.php:33
+#: application/library/Plugins/Navigation.php:40
+#: application/modules/admin/views/scripts/event/my-events.phtml:2
+#: application/modules/admin/views/scripts/index/index.phtml:2
 msgid "My Events"
 msgstr "Mina Event"
 
-#: C:\wamp\www\tddd27/application/library/plugins/Navigation.php:54
+#: application/library/Plugins/Navigation.php:48
+msgid "Sign in"
+msgstr "Logga in"
+
+#: application/library/Plugins/Navigation.php:56
+msgid "Sign out"
+msgstr "Logga ut"
+
+#: application/library/Plugins/Navigation.php:83
+#: application/modules/admin/views/scripts/event/index.phtml:7
 msgid "Overview"
 msgstr "Överblick"
 
-#: C:\wamp\www\tddd27/application/library/plugins/Navigation.php:61
+#: application/library/Plugins/Navigation.php:92
+#: application/modules/admin/views/scripts/event/sell.phtml:7
 msgid "Sell Tickets"
 msgstr "Sälj Biljetter"
 
-#: C:\wamp\www\tddd27/application/library/plugins/Navigation.php:68
+#: application/library/Plugins/Navigation.php:101
+#: application/modules/admin/views/scripts/event/attendees.phtml:7
 msgid "Attendees"
 msgstr "Besökare"
 
-#: C:\wamp\www\tddd27/application/modules/admin/controllers/EventController.php:87
-msgid "Invoice"
-msgstr "Faktura"
-
-#: C:\wamp\www\tddd27/application/modules/admin/controllers/EventController.php:102
-msgid "Payment confirmation"
-msgstr "Betalningsbekräftelse"
-
-#: C:\wamp\www\tddd27/application/modules/admin/controllers/EventController.php:114
-msgid "Ticket is registred"
-msgstr "Biljetten är registrerad"
-
-#: C:\wamp\www\tddd27/application/modules/admin/controllers/EventController.php:206
-msgid "Event is now updated"
-msgstr "Eventet är nu uppdaterat"
-
-#: C:\wamp\www\tddd27/application/modules/admin/controllers/EventController.php:321
-msgid "is now deleted"
-msgstr "är nu borttaget"
-
-#: C:\wamp\www\tddd27/application/modules/admin/controllers/EventController.php:359
-msgid "has been unpublished"
-msgstr "har avpublicerats"
-
-#: C:\wamp\www\tddd27/application/modules/admin/controllers/EventController.php:363
-msgid "has been published"
-msgstr "har publicerats"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/EventInfo.php:50
-#: C:\wamp\www\tddd27/application/modules/admin/forms/SellTickets.php:50
-msgid "Name"
-msgstr "Namn"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/EventInfo.php:55
-#: C:\wamp\www\tddd27/application/modules/admin/forms/SellTickets.php:55
-msgid "Name please"
-msgstr "Ange ett namn"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/EventInfo.php:60
-msgid "Location"
-msgstr "Plats"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/EventInfo.php:65
-msgid "Location please"
-msgstr "Ange plats tack"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/EventInfo.php:70
-msgid "Event starts"
-msgstr "Eventet börjar"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/EventInfo.php:75
-msgid "Start time please"
-msgstr "Ange starttid tack"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/EventInfo.php:80
-msgid "Event ends"
-msgstr "Eventet slutar"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/EventInfo.php:85
-msgid "End time please"
-msgstr "Ange sluttid tack"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/EventInfo.php:90
-#: C:\wamp\www\tddd27/application/modules/admin/forms/SubForm/TicketType.php:77
-msgid "Details"
-msgstr "Detaljer"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/EventInfo.php:113
-msgid "New Ticket Type"
-msgstr "Ny Biljettyp"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/EventInfo.php:124
-msgid "Publicize, or keep it private"
-msgstr "Publicera, eller håll privat"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/EventInfo.php:126
-msgid "Public"
-msgstr "Publikt"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/EventInfo.php:127
-msgid "Private"
-msgstr "Privat"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/EventInfo.php:136
-msgid "Step 1 - Add your Event Details"
-msgstr "Steg 1 - Ange Eventinformation"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/EventInfo.php:137
-msgid "Step 2 - Create Tickets"
-msgstr "Steg 2 - Skapa Biljetter"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/EventInfo.php:138
-msgid "Step 3 - Promote your Event Page"
-msgstr "Steg 3 - Marknadsför Eventet"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/EventInfo.php:148
-msgid "Save Event"
-msgstr "Skapa Event"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/SellTickets.php:40
-msgid "LiU-ID"
-msgstr "LiU-ID"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/SellTickets.php:45
-msgid "Only digits and letters in LiU-ID please"
-msgstr "LiU-ID får bara innehålla siffror och bokstäver"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/SellTickets.php:60
-msgid "Email"
-msgstr "Mejl"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/SellTickets.php:65
-msgid "Email please"
-msgstr "Ange mejladress"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/SellTickets.php:73
-msgid "Ticket Type please"
-msgstr "Välj biljettyp"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/SellTickets.php:75
-msgid "Ticket Type"
-msgstr "Biljettyp"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/SellTickets.php:81
-msgid "Cash"
-msgstr "Kontant"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/SellTickets.php:82
-msgid "Send Invoice"
-msgstr "Skicka Faktura"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/SellTickets.php:84
-msgid "Payment Options"
-msgstr "Betalalternativ"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/SellTickets.php:85
-msgid "Select payment type please"
-msgstr "Välj betalmetod"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/SellTickets.php:89
-msgid "Register Ticket"
-msgstr "Registrera Biljett"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/Element/TicketTypeSelect.php:36
-msgid "Select Ticket Type"
-msgstr "Välj biljettyp"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/Element/TicketTypeSelect.php:45
-msgid " tickets left"
-msgstr "biljetter kvar"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/SubForm/TicketType.php:42
-msgid "Ticket Name"
-msgstr "Biljettnamn"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/SubForm/TicketType.php:53
-msgid "Ticket Quantity"
-msgstr "Antal Biljetter"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/SubForm/TicketType.php:65
-msgid "Ticket Price"
-msgstr "Biljettpris"
-
-#: C:\wamp\www\tddd27/application/modules/admin/forms/SubForm/TicketType.php:88
-msgid "Remove Ticket Type"
-msgstr "Ta bort biljettyp"
-
-#: C:\wamp\www\tddd27/application/modules/admin/validators/TicketTypeName.php:23
-msgid "Please provide a ticket name"
-msgstr "Ange ett biljettnamn"
-
-#: C:\wamp\www\tddd27/application/modules/admin/validators/TicketTypePrice.php:23
-#: C:\wamp\www\tddd27/application/modules/admin/validators/TicketTypeQuantity.php:23
-msgid "Please enter a number"
-msgstr "Ange ett nummer"
-
-#: C:\wamp\www\tddd27/application/mail-templates/invoice.phtml:1
-#: C:\wamp\www\tddd27/application/mail-templates/payment-confirmation.phtml:1
+#: application/mail-templates/invoice.phtml:1
+#: application/mail-templates/payment-confirmation.phtml:1
 msgid "Hello"
 msgstr "Hallå"
 
-#: C:\wamp\www\tddd27/application/mail-templates/invoice.phtml:3
+#: application/mail-templates/invoice.phtml:3
 msgid "this is an invoice from the ticket system"
 msgstr "detta är en faktura från biljettsystemet Attend"
 
-#: C:\wamp\www\tddd27/application/mail-templates/invoice.phtml:25
-#: C:\wamp\www\tddd27/application/mail-templates/payment-confirmation.phtml:25
+#: application/mail-templates/invoice.phtml:8
+#: application/mail-templates/payment-confirmation.phtml:8
+#: application/modules/admin/forms/EventInfo.php:76
+#: application/modules/admin/forms/SellTickets.php:57
+#: application/modules/admin/views/scripts/event/attendees.phtml:13
+#: application/modules/admin/views/scripts/event/my-events.phtml:19
+#: application/modules/admin/views/scripts/index/index.phtml:19
+msgid "Name"
+msgstr "Namn"
+
+#: application/mail-templates/invoice.phtml:12
+#: application/mail-templates/payment-confirmation.phtml:12
+#: application/modules/admin/forms/SellTickets.php:66
+#: application/modules/admin/views/scripts/event/attendees.phtml:19
+msgid "Email"
+msgstr "Mejl"
+
+#: application/mail-templates/invoice.phtml:20
+#: application/mail-templates/payment-confirmation.phtml:20
 msgid "Price"
 msgstr "Pris"
 
-#: C:\wamp\www\tddd27/application/mail-templates/invoice.phtml:33
+#: application/mail-templates/invoice.phtml:25
 msgid "Pay"
 msgstr "Betala"
 
-#: C:\wamp\www\tddd27/application/mail-templates/invoice.phtml:33
+#: application/mail-templates/invoice.phtml:25
 msgid "along with the OCR"
 msgstr "tillsammans med OCR"
 
-#: C:\wamp\www\tddd27/application/mail-templates/invoice.phtml:34
+#: application/mail-templates/invoice.phtml:26
 msgid "to"
 msgstr "till"
 
-#: C:\wamp\www\tddd27/application/mail-templates/invoice.phtml:35
+#: application/mail-templates/invoice.phtml:27
 msgid "if you want your ticket."
 msgstr "om du vill ha din biljett."
 
-#: C:\wamp\www\tddd27/application/mail-templates/invoice.phtml:37
-#: C:\wamp\www\tddd27/application/mail-templates/payment-confirmation.phtml:33
+#: application/mail-templates/invoice.phtml:29
+#: application/mail-templates/payment-confirmation.phtml:25
 msgid "Greetings"
 msgstr "Hälsningar"
 
-#: C:\wamp\www\tddd27/application/mail-templates/payment-confirmation.phtml:3
+#: application/mail-templates/payment-confirmation.phtml:3
 msgid "We have received your payment"
 msgstr "Vi har mottagit din betalning"
 
-#: C:\wamp\www\tddd27/application/modules/admin/views/scripts/event/attendees.phtml:20
+#: application/modules/admin/controllers/EventController.php:56
+msgid "created"
+msgstr "skapad"
+
+#: application/modules/admin/controllers/EventController.php:150
+msgid "Invoice"
+msgstr "Faktura"
+
+#: application/modules/admin/controllers/EventController.php:163
+msgid "Payment confirmation"
+msgstr "Betalningsbekräftelse"
+
+#: application/modules/admin/controllers/EventController.php:174
+msgid "Ticket is registred"
+msgstr "Biljetten är registrerad"
+
+#: application/modules/admin/controllers/EventController.php:224
+msgid "saved"
+msgstr "sparad"
+
+#: application/modules/admin/controllers/EventController.php:264
+msgid "is now deleted"
+msgstr "är nu borttaget"
+
+#: application/modules/admin/controllers/EventController.php:306
+msgid "has been unpublished"
+msgstr "har avpublicerats"
+
+#: application/modules/admin/controllers/EventController.php:310
+msgid "has been published"
+msgstr "har publicerats"
+
+#: application/modules/admin/forms/Element/TicketTypeSelect.php:35
+msgid "Select Ticket Type"
+msgstr "Välj biljettyp"
+
+#: application/modules/admin/forms/Element/TicketTypeSelect.php:58
+msgid " tickets left"
+msgstr "biljetter kvar"
+
+#: application/modules/admin/forms/EventInfo.php:51
+msgid "Step 1 - Add your Event Details"
+msgstr "Steg 1 - Ange Eventinformation"
+
+#: application/modules/admin/forms/EventInfo.php:56
+msgid "Step 2 - Create Tickets"
+msgstr "Steg 2 - Skapa Biljetter"
+
+#: application/modules/admin/forms/EventInfo.php:61
+msgid "Step 3 - Promote your Event Page"
+msgstr "Steg 3 - Marknadsför Eventet"
+
+#: application/modules/admin/forms/EventInfo.php:80
+#: application/modules/admin/forms/SellTickets.php:61
+msgid "Name please"
+msgstr "Ange ett namn"
+
+#: application/modules/admin/forms/EventInfo.php:85
+msgid "Location"
+msgstr "Plats"
+
+#: application/modules/admin/forms/EventInfo.php:89
+msgid "Location please"
+msgstr "Ange plats tack"
+
+#: application/modules/admin/forms/EventInfo.php:94
+msgid "Event starts"
+msgstr "Eventet börjar"
+
+#: application/modules/admin/forms/EventInfo.php:97
+msgid "Start time please"
+msgstr "Ange starttid tack"
+
+#: application/modules/admin/forms/EventInfo.php:103
+msgid "Event ends"
+msgstr "Eventet slutar"
+
+#: application/modules/admin/forms/EventInfo.php:106
+msgid "End time please"
+msgstr "Ange sluttid tack"
+
+#: application/modules/admin/forms/EventInfo.php:112
+#: application/modules/admin/forms/SubForm/TicketType.php:73
+msgid "Details"
+msgstr "Detaljer"
+
+#: application/modules/admin/forms/EventInfo.php:139
+msgid "New Ticket Type"
+msgstr "Ny Biljettyp"
+
+#: application/modules/admin/forms/EventInfo.php:149
+msgid "Publicize, or keep it private"
+msgstr "Publicera, eller håll privat"
+
+#: application/modules/admin/forms/EventInfo.php:151
+msgid "Public"
+msgstr "Publikt"
+
+#: application/modules/admin/forms/EventInfo.php:152
+msgid "Private"
+msgstr "Privat"
+
+#: application/modules/admin/forms/EventInfo.php:156
+msgid "Save Event"
+msgstr "Skapa Event"
+
+#: application/modules/admin/forms/SellTickets.php:48
+#: application/modules/admin/views/scripts/event/attendees.phtml:16
+msgid "LiU-ID"
+msgstr "LiU-ID"
+
+#: application/modules/admin/forms/SellTickets.php:52
+msgid "Only digits and letters in LiU-ID please"
+msgstr "LiU-ID får bara innehålla siffror och bokstäver"
+
+#: application/modules/admin/forms/SellTickets.php:70
+msgid "Email please"
+msgstr "Ange mejladress"
+
+#: application/modules/admin/forms/SellTickets.php:75
+msgid "Ticket Type"
+msgstr "Biljettyp"
+
+#: application/modules/admin/forms/SellTickets.php:77
+msgid "Ticket Type please"
+msgstr "Välj biljettyp"
+
+#: application/modules/admin/forms/SellTickets.php:86
+msgid "Payment Options"
+msgstr "Betalalternativ"
+
+#: application/modules/admin/forms/SellTickets.php:88
+msgid "Select payment type please"
+msgstr "Välj betalmetod"
+
+#: application/modules/admin/forms/SellTickets.php:90
+msgid "Cash"
+msgstr "Kontant"
+
+#: application/modules/admin/forms/SellTickets.php:91
+msgid "Send Invoice"
+msgstr "Skicka Faktura"
+
+#: application/modules/admin/forms/SellTickets.php:96
+msgid "Register Ticket"
+msgstr "Registrera Biljett"
+
+#: application/modules/admin/forms/SubForm/TicketType.php:46
+msgid "Ticket Name"
+msgstr "Biljettnamn"
+
+#: application/modules/admin/forms/SubForm/TicketType.php:55
+msgid "Ticket Quantity"
+msgstr "Antal Biljetter"
+
+#: application/modules/admin/forms/SubForm/TicketType.php:64
+msgid "Ticket Price"
+msgstr "Biljettpris"
+
+#: application/modules/admin/forms/SubForm/TicketType.php:83
+msgid "Remove Ticket Type"
+msgstr "Ta bort biljettyp"
+
+#: application/modules/admin/validators/TicketTypeName.php:23
+msgid "Please provide a ticket name"
+msgstr "Ange ett biljettnamn"
+
+#: application/modules/admin/validators/TicketTypePrice.php:23
+#: application/modules/admin/validators/TicketTypeQuantity.php:22
+msgid "Please enter a number"
+msgstr "Ange ett nummer"
+
+#: application/modules/admin/views/scripts/event/attendees.phtml:22
 msgid "Ticket"
 msgstr "Biljett"
 
-#: C:\wamp\www\tddd27/application/modules/admin/views/scripts/event/attendees.phtml:23
+#: application/modules/admin/views/scripts/event/attendees.phtml:25
 msgid "Payment"
 msgstr "Betalning"
 
-#: C:\wamp\www\tddd27/application/modules/admin/views/scripts/event/attendees.phtml:26
+#: application/modules/admin/views/scripts/event/attendees.phtml:28
 msgid "OCR"
 msgstr "OCR"
 
-#: C:\wamp\www\tddd27/application/modules/admin/views/scripts/index/index.phtml:7
+#: application/modules/admin/views/scripts/event/my-events.phtml:7
+#: application/modules/admin/views/scripts/index/index.phtml:7
 msgid "Your events are listed below"
 msgstr "Dina  event listas nedan"
 
-#: C:\wamp\www\tddd27/application/modules/admin/views/scripts/index/index.phtml:20
+#: application/modules/admin/views/scripts/event/my-events.phtml:20
+#: application/modules/admin/views/scripts/index/index.phtml:20
 msgid "Date"
 msgstr "Datum"
 
-#: C:\wamp\www\tddd27/application/modules/admin/views/scripts/index/index.phtml:21
+#: application/modules/admin/views/scripts/event/my-events.phtml:21
+#: application/modules/admin/views/scripts/index/index.phtml:21
 msgid "Published"
 msgstr "Publicerad"
 
-#: C:\wamp\www\tddd27/application/modules/admin/views/scripts/index/index.phtml:22
+#: application/modules/admin/views/scripts/event/my-events.phtml:22
+#: application/modules/admin/views/scripts/index/index.phtml:22
 msgid "Quick links"
 msgstr "Snabblänkar"
 
-#: C:\wamp\www\tddd27/application/modules/admin/views/scripts/index/index.phtml:30
+#: application/modules/admin/views/scripts/event/my-events.phtml:37
+#: application/modules/admin/views/scripts/index/index.phtml:34
 msgid "Live"
 msgstr "Live"
 
-#: C:\wamp\www\tddd27/application/modules/admin/views/scripts/index/index.phtml:30
+#: application/modules/admin/views/scripts/event/my-events.phtml:42
+#: application/modules/admin/views/scripts/index/index.phtml:39
 msgid "Draft"
 msgstr "Utkast"
 
-#: C:\wamp\www\tddd27/application/modules/admin/views/scripts/index/index.phtml:32
+#: application/modules/admin/views/scripts/event/my-events.phtml:47
+#: application/modules/admin/views/scripts/index/index.phtml:44
 msgid "Edit"
 msgstr "Ändra"
 
-#: C:\wamp\www\tddd27/application/modules/admin/views/scripts/index/index.phtml:33
+#: application/modules/admin/views/scripts/event/my-events.phtml:48
+#: application/modules/admin/views/scripts/index/index.phtml:45
 msgid "Delete"
 msgstr "Ta bort"
 
-#: C:\wamp\www\tddd27/application/modules/admin/views/scripts/index/index.phtml:34
+#: application/modules/admin/views/scripts/event/my-events.phtml:49
+#: application/modules/admin/views/scripts/index/index.phtml:46
 msgid "Unpublish"
 msgstr "Avpublicera"
 
-#: C:\wamp\www\tddd27/application/modules/admin/views/scripts/index/index.phtml:34
+#: application/modules/admin/views/scripts/event/my-events.phtml:49
+#: application/modules/admin/views/scripts/index/index.phtml:46
 msgid "Publish"
 msgstr "Publicera"
 
-#: C:\wamp\www\tddd27/application/modules/default/views/scripts/index/index.phtml:19
+#: application/modules/default/views/scripts/index/index.phtml:32
 msgid "The Ticket System"
 msgstr "Biljettsystemet"
 
-#: C:\wamp\www\tddd27/application/modules/default/views/scripts/index/index.phtml:21
+#: application/modules/default/views/scripts/index/index.phtml:34
 msgid "Browse events or create your own events and sell tickets right here. "
 msgstr "Bläddra bland event eller skapa ditt egna event och sälj biljetter."
 
-#~ msgid "End time"
-#~ msgstr "Sluttid"
+#: application/modules/login/controllers/IndexController.php:82
+msgid "You are about to create a new user."
+msgstr "Du försöker skapa en ny användare."
 
-#~ msgid "Action"
-#~ msgstr "Funktion"
-
-#~ msgid "my_events_top_message"
-#~ msgstr "Dina event listas nedan."
+#: application/modules/login/controllers/IndexController.php:83
+msgid "User Agreement message"
+msgstr ""
+"För att använda våra tjänster behöver vi din tillåtelse att spara ditt "
+"användarid för den inloggningstjänst som du använder. Vi komer dock aldrig "
+"behöva spara ditt lösenord. Det är en av fördelarna med att använda externa "
+"inloggningstjänster."
