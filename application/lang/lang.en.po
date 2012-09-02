@@ -1,52 +1,357 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Attend\n"
+"Project-Id-Version: TDDD27\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-30 06:00+0100\n"
-"PO-Revision-Date: 2012-05-30 06:03+0100\n"
-"Last-Translator: Jens Moser <jenmo917@gmail.com>\n"
-"Language-Team: Automagisk\n"
+"POT-Creation-Date: 2012-09-01 20:09+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Daniel Josefsson <danjo140@student.liu.se>\n"
+"Language-Team: Automagisk <language@automagisk.nu>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-KeywordsList: translate\n"
-"X-Poedit-Basepath: C:\\wamp\\www\\tddd27\\\n"
-"X-Poedit-Language: English\n"
-"X-Poedit-Country: UNITED KINGDOM\n"
-"X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-SearchPath-0: C:\\wamp\\www\\tddd27\n"
 
-#: C:\wamp\www\tddd27/application/modules/admin/views/scripts/index/index.phtml:7
-msgid "my_events_top_message"
-msgstr "Your events are listed below."
-
-#: C:\wamp\www\tddd27/application/modules/admin/views/scripts/index/index.phtml:19
-msgid "name"
+#: application/library/Plugins/Navigation.php:24
+msgid "Start"
 msgstr ""
 
-#: C:\wamp\www\tddd27/application/modules/admin/views/scripts/index/index.phtml:20
-msgid "location"
+#: application/library/Plugins/Navigation.php:32
+#: application/modules/admin/views/scripts/event/create-event.phtml:2
+msgid "Create Event"
 msgstr ""
 
-#: C:\wamp\www\tddd27/application/modules/admin/views/scripts/index/index.phtml:21
-msgid "start_time"
+#: application/library/Plugins/Navigation.php:40
+#: application/modules/admin/views/scripts/event/my-events.phtml:2
+#: application/modules/admin/views/scripts/index/index.phtml:2
+msgid "My Events"
 msgstr ""
 
-#: C:\wamp\www\tddd27/application/modules/admin/views/scripts/index/index.phtml:22
-msgid "end_time"
+#: application/library/Plugins/Navigation.php:48
+msgid "Sign in"
 msgstr ""
 
-#: C:\wamp\www\tddd27/application/modules/admin/views/scripts/index/index.phtml:23
-msgid "action"
+#: application/library/Plugins/Navigation.php:56
+msgid "Sign out"
 msgstr ""
 
-#: C:\wamp\www\tddd27/application/modules/admin/views/scripts/index/index.phtml:32
-msgid "edit"
+#: application/library/Plugins/Navigation.php:83
+#: application/modules/admin/views/scripts/event/index.phtml:7
+msgid "Overview"
 msgstr ""
 
-#: C:\wamp\www\tddd27/application/modules/admin/views/scripts/index/index.phtml:32
-msgid "delete"
+#: application/library/Plugins/Navigation.php:92
+#: application/modules/admin/views/scripts/event/sell.phtml:7
+msgid "Sell Tickets"
 msgstr ""
 
-#~ msgid "Hej"
-#~ msgstr "Hello"
+#: application/library/Plugins/Navigation.php:101
+#: application/modules/admin/views/scripts/event/attendees.phtml:7
+msgid "Attendees"
+msgstr ""
+
+#: application/mail-templates/invoice.phtml:1
+#: application/mail-templates/payment-confirmation.phtml:1
+msgid "Hello"
+msgstr ""
+
+#: application/mail-templates/invoice.phtml:3
+msgid "this is an invoice from the ticket system"
+msgstr ""
+
+#: application/mail-templates/invoice.phtml:8
+#: application/mail-templates/payment-confirmation.phtml:8
+#: application/modules/admin/forms/EventInfo.php:76
+#: application/modules/admin/forms/SellTickets.php:57
+#: application/modules/admin/views/scripts/event/attendees.phtml:13
+#: application/modules/admin/views/scripts/event/my-events.phtml:19
+#: application/modules/admin/views/scripts/index/index.phtml:19
+msgid "Name"
+msgstr ""
+
+#: application/mail-templates/invoice.phtml:12
+#: application/mail-templates/payment-confirmation.phtml:12
+#: application/modules/admin/forms/SellTickets.php:66
+#: application/modules/admin/views/scripts/event/attendees.phtml:19
+msgid "Email"
+msgstr ""
+
+#: application/mail-templates/invoice.phtml:20
+#: application/mail-templates/payment-confirmation.phtml:20
+msgid "Price"
+msgstr ""
+
+#: application/mail-templates/invoice.phtml:25
+msgid "Pay"
+msgstr ""
+
+#: application/mail-templates/invoice.phtml:25
+msgid "along with the OCR"
+msgstr ""
+
+#: application/mail-templates/invoice.phtml:26
+msgid "to"
+msgstr ""
+
+#: application/mail-templates/invoice.phtml:27
+msgid "if you want your ticket."
+msgstr ""
+
+#: application/mail-templates/invoice.phtml:29
+#: application/mail-templates/payment-confirmation.phtml:25
+msgid "Greetings"
+msgstr ""
+
+#: application/mail-templates/payment-confirmation.phtml:3
+msgid "We have received your payment"
+msgstr ""
+
+#: application/modules/admin/controllers/EventController.php:56
+msgid "created"
+msgstr ""
+
+#: application/modules/admin/controllers/EventController.php:150
+msgid "Invoice"
+msgstr ""
+
+#: application/modules/admin/controllers/EventController.php:163
+msgid "Payment confirmation"
+msgstr ""
+
+#: application/modules/admin/controllers/EventController.php:174
+msgid "Ticket is registred"
+msgstr ""
+
+#: application/modules/admin/controllers/EventController.php:224
+msgid "saved"
+msgstr ""
+
+#: application/modules/admin/controllers/EventController.php:264
+msgid "is now deleted"
+msgstr ""
+
+#: application/modules/admin/controllers/EventController.php:306
+msgid "has been unpublished"
+msgstr ""
+
+#: application/modules/admin/controllers/EventController.php:310
+msgid "has been published"
+msgstr ""
+
+#: application/modules/admin/forms/Element/TicketTypeSelect.php:35
+msgid "Select Ticket Type"
+msgstr ""
+
+#: application/modules/admin/forms/Element/TicketTypeSelect.php:58
+msgid " tickets left"
+msgstr ""
+
+#: application/modules/admin/forms/EventInfo.php:51
+msgid "Step 1 - Add your Event Details"
+msgstr ""
+
+#: application/modules/admin/forms/EventInfo.php:56
+msgid "Step 2 - Create Tickets"
+msgstr ""
+
+#: application/modules/admin/forms/EventInfo.php:61
+msgid "Step 3 - Promote your Event Page"
+msgstr ""
+
+#: application/modules/admin/forms/EventInfo.php:80
+#: application/modules/admin/forms/SellTickets.php:61
+msgid "Name please"
+msgstr ""
+
+#: application/modules/admin/forms/EventInfo.php:85
+msgid "Location"
+msgstr ""
+
+#: application/modules/admin/forms/EventInfo.php:89
+msgid "Location please"
+msgstr ""
+
+#: application/modules/admin/forms/EventInfo.php:94
+msgid "Event starts"
+msgstr ""
+
+#: application/modules/admin/forms/EventInfo.php:97
+msgid "Start time please"
+msgstr ""
+
+#: application/modules/admin/forms/EventInfo.php:103
+msgid "Event ends"
+msgstr ""
+
+#: application/modules/admin/forms/EventInfo.php:106
+msgid "End time please"
+msgstr ""
+
+#: application/modules/admin/forms/EventInfo.php:112
+#: application/modules/admin/forms/SubForm/TicketType.php:73
+msgid "Details"
+msgstr ""
+
+#: application/modules/admin/forms/EventInfo.php:139
+msgid "New Ticket Type"
+msgstr ""
+
+#: application/modules/admin/forms/EventInfo.php:149
+msgid "Publicize, or keep it private"
+msgstr ""
+
+#: application/modules/admin/forms/EventInfo.php:151
+msgid "Public"
+msgstr ""
+
+#: application/modules/admin/forms/EventInfo.php:152
+msgid "Private"
+msgstr ""
+
+#: application/modules/admin/forms/EventInfo.php:156
+msgid "Save Event"
+msgstr ""
+
+#: application/modules/admin/forms/SellTickets.php:48
+#: application/modules/admin/views/scripts/event/attendees.phtml:16
+msgid "LiU-ID"
+msgstr ""
+
+#: application/modules/admin/forms/SellTickets.php:52
+msgid "Only digits and letters in LiU-ID please"
+msgstr ""
+
+#: application/modules/admin/forms/SellTickets.php:70
+msgid "Email please"
+msgstr ""
+
+#: application/modules/admin/forms/SellTickets.php:75
+msgid "Ticket Type"
+msgstr ""
+
+#: application/modules/admin/forms/SellTickets.php:77
+msgid "Ticket Type please"
+msgstr ""
+
+#: application/modules/admin/forms/SellTickets.php:86
+msgid "Payment Options"
+msgstr ""
+
+#: application/modules/admin/forms/SellTickets.php:88
+msgid "Select payment type please"
+msgstr ""
+
+#: application/modules/admin/forms/SellTickets.php:90
+msgid "Cash"
+msgstr ""
+
+#: application/modules/admin/forms/SellTickets.php:91
+msgid "Send Invoice"
+msgstr ""
+
+#: application/modules/admin/forms/SellTickets.php:96
+msgid "Register Ticket"
+msgstr ""
+
+#: application/modules/admin/forms/SubForm/TicketType.php:46
+msgid "Ticket Name"
+msgstr ""
+
+#: application/modules/admin/forms/SubForm/TicketType.php:55
+msgid "Ticket Quantity"
+msgstr ""
+
+#: application/modules/admin/forms/SubForm/TicketType.php:64
+msgid "Ticket Price"
+msgstr ""
+
+#: application/modules/admin/forms/SubForm/TicketType.php:83
+msgid "Remove Ticket Type"
+msgstr ""
+
+#: application/modules/admin/validators/TicketTypeName.php:23
+msgid "Please provide a ticket name"
+msgstr ""
+
+#: application/modules/admin/validators/TicketTypePrice.php:23
+#: application/modules/admin/validators/TicketTypeQuantity.php:22
+msgid "Please enter a number"
+msgstr ""
+
+#: application/modules/admin/views/scripts/event/attendees.phtml:22
+msgid "Ticket"
+msgstr ""
+
+#: application/modules/admin/views/scripts/event/attendees.phtml:25
+msgid "Payment"
+msgstr ""
+
+#: application/modules/admin/views/scripts/event/attendees.phtml:28
+msgid "OCR"
+msgstr ""
+
+#: application/modules/admin/views/scripts/event/my-events.phtml:7
+#: application/modules/admin/views/scripts/index/index.phtml:7
+msgid "Your events are listed below"
+msgstr ""
+
+#: application/modules/admin/views/scripts/event/my-events.phtml:20
+#: application/modules/admin/views/scripts/index/index.phtml:20
+msgid "Date"
+msgstr ""
+
+#: application/modules/admin/views/scripts/event/my-events.phtml:21
+#: application/modules/admin/views/scripts/index/index.phtml:21
+msgid "Published"
+msgstr ""
+
+#: application/modules/admin/views/scripts/event/my-events.phtml:22
+#: application/modules/admin/views/scripts/index/index.phtml:22
+msgid "Quick links"
+msgstr ""
+
+#: application/modules/admin/views/scripts/event/my-events.phtml:37
+#: application/modules/admin/views/scripts/index/index.phtml:34
+msgid "Live"
+msgstr ""
+
+#: application/modules/admin/views/scripts/event/my-events.phtml:42
+#: application/modules/admin/views/scripts/index/index.phtml:39
+msgid "Draft"
+msgstr ""
+
+#: application/modules/admin/views/scripts/event/my-events.phtml:47
+#: application/modules/admin/views/scripts/index/index.phtml:44
+msgid "Edit"
+msgstr ""
+
+#: application/modules/admin/views/scripts/event/my-events.phtml:48
+#: application/modules/admin/views/scripts/index/index.phtml:45
+msgid "Delete"
+msgstr ""
+
+#: application/modules/admin/views/scripts/event/my-events.phtml:49
+#: application/modules/admin/views/scripts/index/index.phtml:46
+msgid "Unpublish"
+msgstr ""
+
+#: application/modules/admin/views/scripts/event/my-events.phtml:49
+#: application/modules/admin/views/scripts/index/index.phtml:46
+msgid "Publish"
+msgstr ""
+
+#: application/modules/default/views/scripts/index/index.phtml:32
+msgid "The Ticket System"
+msgstr ""
+
+#: application/modules/default/views/scripts/index/index.phtml:34
+msgid "Browse events or create your own events and sell tickets right here. "
+msgstr ""
+
+#: application/modules/login/controllers/IndexController.php:82
+msgid "You are about to create a new user."
+msgstr ""
+
+#: application/modules/login/controllers/IndexController.php:83
+msgid "User Agreement message"
+msgstr "To use our services, we need your permission to save your login service user id. We will never store your password, this is the beauty with using external login services."
+

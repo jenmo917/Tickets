@@ -9,3 +9,5 @@ extras/documentation
 *~
 *.bak
 application/cache/zend_cache*
+application/lang/po/*
+application/lang/mo/*
