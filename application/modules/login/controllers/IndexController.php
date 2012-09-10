@@ -31,6 +31,7 @@ class Login_IndexController extends Zend_Controller_Action
 		$this->view->cas_url
 			= $this->_userInfoSession->getLoginUrl($liuServiceName);
 		$this->liuLoginAction();
+		$this->render('liu-login');
 	}
 
 	/**
@@ -42,8 +43,9 @@ class Login_IndexController extends Zend_Controller_Action
 	{
 		$liuServiceName = Login_Model_LiuInfoSession::getServiceName();
 		$this->_loadUserInfoSession();
-		$this->view->cas_url
-			= $this->_userInfoSession->getLoginUrl($liuServiceName);
+		$translator = Zend_Registry::get('Zend_Translate');
+		$this->view->authMessage = $translator->translate('LiU authentication message');
+		$this->view->form = new Login_Form_LiuLogin(array('action' => $this->_userInfoSession->getLoginUrl($liuServiceName)));
 		$request = $this->getRequest();
 		// A CAS request returns a ticket as a get variable. Do a redirect to fix the url.
 		// TODO:: Make up a good way to set the cas service so the url does not include ticket.
