@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TDDD27\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-01 20:09+0200\n"
+"POT-Creation-Date: 2012-09-07 08:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Daniel Josefsson <danjo140@student.liu.se>\n"
 "Language-Team: Automagisk <language@automagisk.nu>\n"
@@ -13,12 +13,12 @@ msgstr ""
 
 #: application/library/Plugins/Navigation.php:24
 msgid "Start"
-msgstr ""
+msgstr "Start"
 
 #: application/library/Plugins/Navigation.php:32
 #: application/modules/admin/views/scripts/event/create-event.phtml:2
 msgid "Create Event"
-msgstr ""
+msgstr "Create Event"
 
 #: application/library/Plugins/Navigation.php:40
 #: application/modules/admin/views/scripts/event/my-events.phtml:2
@@ -27,6 +27,7 @@ msgid "My Events"
 msgstr ""
 
 #: application/library/Plugins/Navigation.php:48
+#: application/modules/login/forms/LiuLogin.php:13
 msgid "Sign in"
 msgstr ""
 
@@ -347,11 +348,33 @@ msgstr ""
 msgid "Browse events or create your own events and sell tickets right here. "
 msgstr ""
 
-#: application/modules/login/controllers/IndexController.php:82
+#: application/modules/login/controllers/IndexController.php:47
+msgid "LiU authentication message"
+msgstr "Authenticate yourself with a LiU-ID by pressing the button below. You will "
+"be redirected to LiU's CAS.Only account holders at LiU can use this "
+"authentication."
+
+#: application/modules/login/controllers/IndexController.php:84
 msgid "You are about to create a new user."
 msgstr ""
 
-#: application/modules/login/controllers/IndexController.php:83
+#: application/modules/login/controllers/IndexController.php:85
 msgid "User Agreement message"
-msgstr "To use our services, we need your permission to save your login service user id. We will never store your password, this is the beauty with using external login services."
+msgstr ""
+
+#: application/modules/login/forms/Confirm.php:12
+msgid "ok"
+msgstr ""
+
+#: application/modules/login/forms/Confirm.php:12
+msgid "Alrigt, I approve"
+msgstr ""
+
+#: application/modules/login/forms/Confirm.php:13
+msgid "cancel"
+msgstr ""
+
+#: application/modules/login/forms/Confirm.php:13
+msgid "Cancel"
+msgstr ""
 
