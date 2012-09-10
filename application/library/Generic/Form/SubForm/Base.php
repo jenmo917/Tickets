@@ -41,7 +41,7 @@ class Generic_Form_SubForm_Base extends Zend_Form
 
 	/** @var array Decorators for button and submit elements */
 	// decorators that will be used for submit and button elements
-	public $buttonDecorators = array(
+	static public $buttonDecorators = array(
 		'ViewHelper',
 		array('HtmlTag', array('tag' => 'li', 'class' => 'subform-button'))
 	);
