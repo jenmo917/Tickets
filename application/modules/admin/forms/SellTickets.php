@@ -81,11 +81,15 @@ class Admin_Form_SellTickets extends Generic_Form_Base
 			'multiOptions'	=> array(
 				"cash"		=> gettext('Cash'),
 				"invoice"	=> gettext('Send Invoice')),
+			'separator'		=> '</li><li>',
+			"disableLoadDefaultDecorators" => true,
+			'decorators'	=> $this::$multiChoiseDecorators,
 			
 		));
 
 		// Add submit button
 		$this->addElement('submit', self::REGISTER_TICKET_SUBMIT, array(
+				'decorators' => $this::$buttonDecorators,
 				'label' => gettext('Register Ticket')));
 	}
 
