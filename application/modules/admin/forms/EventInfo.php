@@ -8,11 +8,6 @@ class Admin_Form_EventInfo extends Generic_Form_Base
 	const STEP_1	= 'step1';
 	const STEP_2	= 'step2';
 	const STEP_3	= 'step3';
-	/**
-	 * Instance of Zend_Translate
-	 * @var Zend_Translate $_translator
-	 */
-	protected $_translator;
 	protected $_numOfTickets = 0;
 
 	/**
@@ -29,14 +24,12 @@ class Admin_Form_EventInfo extends Generic_Form_Base
 	}
 
 	/**
-	 * Init default translator
 	 * @author	Jens Moser <jenmo917@gmail.com>
 	 * @since	v0.1
 	 * @return	null
 	 */
 	public function init()
 	{
-		$this->_translator = $this->getTranslator();
 		$this->setName('EventInfo');
 		// Form element names
 		$formNames = Attend_Db_Table_Row_Event::getColumnNames('both', '_');
@@ -48,17 +41,17 @@ class Admin_Form_EventInfo extends Generic_Form_Base
 		$step1 = new Generic_Form_SubForm_Base(array(
 					'name' =>			self::STEP_1,
 					'elementsBelongTo'	=> self::STEP_1,
-					'legend'			=> $this->_translator->translate('Step 1 - Add your Event Details')
+					'legend'			=> gettext('Step 1 - Add your Event Details')
 		));
 		$step2 = new Generic_Form_SubForm_Base(array(
 					'name' => self::STEP_2,
 					'elementsBelongTo' => self::STEP_2,
-					'legend'			=> $this->_translator->translate('Step 2 - Create Tickets')
+					'legend'			=> gettext('Step 2 - Create Tickets')
 		));
 		$step3 = new Generic_Form_SubForm_Base(array(
 					'name'				=> self::STEP_3,
 					'elementsBelongTo'	=> self::STEP_3,
-					'legend'			=> $this->_translator->translate('Step 3 - Promote your Event Page')
+					'legend'			=> gettext('Step 3 - Promote your Event Page')
 		));
 
 		// Attach sub forms to main form
@@ -73,43 +66,43 @@ class Admin_Form_EventInfo extends Generic_Form_Base
 		*/
 		// Add name
 		$step1->addElement('text', $formNames['name'], array(
-					'label'			=> $this->_translator->translate('Name'),
+					'label'			=> gettext('Name'),
 					'required'		=> true,
 					'filters'		=> array('StringTrim','StripTags'),
 					'validators'	=> array('notEmpty'),
-					'errorMessages'	=> array($this->_translator->translate('Name please').'.')
+					'errorMessages'	=> array(gettext('Name please').'.')
 		));
 
 		// Add location
 		$step1->addElement('text', $formNames['location'], array(
-					'label'			=> $this->_translator->translate('Location'),
+					'label'			=> gettext('Location'),
 					'required'		=> true,
 					'filters'		=> array('StringTrim','StripTags'),
 					'validators'	=> array('notEmpty'),
-					'errorMessages'	=> array($this->_translator->translate('Location please').'.')
+					'errorMessages'	=> array(gettext('Location please').'.')
 		));
 
 		// Add start time
 		$step1->addElement('text', $formNames['startTime'], array(
-					'label'			=> $this->_translator->translate('Event starts'),
+					'label'			=> gettext('Event starts'),
 					'required'		=> true,
 					'filters'		=> array('StringTrim','StripTags'),
-					'errorMessages'	=> array($this->_translator->translate('Start time please').'.'),
+					'errorMessages'	=> array(gettext('Start time please').'.'),
 					'class'			=> array('date-pick')
 		));
 
 		// Add end time
 		$step1->addElement('text', $formNames['endTime'], array(
-					'label'			=> $this->_translator->translate('Event ends'),
+					'label'			=> gettext('Event ends'),
 					'required'		=> true,
 					'filters'		=> array('StringTrim','StripTags'),
-					'errorMessages'	=> array($this->_translator->translate('End time please').'.'),
+					'errorMessages'	=> array(gettext('End time please').'.'),
 					'class'			=> array('date-pick')
 		));
 
 		// Add details
 		$step1->addElement('textarea', $formNames['details'], array(
-					'label'			=> $this->_translator->translate('Details'),
+					'label'			=> gettext('Details'),
 					'required'		=> false,
 					'filters'		=> array('StringTrim','StripTags'),
 					'errorMessages'	=> array(),
@@ -136,8 +129,9 @@ class Admin_Form_EventInfo extends Generic_Form_Base
 
 		// Add submit button. This is used by Jquery to add more ticket type subforms
 		$step2->addElement(	'submit', self::NEW_TICKET_TYPE_SUBMIT, array(
-					'label' => $this->_translator->translate('New Ticket Type'),
-					'order' => $this->_numOfTickets + 1000));
+				'label' => gettext('New Ticket Type'),
+				'order' => $this->_numOfTickets + 1000,
+				'decorators' => $this::$buttonDecorators));
 		//TODO: The dynamic order of this button is not recognized by the form.
 
 		/*
@@ -146,14 +140,16 @@ class Admin_Form_EventInfo extends Generic_Form_Base
 
 		// Add public
 		$step3->addElement(	'select', $formNames['public'],array(
-					'label' => $this->_translator->translate('Publicize, or keep it private'),
+					'label' => gettext('Publicize, or keep it private'),
 					'multiOptions' => array(
-						"1" => $this->_translator->translate('Public'),
-						"0" => $this->_translator->translate('Private'))
+						"1" => gettext('Public'),
+						"0" => gettext('Private'))
 		));
 
 		// Add main submit button
-		$this->addElement('submit', self::SAVE_EVENT_SUBMIT, array('label' => $this->_translator->translate('Save Event')));
+		$this->addElement('submit', self::SAVE_EVENT_SUBMIT, array(
+				'label' => gettext('Save Event'),
+				'decorators' => $this::$buttonDecorators));
 	}
 
 	public function addTicketType()
