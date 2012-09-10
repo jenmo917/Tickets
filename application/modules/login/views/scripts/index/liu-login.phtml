@@ -6,11 +6,11 @@
 ?>
 <h1>Login</h1>
 <p>
-Authenticate yourself with a LiU-ID by pressing the button below. You will be redirected to LiU's CAS.
-Only account holders at LiU can use this authentication.<br/>
+<?php echo $this->authMessage;?>
 </p>
 <?php
-if (!empty($this->message)) {
+if (!empty($this->message))
+{
 	echo '<font color="red">';
 	echo $this->escape($this->message[0]);
 	echo '</font>';
@@ -18,21 +18,13 @@ if (!empty($this->message)) {
 
 if(isset($this->messages))
 {
-    foreach ($this->messages as $message) {
-            echo "<div class=\"message\">{$message}</div>";
-    }
+	foreach ($this->messages as $message)
+	{
+		echo "<div class=\"message\">{$message}</div>";
+	}
 }
 if(isset($this->form))
 {
-    echo $this->form;
+	echo $this->form;
 }
-else
-{
-
 ?>
-<br />
-<form method="post" action="<?php echo $this->cas_url; ?>">
-	<input type="submit" class="main-button login-liu-button" value="Login via LiU" />
-</form>
-<?php 
-}?>
