@@ -141,16 +141,8 @@ class Login_Model_UserInfoSession
 	 */
 	protected function _setupServices()
 	{
-		$availableServicesClassNames
-			= array('Login_Model_LiuInfoSession');
-		foreach ($availableServicesClassNames as $className)
-		{
-			$this->_services = array(
-				$className::getServiceName() =>
-					array(	'className'	=> $className,
-							'object'	=> new $className()));
-		}
-	return $this;
+		$this->_services = Login_Model_LoginServiceFactory::getServices();
+		return $this;
 	}
 
 	/**
@@ -357,18 +349,18 @@ class Login_Model_UserInfoSession
 	 * @author	Daniel Josefsson <dannejosefsson@gmail.com>
 	 * @since	v0.1
 	 * @param	string $serviceName
-	 * @param	string $ticket
+	 * @param	string $identifier
 	 * @throws	Zend_Exception
 	 * @return	bool|string
 	 */
-	public function serviceLogin($serviceName, $ticket)
+	public function serviceLogin($serviceName, $identifier)
 	{
 		if(!$this->_isService($serviceName))
 		{
 			throw new Zend_Exception($serviceName. ' is not a valid service.');
 		}
 
-		$sessionData = $this->_services[$serviceName]['object']->authenticate($ticket);
+		$sessionData = $this->_services[$serviceName]['object']->authenticate($identifier);
 		if( isset($sessionData) && is_array($sessionData) && $sessionData['found'] )
 		{
 			if(!isset($this->_namespace->$serviceName) || !is_array($this->_namespace->$serviceName))
@@ -418,7 +410,7 @@ class Login_Model_UserInfoSession
 		{
 			return false;
 		}
-		return $ticket;
+		return $identifier;
 	}
 
 	/**
@@ -522,7 +514,8 @@ class Login_Model_UserInfoSession
 			$logoutUrl = true;
 			foreach ($this->_services as $serviceName => $serviceArray)
 			{
-				if ( $serviceArray['object']->isLoggedIn($this->_namespace->$serviceName) )
+				if ( is_array($this->_namespace->$serviceName) &&
+					$serviceArray['object']->isLoggedIn($this->_namespace->$serviceName) )
 				{
 					$logoutUrl = $this->serviceLogout($serviceName, null, $redirect);
 					break;
@@ -576,7 +569,8 @@ class Login_Model_UserInfoSession
 		$hasMoreAccountsLoggedIn = false;
 		foreach ($this->_services as $serviceName => $serviceArray)
 		{
-			if ( $hasMoreAccountsLoggedIn = $serviceArray['object']->isLoggedIn($this->_namespace->$serviceName, $identifiers) )
+			if ( is_array($this->_namespace->$serviceName) &&
+					$hasMoreAccountsLoggedIn = $serviceArray['object']->isLoggedIn($this->_namespace->$serviceName, $identifiers) )
 				break;
 		}
 		return $hasMoreAccountsLoggedIn;

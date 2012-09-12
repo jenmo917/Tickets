@@ -25,7 +25,7 @@ class Login_Model_LiuInfoSession implements Login_Model_UserInfoInterface
 	public function __construct()
 	{
 		$this->_auth	= Zend_Auth::getInstance();
-		$this->_adapterCas = new Zend_Auth_Adapter_Cas(self::$_casConfig);
+		$this->_adapterCas = Login_Model_Adapter_Factory::getAdapter($this->getServiceName(), self::$_casConfig);
 	}
 
 	static public function getServiceName()
@@ -85,7 +85,7 @@ class Login_Model_LiuInfoSession implements Login_Model_UserInfoInterface
 	 * 			class::getServiceName() as key.
 	 * @return	bool
 	 */
-	public function isLoggedIn($serviceArray, $identifiers = array())
+	public function isLoggedIn(array $serviceArray, array $identifiers = array())
 	{
 		if ( is_array($serviceArray) && !empty($serviceArray))
 		{
@@ -159,13 +159,11 @@ class Login_Model_LiuInfoSession implements Login_Model_UserInfoInterface
 			// Get the identity returned from the CAS
 			$userData;
 			if(is_array($this->_auth->getIdentity()))
-			{
 				$userData = $this->_auth->getIdentity();
-			}
 			else
-			{
 				$userData = array(	'userName' => $this->_auth->getIdentity(), );
-			}
+			
+			$this->_auth->clearIdentity();
 
 			// Get the user.
 			$this->_loadLiuLoginTable();

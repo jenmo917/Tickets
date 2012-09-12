@@ -10,7 +10,7 @@ class Acl_Db_Table_UserLiuLogins extends Generic_Db_Table_Abstract
 	* Table name constant.
 	* @var const
 	*/
-	const TABLE_NAME 	= 'user_liu_logins';
+	const TABLE_NAME 	= 'acl_user_liu_logins';
 	const ROW_CLASS		= 'Acl_Db_Table_Row_UserLiuLogin';
 
 	/**#@+

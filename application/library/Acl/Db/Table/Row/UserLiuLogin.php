@@ -17,12 +17,12 @@ class Acl_Db_Table_Row_UserLiuLogin extends Generic_Db_Table_Row_Abstract
 	/**
 	 * The table class is given by TABLE_CLASS.
 	 */
-	protected $_tableClass 	= self::TABLE_CLASS;
+	protected $_tableClass		= self::TABLE_CLASS;
 
 	/**
 	 * Primary column is ll_id.
 	 */
-	protected $_primary		= 'll_id';
+	protected $_primary		= array('user_id', 'liu_id');
 
 	/**
 	 * Table columns
@@ -30,8 +30,7 @@ class Acl_Db_Table_Row_UserLiuLogin extends Generic_Db_Table_Row_Abstract
 	 * @var		array
 	 */
 	protected static $_columns =
-	array(	'llId'				=> 'll_id',
-			'userId'			=> 'user_id',
+	array(	'userId'			=> 'user_id',
 			'liuId'				=> 'liu_id',
 			'created'			=> 'created',
 			'updated'			=> 'updated',);
