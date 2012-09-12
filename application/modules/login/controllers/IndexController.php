@@ -172,6 +172,26 @@ class Login_IndexController extends Zend_Controller_Action
 			null://$this->_redirect($this->_helper->url->url($defaultUrl,"defaultRoute",true)):
 			$this->_redirect($logoutUrl);
 	}
+	
+	public function openIdLoginAction()
+	{
+ 		$openIdServiceName = Login_Model_OpenIdInfoSession::getServiceName();
+		$this->_loadUserInfoSession();
+		$translator = Zend_Registry::get('Zend_Translate');
+		$this->view->authMessage = $translator->translate('openId authentication message');
+		$actionUrlArray = array('module' => 'login','controller' => 'index', 'action' => 'test');
+		$options = array('action' => $this->_helper->url->url(	$actionUrlArray, "defaultRoute",true));
+		$form = Login_Model_OpenIdInfoSession::getLoginForm($options);
+		$this->view->form = $form;
+		$request = $this->getRequest();
+		if (null !== $request->getParam($form::getSignInButtonName()) && ($identification = $request->getParam($form::getIdentifierName())))
+		{
+			$loginResult = $this->_userInfoSession->serviceLogin($openIdServiceName, $identification);
+		}
+		echo '<pre>';
+		var_dump($loginResult);
+		echo '</pre>';
+	}
 
 	public function testAction()
 	{
