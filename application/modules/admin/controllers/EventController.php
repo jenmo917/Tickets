@@ -311,7 +311,7 @@ class Admin_EventController extends Zend_Controller_Action
 		}
 
 		// Redirect to admin/index
-		$this->_redirect($this->_helper->url->url(array('module' => 'admin'),"defaultRoute",true));
+		$this->_redirect($this->_helper->url->url(array('module' => 'admin', 'controller' => 'event', 'action' => 'my-events'),"defaultRoute",true));
 	}
 
 	public function adminAction()
