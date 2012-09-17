@@ -2,11 +2,6 @@
 class Admin_Form_SubForm_TicketType extends Generic_Form_SubForm_Base {
 
 	const REMOVE_TICKET_TYPE_SUBMIT = 'remove_ticket_type';
-	/**
-	 * Instance of Zend_Translate
-	 * @var Zend_Translate $_translator
-	 */
-	protected $_translator;
 
 	/**
 	 * Set event ID
@@ -38,12 +33,9 @@ class Admin_Form_SubForm_TicketType extends Generic_Form_SubForm_Base {
 		$detailsElementName			= Attend_Db_Table_Row_TicketType::getColumnNameForUrl('details', '_');
 		$orderElementName			= Attend_Db_Table_Row_TicketType::getColumnNameForUrl('order', '_');
 
-		// Get default form translator
-		$this->_translator = $this->getTranslator();
-
 		// Add name
 		$this->addElement('text', $nameElementName, array(
-			'label'			=> $this->_translator->translate('Ticket Name'),
+			'label'			=> gettext('Ticket Name'),
 			'required'		=> false,
 			'class'			=> 'name',
 			'filters'		=> array('StringTrim','StripTags'),
@@ -52,7 +44,7 @@ class Admin_Form_SubForm_TicketType extends Generic_Form_SubForm_Base {
 
 		// Add quantity
 		$this->addElement('text', $quantityElementName, array(
-			'label'			=> $this->_translator->translate('Ticket Quantity'),
+			'label'			=> gettext('Ticket Quantity'),
 			'required'		=> false,
 			'class'			=> 'quantity',
 			'filters'		=> array('StringTrim','StripTags'),
@@ -61,7 +53,7 @@ class Admin_Form_SubForm_TicketType extends Generic_Form_SubForm_Base {
 
 		// Add price
 		$this->addElement('text', $priceElementName, array(
-			'label'		=> $this->_translator->translate('Ticket Price'),
+			'label'		=> gettext('Ticket Price'),
 			'required'		=> false,
 			'class'			=> 'price',
 			'filters'		=> array('StringTrim','StripTags'),
@@ -70,7 +62,7 @@ class Admin_Form_SubForm_TicketType extends Generic_Form_SubForm_Base {
 
 		// Add details
 		$this->addElement('textarea', $detailsElementName, array(
-			'label'			=> $this->_translator->translate('Details'),
+			'label'			=> gettext('Details'),
 			'required'		=> false,
 			'class'			=> 'details',
 			'filters'		=> array('StringTrim','StripTags'),
@@ -80,9 +72,10 @@ class Admin_Form_SubForm_TicketType extends Generic_Form_SubForm_Base {
 
 		// Add submit button
 		$this->addElement('submit', self::REMOVE_TICKET_TYPE_SUBMIT, array(
-			'label' => $this->_translator->translate('Remove Ticket Type'),
+			'label' => gettext('Remove Ticket Type'),
 			'class' => 'remove_ticket_type',
 			'disabled'		=> true,
+			'decorators' => $this::$buttonDecorators
 		));
 
 		// Add ticket type id

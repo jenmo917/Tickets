@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TDDD27\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-01 20:09+0200\n"
+"POT-Creation-Date: 2012-09-12 16:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Daniel Josefsson <danjo140@student.liu.se>\n"
 "Language-Team: Automagisk <language@automagisk.nu>\n"
@@ -27,6 +27,8 @@ msgid "My Events"
 msgstr "Mina Event"
 
 #: application/library/Plugins/Navigation.php:48
+#: application/modules/login/forms/LiuLogin.php:13
+#: application/modules/login/forms/OpenIdLogin.php:20
 msgid "Sign in"
 msgstr "Logga in"
 
@@ -60,8 +62,8 @@ msgstr "detta är en faktura från biljettsystemet Attend"
 
 #: application/mail-templates/invoice.phtml:8
 #: application/mail-templates/payment-confirmation.phtml:8
-#: application/modules/admin/forms/EventInfo.php:76
-#: application/modules/admin/forms/SellTickets.php:57
+#: application/modules/admin/forms/EventInfo.php:69
+#: application/modules/admin/forms/SellTickets.php:49
 #: application/modules/admin/views/scripts/event/attendees.phtml:13
 #: application/modules/admin/views/scripts/event/my-events.phtml:19
 #: application/modules/admin/views/scripts/index/index.phtml:19
@@ -70,7 +72,7 @@ msgstr "Namn"
 
 #: application/mail-templates/invoice.phtml:12
 #: application/mail-templates/payment-confirmation.phtml:12
-#: application/modules/admin/forms/SellTickets.php:66
+#: application/modules/admin/forms/SellTickets.php:58
 #: application/modules/admin/views/scripts/event/attendees.phtml:19
 msgid "Email"
 msgstr "Mejl"
@@ -145,126 +147,127 @@ msgstr "Välj biljettyp"
 msgid " tickets left"
 msgstr "biljetter kvar"
 
-#: application/modules/admin/forms/EventInfo.php:51
+#: application/modules/admin/forms/EventInfo.php:44
 msgid "Step 1 - Add your Event Details"
 msgstr "Steg 1 - Ange Eventinformation"
 
-#: application/modules/admin/forms/EventInfo.php:56
+#: application/modules/admin/forms/EventInfo.php:49
 msgid "Step 2 - Create Tickets"
 msgstr "Steg 2 - Skapa Biljetter"
 
-#: application/modules/admin/forms/EventInfo.php:61
+#: application/modules/admin/forms/EventInfo.php:54
 msgid "Step 3 - Promote your Event Page"
 msgstr "Steg 3 - Marknadsför Eventet"
 
-#: application/modules/admin/forms/EventInfo.php:80
-#: application/modules/admin/forms/SellTickets.php:61
+#: application/modules/admin/forms/EventInfo.php:73
+#: application/modules/admin/forms/SellTickets.php:53
 msgid "Name please"
 msgstr "Ange ett namn"
 
-#: application/modules/admin/forms/EventInfo.php:85
+#: application/modules/admin/forms/EventInfo.php:78
 msgid "Location"
 msgstr "Plats"
 
-#: application/modules/admin/forms/EventInfo.php:89
+#: application/modules/admin/forms/EventInfo.php:82
 msgid "Location please"
 msgstr "Ange plats tack"
 
-#: application/modules/admin/forms/EventInfo.php:94
+#: application/modules/admin/forms/EventInfo.php:87
 msgid "Event starts"
 msgstr "Eventet börjar"
 
-#: application/modules/admin/forms/EventInfo.php:97
+#: application/modules/admin/forms/EventInfo.php:90
 msgid "Start time please"
 msgstr "Ange starttid tack"
 
-#: application/modules/admin/forms/EventInfo.php:103
+#: application/modules/admin/forms/EventInfo.php:96
 msgid "Event ends"
 msgstr "Eventet slutar"
 
-#: application/modules/admin/forms/EventInfo.php:106
+#: application/modules/admin/forms/EventInfo.php:99
 msgid "End time please"
 msgstr "Ange sluttid tack"
 
-#: application/modules/admin/forms/EventInfo.php:112
-#: application/modules/admin/forms/SubForm/TicketType.php:73
+#: application/modules/admin/forms/EventInfo.php:105
+#: application/modules/admin/forms/SubForm/TicketType.php:65
 msgid "Details"
 msgstr "Detaljer"
 
-#: application/modules/admin/forms/EventInfo.php:139
+#: application/modules/admin/forms/EventInfo.php:132
 msgid "New Ticket Type"
 msgstr "Ny Biljettyp"
 
-#: application/modules/admin/forms/EventInfo.php:149
+#: application/modules/admin/forms/EventInfo.php:143
 msgid "Publicize, or keep it private"
 msgstr "Publicera, eller håll privat"
 
-#: application/modules/admin/forms/EventInfo.php:151
+#: application/modules/admin/forms/EventInfo.php:145
 msgid "Public"
 msgstr "Publikt"
 
-#: application/modules/admin/forms/EventInfo.php:152
+#: application/modules/admin/forms/EventInfo.php:146
 msgid "Private"
 msgstr "Privat"
 
-#: application/modules/admin/forms/EventInfo.php:156
+#: application/modules/admin/forms/EventInfo.php:151
 msgid "Save Event"
 msgstr "Skapa Event"
 
-#: application/modules/admin/forms/SellTickets.php:48
+#: application/modules/admin/forms/SellTickets.php:40
 #: application/modules/admin/views/scripts/event/attendees.phtml:16
+#: application/modules/login/forms/Login.php:25
 msgid "LiU-ID"
 msgstr "LiU-ID"
 
-#: application/modules/admin/forms/SellTickets.php:52
+#: application/modules/admin/forms/SellTickets.php:44
 msgid "Only digits and letters in LiU-ID please"
 msgstr "LiU-ID får bara innehålla siffror och bokstäver"
 
-#: application/modules/admin/forms/SellTickets.php:70
+#: application/modules/admin/forms/SellTickets.php:62
 msgid "Email please"
 msgstr "Ange mejladress"
 
-#: application/modules/admin/forms/SellTickets.php:75
+#: application/modules/admin/forms/SellTickets.php:67
 msgid "Ticket Type"
 msgstr "Biljettyp"
 
-#: application/modules/admin/forms/SellTickets.php:77
+#: application/modules/admin/forms/SellTickets.php:69
 msgid "Ticket Type please"
 msgstr "Välj biljettyp"
 
-#: application/modules/admin/forms/SellTickets.php:86
+#: application/modules/admin/forms/SellTickets.php:78
 msgid "Payment Options"
 msgstr "Betalalternativ"
 
-#: application/modules/admin/forms/SellTickets.php:88
+#: application/modules/admin/forms/SellTickets.php:80
 msgid "Select payment type please"
 msgstr "Välj betalmetod"
 
-#: application/modules/admin/forms/SellTickets.php:90
+#: application/modules/admin/forms/SellTickets.php:82
 msgid "Cash"
 msgstr "Kontant"
 
-#: application/modules/admin/forms/SellTickets.php:91
+#: application/modules/admin/forms/SellTickets.php:83
 msgid "Send Invoice"
 msgstr "Skicka Faktura"
 
-#: application/modules/admin/forms/SellTickets.php:96
+#: application/modules/admin/forms/SellTickets.php:93
 msgid "Register Ticket"
 msgstr "Registrera Biljett"
 
-#: application/modules/admin/forms/SubForm/TicketType.php:46
+#: application/modules/admin/forms/SubForm/TicketType.php:38
 msgid "Ticket Name"
 msgstr "Biljettnamn"
 
-#: application/modules/admin/forms/SubForm/TicketType.php:55
+#: application/modules/admin/forms/SubForm/TicketType.php:47
 msgid "Ticket Quantity"
 msgstr "Antal Biljetter"
 
-#: application/modules/admin/forms/SubForm/TicketType.php:64
+#: application/modules/admin/forms/SubForm/TicketType.php:56
 msgid "Ticket Price"
 msgstr "Biljettpris"
 
-#: application/modules/admin/forms/SubForm/TicketType.php:83
+#: application/modules/admin/forms/SubForm/TicketType.php:75
 msgid "Remove Ticket Type"
 msgstr "Ta bort biljettyp"
 
@@ -347,14 +350,46 @@ msgstr "Biljettsystemet"
 msgid "Browse events or create your own events and sell tickets right here. "
 msgstr "Bläddra bland event eller skapa ditt egna event och sälj biljetter."
 
-#: application/modules/login/controllers/IndexController.php:82
+#: application/modules/login/controllers/IndexController.php:47
+msgid "LiU authentication message"
+msgstr "Autentisiera dig med ditt LiU-ID genom att trycka på knappen nedan. Du "
+"kommer att bli skickad till LiUs CAS. Bara de som har ett LiU-ID kan använda "
+"denna inloggningstjänst."
+
+#: application/modules/login/controllers/IndexController.php:84
 msgid "You are about to create a new user."
 msgstr "Du försöker skapa en ny användare."
 
-#: application/modules/login/controllers/IndexController.php:83
+#: application/modules/login/controllers/IndexController.php:85
 msgid "User Agreement message"
-msgstr ""
-"För att använda våra tjänster behöver vi din tillåtelse att spara ditt "
+msgstr "För att använda våra tjänster behöver vi din tillåtelse att spara ditt "
 "användarid för den inloggningstjänst som du använder. Vi komer dock aldrig "
 "behöva spara ditt lösenord. Det är en av fördelarna med att använda externa "
 "inloggningstjänster."
+
+#: application/modules/login/controllers/IndexController.php:181
+msgid "openId authentication message"
+msgstr "Autentisiera dig med ditt LiU-ID genom att trycka på knappen nedan. Du "
+"kommer att bli skickad till LiUs CAS. Bara de som har ett LiU-ID kan använda "
+"denna inloggningstjänst."
+
+#: application/modules/login/forms/Confirm.php:12
+msgid "Alrigt, I approve"
+msgstr "Okej, jag godkänner"
+
+#: application/modules/login/forms/Confirm.php:17
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: application/modules/login/forms/Login.php:31
+msgid "Password"
+msgstr ""
+
+#: application/modules/login/forms/Login.php:37
+msgid "Log in"
+msgstr ""
+
+#: application/modules/login/forms/OpenIdLogin.php:15
+msgid "openId"
+msgstr ""
+

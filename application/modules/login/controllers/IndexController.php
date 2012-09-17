@@ -31,6 +31,7 @@ class Login_IndexController extends Zend_Controller_Action
 		$this->view->cas_url
 			= $this->_userInfoSession->getLoginUrl($liuServiceName);
 		$this->liuLoginAction();
+		$this->render('liu-login');
 	}
 
 	/**
@@ -42,8 +43,9 @@ class Login_IndexController extends Zend_Controller_Action
 	{
 		$liuServiceName = Login_Model_LiuInfoSession::getServiceName();
 		$this->_loadUserInfoSession();
-		$this->view->cas_url
-			= $this->_userInfoSession->getLoginUrl($liuServiceName);
+		$translator = Zend_Registry::get('Zend_Translate');
+		$this->view->authMessage = $translator->translate('LiU authentication message');
+		$this->view->form = new Login_Form_LiuLogin(array('action' => $this->_userInfoSession->getLoginUrl($liuServiceName)));
 		$request = $this->getRequest();
 		// A CAS request returns a ticket as a get variable. Do a redirect to fix the url.
 		// TODO:: Make up a good way to set the cas service so the url does not include ticket.
@@ -169,6 +171,26 @@ class Login_IndexController extends Zend_Controller_Action
 		( true === $logoutUrl )?
 			null://$this->_redirect($this->_helper->url->url($defaultUrl,"defaultRoute",true)):
 			$this->_redirect($logoutUrl);
+	}
+	
+	public function openIdLoginAction()
+	{
+ 		$openIdServiceName = Login_Model_OpenIdInfoSession::getServiceName();
+		$this->_loadUserInfoSession();
+		$translator = Zend_Registry::get('Zend_Translate');
+		$this->view->authMessage = $translator->translate('openId authentication message');
+		$actionUrlArray = array('module' => 'login','controller' => 'index', 'action' => 'test');
+		$options = array('action' => $this->_helper->url->url(	$actionUrlArray, "defaultRoute",true));
+		$form = Login_Model_OpenIdInfoSession::getLoginForm($options);
+		$this->view->form = $form;
+		$request = $this->getRequest();
+		if (null !== $request->getParam($form::getSignInButtonName()) && ($identification = $request->getParam($form::getIdentifierName())))
+		{
+			$loginResult = $this->_userInfoSession->serviceLogin($openIdServiceName, $identification);
+		}
+		echo '<pre>';
+		var_dump($loginResult);
+		echo '</pre>';
 	}
 
 	public function testAction()

@@ -13,8 +13,9 @@ class Generic_Form_Base extends Zend_Form
 		'ViewHelper',
 		'Errors',
 		array('Description', array('tag' => 'p', 'class' => 'description')),
-		array('Label',       array('class' => 'form-label', 'requiredSuffix' => ' *')),
-		array('HtmlTag',     array('tag' => 'li', 'class' => 'form-li')) 
+		array('Label', array('class' => 'form-label', 'requiredSuffix' => ' *')),
+		array('HtmlTag', array('tag' => 'li', 'class' => 'form-li')),
+		//array('Decorator' => array('TopLabel' => 'Label'), array('tag' => 'li')),
 	);
 
 	/** @var array Decorators for File input elements */
@@ -34,10 +35,20 @@ class Generic_Form_Base extends Zend_Form
 
 	/** @var array Decorators for button and submit elements */
 	// decorators that will be used for submit and button elements
-	public $buttonDecorators = array(
+	public static $buttonDecorators = array(
 		'ViewHelper',
 		array('HtmlTag', array('tag' => 'li', 'class' => 'form-button'))
 	);
+	
+	static public $multiChoiseDecorators = array(
+			'ViewHelper',
+			'Errors',
+			array(array('LiTag'	=> 'HtmlTag'), array('tag' => 'li')),
+			array(array('OlTag'	=> 'HtmlTag'), array('tag' => 'ol', 'class' => 'multi-ol')),
+			array('Description',	array('tag' => 'p', 'class' => 'description')),
+			array('Label',			array('class' => 'form-label', 'requiredSuffix' => ' *')),
+			array(array('WrapTag'	=> 'HtmlTag'), array('tag' => 'li', 'class' => 'form-li')),
+			);
 	/** #@- */
 
 	/**
