@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TDDD27\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-07 08:28+0200\n"
+"POT-Creation-Date: 2012-09-12 16:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Daniel Josefsson <danjo140@student.liu.se>\n"
 "Language-Team: Automagisk <language@automagisk.nu>\n"
@@ -28,6 +28,7 @@ msgstr ""
 
 #: application/library/Plugins/Navigation.php:48
 #: application/modules/login/forms/LiuLogin.php:13
+#: application/modules/login/forms/OpenIdLogin.php:20
 msgid "Sign in"
 msgstr ""
 
@@ -61,8 +62,8 @@ msgstr ""
 
 #: application/mail-templates/invoice.phtml:8
 #: application/mail-templates/payment-confirmation.phtml:8
-#: application/modules/admin/forms/EventInfo.php:76
-#: application/modules/admin/forms/SellTickets.php:57
+#: application/modules/admin/forms/EventInfo.php:69
+#: application/modules/admin/forms/SellTickets.php:49
 #: application/modules/admin/views/scripts/event/attendees.phtml:13
 #: application/modules/admin/views/scripts/event/my-events.phtml:19
 #: application/modules/admin/views/scripts/index/index.phtml:19
@@ -71,7 +72,7 @@ msgstr ""
 
 #: application/mail-templates/invoice.phtml:12
 #: application/mail-templates/payment-confirmation.phtml:12
-#: application/modules/admin/forms/SellTickets.php:66
+#: application/modules/admin/forms/SellTickets.php:58
 #: application/modules/admin/views/scripts/event/attendees.phtml:19
 msgid "Email"
 msgstr ""
@@ -146,126 +147,127 @@ msgstr ""
 msgid " tickets left"
 msgstr ""
 
-#: application/modules/admin/forms/EventInfo.php:51
+#: application/modules/admin/forms/EventInfo.php:44
 msgid "Step 1 - Add your Event Details"
 msgstr ""
 
-#: application/modules/admin/forms/EventInfo.php:56
+#: application/modules/admin/forms/EventInfo.php:49
 msgid "Step 2 - Create Tickets"
 msgstr ""
 
-#: application/modules/admin/forms/EventInfo.php:61
+#: application/modules/admin/forms/EventInfo.php:54
 msgid "Step 3 - Promote your Event Page"
 msgstr ""
 
-#: application/modules/admin/forms/EventInfo.php:80
-#: application/modules/admin/forms/SellTickets.php:61
+#: application/modules/admin/forms/EventInfo.php:73
+#: application/modules/admin/forms/SellTickets.php:53
 msgid "Name please"
 msgstr ""
 
-#: application/modules/admin/forms/EventInfo.php:85
+#: application/modules/admin/forms/EventInfo.php:78
 msgid "Location"
 msgstr ""
 
-#: application/modules/admin/forms/EventInfo.php:89
+#: application/modules/admin/forms/EventInfo.php:82
 msgid "Location please"
 msgstr ""
 
-#: application/modules/admin/forms/EventInfo.php:94
+#: application/modules/admin/forms/EventInfo.php:87
 msgid "Event starts"
 msgstr ""
 
-#: application/modules/admin/forms/EventInfo.php:97
+#: application/modules/admin/forms/EventInfo.php:90
 msgid "Start time please"
 msgstr ""
 
-#: application/modules/admin/forms/EventInfo.php:103
+#: application/modules/admin/forms/EventInfo.php:96
 msgid "Event ends"
 msgstr ""
 
-#: application/modules/admin/forms/EventInfo.php:106
+#: application/modules/admin/forms/EventInfo.php:99
 msgid "End time please"
 msgstr ""
 
-#: application/modules/admin/forms/EventInfo.php:112
-#: application/modules/admin/forms/SubForm/TicketType.php:73
+#: application/modules/admin/forms/EventInfo.php:105
+#: application/modules/admin/forms/SubForm/TicketType.php:65
 msgid "Details"
 msgstr ""
 
-#: application/modules/admin/forms/EventInfo.php:139
+#: application/modules/admin/forms/EventInfo.php:132
 msgid "New Ticket Type"
 msgstr ""
 
-#: application/modules/admin/forms/EventInfo.php:149
+#: application/modules/admin/forms/EventInfo.php:143
 msgid "Publicize, or keep it private"
 msgstr ""
 
-#: application/modules/admin/forms/EventInfo.php:151
+#: application/modules/admin/forms/EventInfo.php:145
 msgid "Public"
 msgstr ""
 
-#: application/modules/admin/forms/EventInfo.php:152
+#: application/modules/admin/forms/EventInfo.php:146
 msgid "Private"
 msgstr ""
 
-#: application/modules/admin/forms/EventInfo.php:156
+#: application/modules/admin/forms/EventInfo.php:151
 msgid "Save Event"
 msgstr ""
 
-#: application/modules/admin/forms/SellTickets.php:48
+#: application/modules/admin/forms/SellTickets.php:40
 #: application/modules/admin/views/scripts/event/attendees.phtml:16
+#: application/modules/login/forms/Login.php:25
 msgid "LiU-ID"
 msgstr ""
 
-#: application/modules/admin/forms/SellTickets.php:52
+#: application/modules/admin/forms/SellTickets.php:44
 msgid "Only digits and letters in LiU-ID please"
 msgstr ""
 
-#: application/modules/admin/forms/SellTickets.php:70
+#: application/modules/admin/forms/SellTickets.php:62
 msgid "Email please"
 msgstr ""
 
-#: application/modules/admin/forms/SellTickets.php:75
+#: application/modules/admin/forms/SellTickets.php:67
 msgid "Ticket Type"
 msgstr ""
 
-#: application/modules/admin/forms/SellTickets.php:77
+#: application/modules/admin/forms/SellTickets.php:69
 msgid "Ticket Type please"
 msgstr ""
 
-#: application/modules/admin/forms/SellTickets.php:86
+#: application/modules/admin/forms/SellTickets.php:78
 msgid "Payment Options"
 msgstr ""
 
-#: application/modules/admin/forms/SellTickets.php:88
+#: application/modules/admin/forms/SellTickets.php:80
 msgid "Select payment type please"
 msgstr ""
 
-#: application/modules/admin/forms/SellTickets.php:90
+#: application/modules/admin/forms/SellTickets.php:82
 msgid "Cash"
 msgstr ""
 
-#: application/modules/admin/forms/SellTickets.php:91
+#: application/modules/admin/forms/SellTickets.php:83
 msgid "Send Invoice"
 msgstr ""
 
-#: application/modules/admin/forms/SellTickets.php:96
+#: application/modules/admin/forms/SellTickets.php:93
 msgid "Register Ticket"
 msgstr ""
 
-#: application/modules/admin/forms/SubForm/TicketType.php:46
+#: application/modules/admin/forms/SubForm/TicketType.php:38
 msgid "Ticket Name"
 msgstr ""
 
-#: application/modules/admin/forms/SubForm/TicketType.php:55
+#: application/modules/admin/forms/SubForm/TicketType.php:47
 msgid "Ticket Quantity"
 msgstr ""
 
-#: application/modules/admin/forms/SubForm/TicketType.php:64
+#: application/modules/admin/forms/SubForm/TicketType.php:56
 msgid "Ticket Price"
 msgstr ""
 
-#: application/modules/admin/forms/SubForm/TicketType.php:83
+#: application/modules/admin/forms/SubForm/TicketType.php:75
 msgid "Remove Ticket Type"
 msgstr ""
 
@@ -362,19 +364,29 @@ msgstr ""
 msgid "User Agreement message"
 msgstr ""
 
-#: application/modules/login/forms/Confirm.php:12
-msgid "ok"
-msgstr ""
+#: application/modules/login/controllers/IndexController.php:181
+msgid "openId authentication message"
+msgstr "Authenticate yourself with a LiU-ID by pressing the button below. You will "
+"be redirected to LiU's CAS.Only account holders at LiU can use this "
+"authentication."
 
 #: application/modules/login/forms/Confirm.php:12
 msgid "Alrigt, I approve"
 msgstr ""
 
-#: application/modules/login/forms/Confirm.php:13
-msgid "cancel"
+#: application/modules/login/forms/Confirm.php:17
+msgid "Cancel"
 msgstr ""
 
-#: application/modules/login/forms/Confirm.php:13
-msgid "Cancel"
+#: application/modules/login/forms/Login.php:31
+msgid "Password"
+msgstr ""
+
+#: application/modules/login/forms/Login.php:37
+msgid "Log in"
+msgstr ""
+
+#: application/modules/login/forms/OpenIdLogin.php:15
+msgid "openId"
 msgstr ""
 
