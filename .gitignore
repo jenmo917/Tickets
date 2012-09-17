@@ -11,3 +11,4 @@ extras/documentation
 application/cache/zend_cache*
 application/lang/po/*
 application/lang/mo/*
+*.mo
