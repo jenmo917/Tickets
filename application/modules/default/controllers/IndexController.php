@@ -33,6 +33,24 @@ class Default_IndexController extends Zend_Controller_Action
 		$this->view->messages = $flashMessenger->getMessages();
 	}
 
-
+	
+	/**
+	 * 
+	 * @author	Jens Moser <jenmo917@gmail.com>
+	 * @since	v0.1
+	 * @return	
+	 */
+	public function validateTicketFormAction()
+	{
+		$this->_helper->viewRenderer->setNoRender();
+		$this->_helper->getHelper('layout')->disableLayout();
+		$f = new Admin_Form_SellTickets();
+		$f->isValid($this->_getAllParams());
+		$json = $f->getMessages();
+		
+		// Tell the browser that we are sending some json data
+		header('content-type: application/json');
+		echo Zend_Json::encode($json);
+	}
 }
 

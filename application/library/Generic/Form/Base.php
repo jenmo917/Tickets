@@ -14,7 +14,7 @@ class Generic_Form_Base extends Zend_Form
 		'Errors',
 		array('Description', array('tag' => 'p', 'class' => 'description')),
 		array('Label',       array('class' => 'form-label', 'requiredSuffix' => ' *')),
-		array('HtmlTag',     array('tag' => 'li', 'class' => 'form-li')),
+		array('HtmlTag',     array('tag' => 'li', 'class' => 'form-li')) 
 	);
 
 	/** @var array Decorators for File input elements */

@@ -75,11 +75,6 @@ img {
 	padding: 0px;
 }
 
-table, th, td
-{
-border: 1px solid black;
-}
-
 td, th{
     padding: 5px;
 }
@@ -87,6 +82,17 @@ td, th{
 table{
     width: 100%;
     border-collapse:collapse;
+}
+
+table, td, th
+{
+border:1px solid gray;
+}
+
+th
+{
+background-color:gray;
+color:white;
 }
 
 .message{
@@ -98,7 +104,7 @@ table{
     margin-top: 10px;
 }
 
-.zend_form .errors{
+.errors{
     color: red;
 }
 
@@ -109,7 +115,6 @@ table{
     width: 1225px;
     float: right;
 }
-
 /*
 * Wrap content and menu
 */

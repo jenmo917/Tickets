@@ -21,7 +21,7 @@ class Generic_Form_SubForm_Base extends Zend_Form
 		'Errors',
 		array('Description', array('tag' => 'p', 'class' => 'description')),
 		array('Label',       array('class' => 'subform-label', 'requiredSuffix' => ' *')),
-		array('HtmlTag',     array('tag' => 'li', 'class' => 'subform-li')),
+		array('HtmlTag',     array('tag' => 'li', 'class' => 'subform-li'))
 	);
 
 	/** @var array Decorators for File input elements */

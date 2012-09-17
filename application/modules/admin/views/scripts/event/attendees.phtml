@@ -7,27 +7,26 @@
     <?PHP echo $this->translate->_('Attendees'); ?>
 </h3>
 <br />
-<table>
-    <tr>
-        <th>
-            <?PHP echo $this->translate->_('Name'); ?>
-        </th>
-        <th>
-            <?PHP echo $this->translate->_('LiU-ID'); ?>
-        </th>
-        <th>
-            <?PHP echo $this->translate->_('Email'); ?>
-        </th>
-        <th>
-            <?PHP echo $this->translate->_('Ticket'); ?>
-        </th>
-        <th>
-            <?PHP echo $this->translate->_('Payment'); ?>
-        </th>
-        <th>
-            <?PHP echo $this->translate->_('OCR'); ?>
-        </th>
-    </tr>
+<table class="tablesorter" style="width: 800px;">
+    <thead>
+        <tr>
+			<th>
+				<?PHP echo $this->translate->_('Name'); ?>
+			</th>
+			<th>
+				<?PHP echo $this->translate->_('LiU-ID'); ?>
+			</th>
+			<th>
+				<?PHP echo $this->translate->_('Email'); ?>
+			</th>
+			<th>
+				<?PHP echo $this->translate->_('Ticket'); ?>
+			</th>
+			<th>
+				<?PHP echo $this->translate->_('Payment'); ?>
+			</th>
+		</tr>
+	</thead>
 <?PHP
 foreach ($this->attendees as $att):
 ?>
@@ -46,20 +45,16 @@ foreach ($this->attendees as $att):
         </td>
         <td>
             <?PHP
-			
-			if($this->escape($att['payment']))
+			if($att['payment'] == '0')
 			{
 				echo $this->translate->_('Cash');
 			}
-			else
+			elseif($att['payment'] == '1')
 			{
 				echo $this->translate->_('Invoice');
 			}
 			
 			?>
-        </td>
-        <td>
-            <?PHP echo "";//$att->ocr; ?>
         </td>
     </tr>
 <?PHP

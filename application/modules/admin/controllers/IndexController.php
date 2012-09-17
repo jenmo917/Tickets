@@ -21,5 +21,4 @@ class Admin_IndexController extends Zend_Controller_Action
         // Get messages
         $this->view->messages = $flashMessenger->getMessages();
     }
-
 }
