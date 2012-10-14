@@ -166,6 +166,11 @@ color:white;
 	padding: 0px;
 }
 
+.form-label{
+	width: 7em;
+	float: right;
+}
+
 .subform-li label{
 	width: 7em;
 	float: left;
@@ -178,14 +183,23 @@ color:white;
 	margin: 10px;
 }
 
-.form-ol{
+.multi-ol{
+	
+}
+
+.multi-ol{
 	padding: 0px;
+	margin: 0px;
+}
+
+.form-button{
+	height: 100px;
 }
 
 .form-li label{
-	width: 7em;
+	width: 10em;
 	float: left;
-	text-align: right;
+	text-align: left;
 	margin-right: 0.5em;
 	display: block
 }

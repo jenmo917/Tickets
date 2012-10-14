@@ -84,6 +84,7 @@ class Admin_Form_SellTickets extends Generic_Form_Base
 			'separator'		=> '</li><li>',
 			"disableLoadDefaultDecorators" => true,
 			'decorators'	=> $this::$multiChoiseDecorators,
+			'id'			=> 'payment'
 			
 		));
 

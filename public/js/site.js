@@ -3,15 +3,15 @@ function doValidation(id)
 {
 	var url = '/sv/default/index/validate-ticket-form';
 	var data = {};
-	$('input').each(function()
+	$('input:checked').each(function()
 	{
 		data[$(this).attr('name')] = $(this).val();
 	});
 	$.post(url,data,function(resp)
 	{
 		console.log(id); // liu_id
-		console.log(resp); // Object: olika
-		console.log(resp[id]);
+		//console.log(resp); // Object: olika
+		//console.log(resp[id]);
 		$("#"+id).parent().find(".errors").remove();
 		if(resp[id])
 		{

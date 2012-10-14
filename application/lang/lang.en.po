@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: TDDD27\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-12 16:28+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Daniel Josefsson <danjo140@student.liu.se>\n"
+"PO-Revision-Date: 2012-09-17 17:56+0100\n"
+"Last-Translator: Jens Moser <jenmo917@gmail.com>\n"
 "Language-Team: Automagisk <language@automagisk.nu>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -352,9 +352,7 @@ msgstr ""
 
 #: application/modules/login/controllers/IndexController.php:47
 msgid "LiU authentication message"
-msgstr "Authenticate yourself with a LiU-ID by pressing the button below. You will "
-"be redirected to LiU's CAS.Only account holders at LiU can use this "
-"authentication."
+msgstr "Authenticate yourself with a LiU-ID by pressing the button below. You will be redirected to LiU's CAS.Only account holders at LiU can use this authentication."
 
 #: application/modules/login/controllers/IndexController.php:84
 msgid "You are about to create a new user."
@@ -366,9 +364,7 @@ msgstr ""
 
 #: application/modules/login/controllers/IndexController.php:181
 msgid "openId authentication message"
-msgstr "Authenticate yourself with a LiU-ID by pressing the button below. You will "
-"be redirected to LiU's CAS.Only account holders at LiU can use this "
-"authentication."
+msgstr "Authenticate yourself with a LiU-ID by pressing the button below. You will be redirected to LiU's CAS.Only account holders at LiU can use this authentication."
 
 #: application/modules/login/forms/Confirm.php:12
 msgid "Alrigt, I approve"
