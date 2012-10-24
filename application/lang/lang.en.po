@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TDDD27\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-12 16:28+0200\n"
+"POT-Creation-Date: 2012-10-24 13:50+0200\n"
 "PO-Revision-Date: 2012-09-17 17:56+0100\n"
 "Last-Translator: Jens Moser <jenmo917@gmail.com>\n"
 "Language-Team: Automagisk <language@automagisk.nu>\n"
@@ -38,6 +38,7 @@ msgstr ""
 
 #: application/library/Plugins/Navigation.php:83
 #: application/modules/admin/views/scripts/event/index.phtml:7
+#: application/modules/default/views/scripts/index/overview.phtml:7
 msgid "Overview"
 msgstr ""
 
@@ -64,7 +65,7 @@ msgstr ""
 #: application/mail-templates/payment-confirmation.phtml:8
 #: application/modules/admin/forms/EventInfo.php:69
 #: application/modules/admin/forms/SellTickets.php:49
-#: application/modules/admin/views/scripts/event/attendees.phtml:13
+#: application/modules/admin/views/scripts/event/attendees.phtml:14
 #: application/modules/admin/views/scripts/event/my-events.phtml:19
 #: application/modules/admin/views/scripts/index/index.phtml:19
 msgid "Name"
@@ -73,7 +74,7 @@ msgstr ""
 #: application/mail-templates/invoice.phtml:12
 #: application/mail-templates/payment-confirmation.phtml:12
 #: application/modules/admin/forms/SellTickets.php:58
-#: application/modules/admin/views/scripts/event/attendees.phtml:19
+#: application/modules/admin/views/scripts/event/attendees.phtml:20
 msgid "Email"
 msgstr ""
 
@@ -107,35 +108,36 @@ msgstr ""
 msgid "We have received your payment"
 msgstr ""
 
-#: application/modules/admin/controllers/EventController.php:56
+#: application/modules/admin/controllers/EventController.php:57
 msgid "created"
 msgstr ""
 
-#: application/modules/admin/controllers/EventController.php:150
+#: application/modules/admin/controllers/EventController.php:151
+#: application/modules/admin/views/scripts/event/attendees.phtml:54
 msgid "Invoice"
 msgstr ""
 
-#: application/modules/admin/controllers/EventController.php:163
+#: application/modules/admin/controllers/EventController.php:164
 msgid "Payment confirmation"
 msgstr ""
 
-#: application/modules/admin/controllers/EventController.php:174
+#: application/modules/admin/controllers/EventController.php:175
 msgid "Ticket is registred"
 msgstr ""
 
-#: application/modules/admin/controllers/EventController.php:224
+#: application/modules/admin/controllers/EventController.php:225
 msgid "saved"
 msgstr ""
 
-#: application/modules/admin/controllers/EventController.php:264
+#: application/modules/admin/controllers/EventController.php:265
 msgid "is now deleted"
 msgstr ""
 
-#: application/modules/admin/controllers/EventController.php:306
+#: application/modules/admin/controllers/EventController.php:307
 msgid "has been unpublished"
 msgstr ""
 
-#: application/modules/admin/controllers/EventController.php:310
+#: application/modules/admin/controllers/EventController.php:311
 msgid "has been published"
 msgstr ""
 
@@ -190,31 +192,32 @@ msgstr ""
 
 #: application/modules/admin/forms/EventInfo.php:105
 #: application/modules/admin/forms/SubForm/TicketType.php:65
+#: application/modules/default/views/scripts/index/overview.phtml:13
 msgid "Details"
 msgstr ""
 
-#: application/modules/admin/forms/EventInfo.php:132
+#: application/modules/admin/forms/EventInfo.php:137
 msgid "New Ticket Type"
 msgstr ""
 
-#: application/modules/admin/forms/EventInfo.php:143
+#: application/modules/admin/forms/EventInfo.php:148
 msgid "Publicize, or keep it private"
 msgstr ""
 
-#: application/modules/admin/forms/EventInfo.php:145
+#: application/modules/admin/forms/EventInfo.php:150
 msgid "Public"
 msgstr ""
 
-#: application/modules/admin/forms/EventInfo.php:146
+#: application/modules/admin/forms/EventInfo.php:151
 msgid "Private"
 msgstr ""
 
-#: application/modules/admin/forms/EventInfo.php:151
+#: application/modules/admin/forms/EventInfo.php:156
 msgid "Save Event"
 msgstr ""
 
 #: application/modules/admin/forms/SellTickets.php:40
-#: application/modules/admin/views/scripts/event/attendees.phtml:16
+#: application/modules/admin/views/scripts/event/attendees.phtml:17
 #: application/modules/login/forms/Login.php:25
 msgid "LiU-ID"
 msgstr ""
@@ -244,6 +247,7 @@ msgid "Select payment type please"
 msgstr ""
 
 #: application/modules/admin/forms/SellTickets.php:82
+#: application/modules/admin/views/scripts/event/attendees.phtml:50
 msgid "Cash"
 msgstr ""
 
@@ -251,7 +255,7 @@ msgstr ""
 msgid "Send Invoice"
 msgstr ""
 
-#: application/modules/admin/forms/SellTickets.php:93
+#: application/modules/admin/forms/SellTickets.php:94
 msgid "Register Ticket"
 msgstr ""
 
@@ -280,16 +284,12 @@ msgstr ""
 msgid "Please enter a number"
 msgstr ""
 
-#: application/modules/admin/views/scripts/event/attendees.phtml:22
+#: application/modules/admin/views/scripts/event/attendees.phtml:23
 msgid "Ticket"
 msgstr ""
 
-#: application/modules/admin/views/scripts/event/attendees.phtml:25
+#: application/modules/admin/views/scripts/event/attendees.phtml:26
 msgid "Payment"
-msgstr ""
-
-#: application/modules/admin/views/scripts/event/attendees.phtml:28
-msgid "OCR"
 msgstr ""
 
 #: application/modules/admin/views/scripts/event/my-events.phtml:7
@@ -342,17 +342,28 @@ msgstr ""
 msgid "Publish"
 msgstr ""
 
-#: application/modules/default/views/scripts/index/index.phtml:32
+#: application/modules/default/views/scripts/index/index.phtml:41
 msgid "The Ticket System"
 msgstr ""
 
-#: application/modules/default/views/scripts/index/index.phtml:34
+#: application/modules/default/views/scripts/index/index.phtml:43
 msgid "Browse events or create your own events and sell tickets right here. "
+msgstr ""
+
+#: application/modules/default/views/scripts/index/index.phtml:49
+msgid "There are no public events available"
+msgstr ""
+
+#: application/modules/default/views/scripts/index/index.phtml:66
+msgid "More Info"
 msgstr ""
 
 #: application/modules/login/controllers/IndexController.php:47
 msgid "LiU authentication message"
-msgstr "Authenticate yourself with a LiU-ID by pressing the button below. You will be redirected to LiU's CAS.Only account holders at LiU can use this authentication."
+msgstr ""
+"Authenticate yourself with a LiU-ID by pressing the button below. You will "
+"be redirected to LiU's CAS.Only account holders at LiU can use this "
+"authentication."
 
 #: application/modules/login/controllers/IndexController.php:84
 msgid "You are about to create a new user."
@@ -364,7 +375,10 @@ msgstr ""
 
 #: application/modules/login/controllers/IndexController.php:181
 msgid "openId authentication message"
-msgstr "Authenticate yourself with a LiU-ID by pressing the button below. You will be redirected to LiU's CAS.Only account holders at LiU can use this authentication."
+msgstr ""
+"Authenticate yourself with a LiU-ID by pressing the button below. You will "
+"be redirected to LiU's CAS.Only account holders at LiU can use this "
+"authentication."
 
 #: application/modules/login/forms/Confirm.php:12
 msgid "Alrigt, I approve"
@@ -385,4 +399,3 @@ msgstr ""
 #: application/modules/login/forms/OpenIdLogin.php:15
 msgid "openId"
 msgstr ""
-
