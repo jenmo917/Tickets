@@ -56,7 +56,7 @@ $(document).ready(function() {
     //
     //
 	
-	$('#liuid').keyup(function(e){
+	$('#liu_id').keyup(function(e){
 		var $this = $(this);
 		if(/^[a-zA-Z]{3,5}\d{2,3}$/g.test($this.val())){
 			setTimeout(function(){
