@@ -6,29 +6,33 @@
 
     echo "<p>".$this->translate->_('Your events are listed below').".</p>"; ?>
 
-    <?php
-    foreach($this->messages as $message):
-        echo "<div class='message'>{$message}</div>";
-    endforeach;
-    ?>
+	<?php
+	foreach($this->messages as $message):
+	echo "<div class='message'>{$message}</div>";
+	endforeach;
+	?>
 </p>
 
 <table class="tablesorter" style="width: 800px;">
-    <thead>
-        <tr>
-            <th><?PHP echo $this->translate->_('Name'); ?></th>
-            <th><?PHP echo $this->translate->_('Date'); ?></th>
-            <th><?PHP echo $this->translate->_('Published'); ?></th>
-            <th><?PHP echo $this->translate->_('Quick links'); ?></th>
-        </tr>        
-    </thead>
-<?PHP foreach ($this->events as $event): ?>
-    <tr>
-        <td><a href="<?PHP echo $this->url(array('lang' => $this->lang, 'module' => 'admin','controller' => 'event', 'action' => 'index','event_id' => $event->event_id)); ?>"><?PHP echo $event->name; ?></a></td>
-        <td><?PHP echo $event->start_time; ?></td>
-        <th>
-		<?php
-		if($event->published)
+	<thead>
+		<tr>
+			<th><?PHP echo $this->translate->_('Name'); ?></th>
+			<th><?PHP echo $this->translate->_('Date'); ?></th>
+			<th><?PHP echo $this->translate->_('Published'); ?></th>
+			<th><?PHP echo $this->translate->_('Quick links'); ?></th>
+		</tr>
+	</thead>
+<?PHP
+	$eventsCols	= Attend_Db_Table_Row_Event::getColumnNames('both');
+$eventIdColNameUrl	= Attend_Db_Table_Row_Event::getColumnNameForUrl('eventId');
+foreach ($this->events as $event): ?>
+	<tr>
+		<td><a
+			href="<?PHP echo $this->url(array('lang' => $this->lang, 'module' => 'admin','controller' => 'event', 'action' => 'index',$eventIdColNameUrl => $event[$eventsCols['eventId']])); ?>"><?PHP echo $event['name']; ?>
+		</a></td>
+		<td><?PHP echo $event[$eventsCols['startTime']]; ?></td>
+		<td><?php
+		if($event[$eventsCols['published']])
 		{
 			$style = "style='color: green;'";
 			$text = $this->translate->_('Live');
@@ -39,11 +43,19 @@
 			$text = $this->translate->_('Draft');
 		}
 		?>
-			<div <?PHP echo $style ?>><?php echo $text;?></div>
-        </th>
-        <td><a href="<?PHP echo $this->url(array('lang' => $this->lang, 'module' => 'admin','controller' => 'event', 'action' => 'edit','event_id' => $event->event_id)); ?>"><?PHP echo $this->translate->_('Edit'); ?></a> 
-            | <a href="<?PHP echo $this->url(array('lang' => $this->lang, 'module' => 'admin','controller' => 'event', 'action' => 'delete','event_id' => $event->event_id)); ?>"><?PHP echo $this->translate->_('Delete'); ?></a> 
-            | <a href="<?PHP echo $this->url(array('lang' => $this->lang, 'module' => 'admin','controller' => 'event', 'action' => 'publish','event_id' => $event->event_id)); ?>"><?PHP if($event->published){ echo $this->translate->_('Unpublish'); } else{ echo $this->translate->_('Publish'); } ?></a></td>
-    </tr>
-<?PHP endforeach; ?>
+			<div <?PHP echo $style ?>>
+				<?php echo $text;?>
+			</div>
+		</td>
+		<td><a
+			href="<?PHP echo $this->url(array('lang' => $this->lang, 'module' => 'admin','controller' => 'event', 'action' => 'edit',$eventIdColNameUrl => $event[$eventsCols['eventId']])); ?>"><?PHP echo $this->translate->_('Edit'); ?>
+		</a> | <a
+			href="<?PHP echo $this->url(array('lang' => $this->lang, 'module' => 'admin','controller' => 'event', 'action' => 'delete',$eventIdColNameUrl => $event[$eventsCols['eventId']])); ?>"><?PHP echo $this->translate->_('Delete'); ?>
+		</a> | <a
+			href="<?PHP echo $this->url(array('lang' => $this->lang, 'module' => 'admin','controller' => 'event', 'action' => 'publish',$eventIdColNameUrl => $event[$eventsCols['eventId']])); ?>"><?PHP if($event[$eventsCols['published']]){
+				echo $this->translate->_('Unpublish');
+			} else{ echo $this->translate->_('Publish');
+			} ?> </a></td>
+	</tr>
+	<?PHP endforeach; ?>
 </table>
