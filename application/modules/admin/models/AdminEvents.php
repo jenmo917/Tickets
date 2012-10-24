@@ -282,7 +282,7 @@ class Admin_Model_AdminEvents
 	 * Fetch events .
 	 * @author	Jens Moser <jenmo917@gmail.com>
 	 * @since	v0.1
-	 * @return	Array with Attend_Db_Table_Row_Event
+	 * @return	Array with Attend_Db_Table_Row_Event info.
 	 */
 	public function fetchEvents($eventIds = array())
 	{
