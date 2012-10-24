@@ -48,10 +48,10 @@ class Default_Model_Events
     * @since	v0.1
     * @return	Array with Attend_Db_Table_Row_Event
     */
-    public function fetchPublishedEvents()
+    public function fetchFrontPageEvents()
     {
         $this->getEventsTable();
-        return $this->_eventsTable->fetchAll($this->_eventsTable->select()->where('published = ?', 1));
+        return $this->_eventsTable->fetchAll($this->_eventsTable->select()->where('published = ?', 1)->where('public = ?', 1));
     }
 
 

@@ -11,10 +11,46 @@ class Default_IndexController extends Zend_Controller_Action
     public function indexAction()
     {
         $eventModel = new Default_Model_Events();
-        $events = $eventModel->fetchPublishedEvents();
+        $events = $eventModel->fetchFrontPageEvents();
         $this->view->events = $events;
     }
+	
+	 /**
+	 * Overview of a specific event
+	 * @author	Jens Moser <jenmo917@gmail.com>
+	 * @since	v0.1
+	 * @return	null
+	 */
+	public function overviewAction()
+	{
+		// Fetch event
+		$eventIdColName = Attend_Db_Table_Row_Event::getColumnNameForUrl('eventId');
+		$events = new Default_Model_Events();
+		$flashMessenger = $this->_helper->getHelper('FlashMessenger');
+		$params = $this->getRequest()->getParams();
+		$event = $events->getEvent($params[$eventIdColName]);
+		$this->view->event = $event;
+		$this->view->messages = $flashMessenger->getMessages();
+	}
 
-
+	
+	/**
+	 * 
+	 * @author	Jens Moser <jenmo917@gmail.com>
+	 * @since	v0.1
+	 * @return	
+	 */
+	public function validateTicketFormAction()
+	{
+		$this->_helper->viewRenderer->setNoRender();
+		$this->_helper->getHelper('layout')->disableLayout();
+		$f = new Admin_Form_SellTickets();
+		$f->isValid($this->_getAllParams());
+		$json = $f->getMessages();
+		
+		// Tell the browser that we are sending some json data
+		header('content-type: application/json');
+		echo Zend_Json::encode($json);
+	}
 }
 

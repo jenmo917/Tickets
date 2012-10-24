@@ -7,27 +7,26 @@
     <?PHP echo $this->translate->_('Attendees'); ?>
 </h3>
 <br />
-<table>
-    <tr>
-        <th>
-            <?PHP echo $this->translate->_('Name'); ?>
-        </th>
-        <th>
-            <?PHP echo $this->translate->_('LiU-ID'); ?>
-        </th>
-        <th>
-            <?PHP echo $this->translate->_('Email'); ?>
-        </th>
-        <th>
-            <?PHP echo $this->translate->_('Ticket'); ?>
-        </th>
-        <th>
-            <?PHP echo $this->translate->_('Payment'); ?>
-        </th>
-        <th>
-            <?PHP echo $this->translate->_('OCR'); ?>
-        </th>
-    </tr>
+<table class="tablesorter" style="width: 800px;">
+    <thead>
+        <tr>
+			<th>
+				<?PHP echo $this->translate->_('Name'); ?>
+			</th>
+			<th>
+				<?PHP echo $this->translate->_('LiU-ID'); ?>
+			</th>
+			<th>
+				<?PHP echo $this->translate->_('Email'); ?>
+			</th>
+			<th>
+				<?PHP echo $this->translate->_('Ticket'); ?>
+			</th>
+			<th>
+				<?PHP echo $this->translate->_('Payment'); ?>
+			</th>
+		</tr>
+	</thead>
 <?PHP
 foreach ($this->attendees as $att):
 ?>
@@ -42,13 +41,20 @@ foreach ($this->attendees as $att):
             <?PHP echo $this->escape($att['email']); ?>
         </td>
         <td>
-            <?PHP echo $this->escape($att['ticket_type_name']); ?> | <a href="">Utlämnad</a>
+            <?PHP echo $this->escape($att['ticket_type_name']); ?>
         </td>
         <td>
-            <?PHP echo $this->escape($att['payment']); ?>
-        </td>
-        <td>
-            <?PHP echo "";//$att->ocr; ?>
+            <?PHP
+			if($att['payment'] == '0')
+			{
+				echo $this->translate->_('Cash');
+			}
+			elseif($att['payment'] == '1')
+			{
+				echo $this->translate->_('Invoice');
+			}
+			
+			?>
         </td>
     </tr>
 <?PHP

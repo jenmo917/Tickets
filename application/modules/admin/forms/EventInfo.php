@@ -106,8 +106,8 @@ class Admin_Form_EventInfo extends Generic_Form_Base
 					'required'		=> false,
 					'filters'		=> array('StringTrim','StripTags'),
 					'errorMessages'	=> array(),
-					'cols'			=> '130',
-					'rows'			=> '2',
+					'cols'			=> '50',
+					'rows'			=> '6',
 		));
 
 		$step1->addElement('hidden', $formNames['eventId'], array(
@@ -121,7 +121,12 @@ class Admin_Form_EventInfo extends Generic_Form_Base
 					'name'				=> $this->_numOfTickets,
 					'elementsBelongTo'	=> $this->_numOfTickets,
 					'order'				=> $this->_numOfTickets + 1,
+					
 		));
+		
+		$ticketType->addDecorators(array(
+            array('Fieldset', array('class' => 'ticket_type')), ));
+		
 		$step2->addSubForm($ticketType, $this->_numOfTickets);
 
 		$this->_numOfTickets++;

@@ -2,6 +2,7 @@
 
 class Admin_EventController extends Zend_Controller_Action
 {
+	
 	/**
 	 * Overview of a specific event
 	 * @author	Jens Moser <jenmo917@gmail.com>

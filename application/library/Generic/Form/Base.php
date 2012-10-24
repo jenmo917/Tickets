@@ -13,8 +13,8 @@ class Generic_Form_Base extends Zend_Form
 		'ViewHelper',
 		'Errors',
 		array('Description', array('tag' => 'p', 'class' => 'description')),
-		array('Label',       array('class' => 'form-label', 'requiredSuffix' => ' *')),
-		array('HtmlTag',     array('tag' => 'li', 'class' => 'form-li')),
+		array('Label', array('class' => 'form-label', 'requiredSuffix' => ' *')),
+		array('HtmlTag', array('tag' => 'li', 'class' => 'form-li')),
 		//array('Decorator' => array('TopLabel' => 'Label'), array('tag' => 'li')),
 	);
 

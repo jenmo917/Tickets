@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: TDDD27\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-12 16:28+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Daniel Josefsson <danjo140@student.liu.se>\n"
+"PO-Revision-Date: 2012-09-17 17:56+0100\n"
+"Last-Translator: Jens Moser <jenmo917@gmail.com>\n"
 "Language-Team: Automagisk <language@automagisk.nu>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -352,9 +352,7 @@ msgstr "Bläddra bland event eller skapa ditt egna event och sälj biljetter."
 
 #: application/modules/login/controllers/IndexController.php:47
 msgid "LiU authentication message"
-msgstr "Autentisiera dig med ditt LiU-ID genom att trycka på knappen nedan. Du "
-"kommer att bli skickad till LiUs CAS. Bara de som har ett LiU-ID kan använda "
-"denna inloggningstjänst."
+msgstr "Autentisiera dig med ditt LiU-ID genom att trycka på knappen nedan. Du kommer att bli skickad till LiUs CAS. Bara de som har ett LiU-ID kan använda denna inloggningstjänst."
 
 #: application/modules/login/controllers/IndexController.php:84
 msgid "You are about to create a new user."
@@ -362,16 +360,11 @@ msgstr "Du försöker skapa en ny användare."
 
 #: application/modules/login/controllers/IndexController.php:85
 msgid "User Agreement message"
-msgstr "För att använda våra tjänster behöver vi din tillåtelse att spara ditt "
-"användarid för den inloggningstjänst som du använder. Vi komer dock aldrig "
-"behöva spara ditt lösenord. Det är en av fördelarna med att använda externa "
-"inloggningstjänster."
+msgstr "För att använda våra tjänster behöver vi din tillåtelse att spara ditt användarid för den inloggningstjänst som du använder. Vi komer dock aldrig behöva spara ditt lösenord. Det är en av fördelarna med att använda externa inloggningstjänster."
 
 #: application/modules/login/controllers/IndexController.php:181
 msgid "openId authentication message"
-msgstr "Autentisiera dig med ditt LiU-ID genom att trycka på knappen nedan. Du "
-"kommer att bli skickad till LiUs CAS. Bara de som har ett LiU-ID kan använda "
-"denna inloggningstjänst."
+msgstr "Autentisiera dig med ditt LiU-ID genom att trycka på knappen nedan. Du kommer att bli skickad till LiUs CAS. Bara de som har ett LiU-ID kan använda denna inloggningstjänst."
 
 #: application/modules/login/forms/Confirm.php:12
 msgid "Alrigt, I approve"

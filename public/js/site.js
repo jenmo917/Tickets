@@ -1,4 +1,51 @@
+
+function doValidation(id)
+{
+	var url = '/sv/default/index/validate-ticket-form';
+	var data = {};
+	$('input:checked').each(function()
+	{
+		data[$(this).attr('name')] = $(this).val();
+	});
+	$.post(url,data,function(resp)
+	{
+		console.log(id); // liu_id
+		//console.log(resp); // Object: olika
+		//console.log(resp[id]);
+		$("#"+id).parent().find(".errors").remove();
+		if(resp[id])
+		{
+			$("#"+id).parent().append(getErrorHtml(resp[id], id));
+		}
+	},'json');
+}
+
+function getErrorHtml(formErrors, id)
+{
+	var o  = '<ul id="errors-'+id+'" class="errors">';
+	for(errorKey in formErrors)
+	{
+		o += '<li>' + formErrors[errorKey] + '</li>';
+	}
+	o += '</ul>';
+	return o;
+}
+
 $(document).ready(function() {
+	
+	
+	$('input').blur(function()
+	{
+		var formElementId = $(this).get(0).id;
+		doValidation(formElementId);
+	});
+
+	$('select').blur(function()
+	{
+		var formElementId = $(this).get(0).id;
+		doValidation(formElementId);
+	});
+	
     // Init sort tables
     $(".tablesorter").tablesorter({sortList: [[0, 0]]});
 
@@ -52,7 +99,7 @@ $(document).ready(function() {
     }
 
     // Create ticket type fieldsets
-    $('#step2-submit').livequery('click',function() {
+    $('#step2-new_ticket_type').livequery('click',function() {
         
         // Find and determine the highest id-number
         var target = $('.ticket_type').last().attr("id");
@@ -109,7 +156,7 @@ $(document).ready(function() {
         $('#fieldset-' + num).after(newElem);
         
         // Enable remove-ticket-type-button if there is more then one ticket type subform showing
-        var num = $('.remove_ticket_type').length;
+        num = $('.remove_ticket_type').length;
         if (num > 1)
             $('.remove_ticket_type').removeAttr('disabled');
         

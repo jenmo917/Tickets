@@ -1,5 +1,8 @@
 <?PHP
-
+/**
+ * This is a mailer class.
+ * @author	Jens Moser <jenmo917@gmail.com>
+ */
 class Generic_HtmlMailer extends Zend_Mail
 {
     /**
