@@ -5,12 +5,12 @@
 <head>
     <meta  charset="UTF-8"/>
     <title>Attend</title>
-    <?php 
+    <?php
     echo $this->headLink()->appendStylesheet('/css/global.css');
-    echo $this->headLink()->appendStylesheet('http://code.jquery.com/ui/1.8.20/themes/base/jquery-ui.css'); 
-    echo $this->headLink()->appendStylesheet('http://static.jquery.com/ui/css/demo-docs-theme/ui.theme.css');   
-    
+    echo $this->headLink()->appendStylesheet('http://code.jquery.com/ui/1.8.20/themes/base/jquery-ui.css');
+    echo $this->headLink()->appendStylesheet('http://static.jquery.com/ui/css/demo-docs-theme/ui.theme.css');
     echo $this->headScript();
+	$currentRoute = $this->layout()->currentRoute->getCurrentRouteName();
     ?>
 </head>
 <body>
@@ -19,8 +19,8 @@
             <h2>Attend</h2>
         </div>
         <div id="header-links" style="float: right; margin: 10px 10px 0px 0px;">
-            
- 
+
+
            <?PHP
            //
            // Make the current language bold
@@ -33,16 +33,16 @@
             while($value = current($langs)){
                 if(key($langs) == $this->layout()->lang)
                 {
-                    echo "<a href=".$this->url(array('lang' => key($langs)),'defaultRoute')."><b>".$langs[key($langs)]."</b></a> ";
+                    echo "<a href=".$this->url(array('lang' => key($langs)),$currentRoute)."><b>".$langs[key($langs)]."</b></a> ";
                 }
                 else
                 {
-                    echo "<a href=".$this->url(array('lang' => key($langs)),'defaultRoute').">".$langs[key($langs)]."</a> ";
+                    echo "<a href=".$this->url(array('lang' => key($langs)),$currentRoute).">".$langs[key($langs)]."</a> ";
                 }
                 next($langs);
-            } 
+            }
             ?>
-                
+
         </div>
     </div>
     <div id="wrapper">
@@ -51,7 +51,7 @@
                 $menu = Zend_Registry::get('topLevelMenu');
                 echo "<div id='top-level-navigation'>".$this->navigation()->menu()->renderMenu($menu)."</div>";
             }
-            ?>            
+            ?>
             <?PHP
             if (Zend_Registry::isRegistered('verticalMenu')) {
                 $menu = Zend_Registry::get('verticalMenu');

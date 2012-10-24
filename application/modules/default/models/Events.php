@@ -66,4 +66,11 @@ class Default_Model_Events
         $this->getEventsTable();
         return $row = $this->_eventsTable->fetchRow($this->_eventsTable->select()->where('event_id = ?', $eventId));
     }
+
+	public function getEventByName($eventName)
+	{
+		$this->getEventsTable();
+		$select = $this->_eventsTable->select()->where(Attend_Db_Table_Row_Event::getColumnName('name').' LIKE ?', $eventName)->limit(1);
+		return $row = $this->_eventsTable->fetchRow($select);
+	}
 }

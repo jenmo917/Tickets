@@ -27,6 +27,7 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
 				'action'	=> 'index',
 				'resource'	=> $pre.$del.'default'.$del.'index'.$del.'index',
 				'privilege'	=> 'resourceStackCheck',
+				'route'	=> 'defaultRoute',
 			),
 			array(
 				'label'		=> $this->_translate->translate('Create Event'),
@@ -35,6 +36,7 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
 				'action'	=> 'create-event',
 				'resource'	=> $pre.$del.'admin'.$del.'event'.$del.'create-event',
 				'privilege'	=> 'resourceStackCheck',
+				'route'	=> 'defaultRoute',
 			),
 			array(
 				'label'		=> $this->_translate->translate('My Events'),
@@ -43,6 +45,7 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
 				'action'	=> 'my-events',
 				'resource'	=> $pre.$del.'admin'.$del.'event'.$del.'my-events',
 				'privilege'	=> 'resourceStackCheck',
+				'route'	=> 'defaultRoute',
 			),
 			array(
 				'label'		=> $this->_translate->translate('Sign in'),
@@ -51,6 +54,7 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
 				'action'	=> 'index',
 				'resource'	=> $pre.$del.'login'.$del.'index'.$del.'index',
 				'privilege'	=> 'resourceStackCheck',
+				'route'	=> 'defaultRoute',
 			),
 			array(
 				'label'		=> $this->_translate->translate('Sign out'),
@@ -59,6 +63,7 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
 				'action'	=> 'logout',
 				'resource'	=> $pre.$del.'login'.$del.'index'.$del.'logout',
 				'privilege'	=> 'resourceStackCheck',
+				'route'	=> 'defaultRoute',
 			),
 		);
 
@@ -87,6 +92,7 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
 					'params'	=> array($eventIdColName => $params[$eventIdColName]),
 					'resource'	=> $pre.$del.'admin'.$del.'event'.$del.'index',
 					'privilege'	=> 'resourceStackCheck',
+					'route'	=> 'defaultRoute',
 				),
 				array(
 					'label'		=> $this->_translate->translate('Sell Tickets'),
@@ -96,6 +102,7 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
 					'params'	=> array($eventIdColName => $params[$eventIdColName]),
 					'resource'	=> $pre.$del.'admin'.$del.'event'.$del.'sell',
 					'privilege'	=> 'resourceStackCheck',
+					'route'	=> 'defaultRoute',
 				),
 				array(
 					'label'		=> $this->_translate->translate('Attendees'),
@@ -105,6 +112,7 @@ class Plugins_Navigation extends Zend_Controller_Plugin_Abstract
 					'params'	=> array($eventIdColName => $params[$eventIdColName]),
 					'resource'	=> $pre.$del.'admin'.$del.'event'.$del.'attendees',
 					'privilege'	=> 'resourceStackCheck',
+					'route'	=> 'defaultRoute',
 				),
 			);
 		}
