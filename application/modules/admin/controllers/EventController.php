@@ -2,7 +2,7 @@
 
 class Admin_EventController extends Zend_Controller_Action
 {
-	
+
 	/**
 	 * Overview of a specific event
 	 * @author	Jens Moser <jenmo917@gmail.com>
@@ -57,7 +57,7 @@ class Admin_EventController extends Zend_Controller_Action
 			$flashMessenger->addMessage($status['eventName'].' '.$translate->_('created').'!');
 			$this->view->messages = $flashMessenger->getMessages();
 
-			$this->_redirect($this->_helper->url->url(array('module' => 'admin'),null, true));
+			$this->_redirect($this->_helper->url->url(array('module' => 'admin', 'controller' => 'event', 'action' => 'my-events'),null, true));
 		}
 	}
 
