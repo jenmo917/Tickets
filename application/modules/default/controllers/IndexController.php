@@ -67,5 +67,15 @@ class Default_IndexController extends Zend_Controller_Action
 		header('content-type: application/json');
 		echo Zend_Json::encode($json);
 	}
+	
+	public function testAction()
+	{
+		$f = new Admin_Form_SellTickets();
+		$vars = array(
+			'ticket_type_id' => ''
+		);
+		$f->isValid($vars);
+		var_dump($f);
+	}
 }
 

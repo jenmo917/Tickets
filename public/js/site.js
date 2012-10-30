@@ -1,25 +1,63 @@
-
-function doValidation(id)
+/**
+ * This function performs an ajax validaton on the buy-ticket-form
+ *
+ * @author	Jens Moser <jenmo917@gmail.com>
+ * @since	v0.1
+ * @return  null
+ */
+function doValidation(id,value,input)
 {
-	var url = '/sv/default/index/validate-ticket-form';
-	var data = {};
-	$('input:checked').each(function()
+	// Get language from url
+	var href  = $(location).attr('href');
+	var params = href.split('/');
+	var lang  = params[3];
+	
+	if(lang == 'undefined')
 	{
-		data[$(this).attr('name')] = $(this).val();
-	});
+		lang = 'en';
+	}
+
+	var url = '/'+lang+'/default/index/validate-ticket-form';
+	var data = {};
+
+    data[id] = value;
+
+	console.log(data);
 	$.post(url,data,function(resp)
 	{
-		console.log(id); // liu_id
-		//console.log(resp); // Object: olika
-		//console.log(resp[id]);
-		$("#"+id).parent().find(".errors").remove();
+		// Reset error messages
+		if(input == 'radio')
+		{
+			$(".multi-ol").find(".errors").remove();
+		}
+		else
+		{
+			$("#"+id).parent().find(".errors").remove();			
+		}
+		
+		// Insert new error messages
 		if(resp[id])
 		{
-			$("#"+id).parent().append(getErrorHtml(resp[id], id));
+			if(input == 'radio')
+			{
+				$(".multi-ol").append(getErrorHtml(resp[id], id));
+			}
+			else
+			{
+				$("#"+id).parent().append(getErrorHtml(resp[id], id));			
+			}
 		}
+		console.log(resp[id]);
 	},'json');
 }
 
+/**
+ * Returns a string with a formated error message
+ *
+ * @author	Jens Moser <jenmo917@gmail.com>
+ * @since	v0.1
+ * @return  string
+ */
 function getErrorHtml(formErrors, id)
 {
 	var o  = '<ul id="errors-'+id+'" class="errors">';
@@ -31,31 +69,51 @@ function getErrorHtml(formErrors, id)
 	return o;
 }
 
+// When DOM is ready
 $(document).ready(function() {
-	
-	
-	$('input').blur(function()
+
+	// Ajax validator on text fields
+	$('input[type=text]').blur(function()
 	{
 		var formElementId = $(this).get(0).id;
-		doValidation(formElementId);
+		var formElementValue = $('#'+formElementId).val();
+		doValidation(formElementId,formElementValue,'input');
 	});
 
-	$('select').blur(function()
+	// Ajax validator on select lists
+ 	$('select').blur(function()
 	{
 		var formElementId = $(this).get(0).id;
-		doValidation(formElementId);
+		var formElementValue = $('#'+formElementId).val();
+		doValidation(formElementId,formElementValue,'select');
 	});
-	
+
+	// Ajax validator on radio buttons
+	$('input[id=payment-invoice]:radio').blur(function()
+	{
+		var value = $("input[@name=payment]:checked").attr('id');
+		doValidation('payment',value,'radio');
+	})
+
+	// Ajax validator on radio buttons
+	$('input[name=payment]:radio').blur(function()
+	{
+		var value = $("input[@name=payment]:checked").attr('id');
+		if(value)
+		{
+			doValidation('payment',value,'radio');
+		}
+	})
+
     // Init sort tables
     $(".tablesorter").tablesorter({sortList: [[0, 0]]});
 
-
-    //
-    //
-    // START: Get KOBRA details and fill ticket form when LiU-ID is in place
-    //
-    //
-	
+	/**
+	* Get KOBRA details and fill ticket form when LiU-ID is in place
+	*
+	* @author	Jens Moser <jenmo917@gmail.com>
+	* @since	v0.1
+	*/	
 	$('#liu_id').keyup(function(e){
 		var $this = $(this);
 		if(/^[a-zA-Z]{3,5}\d{2,3}$/g.test($this.val())){
@@ -85,7 +143,13 @@ $(document).ready(function() {
     // START: Create/Edit Event Form
     //
     //
-
+	
+	/**
+	* JS data picker plugin
+	*
+	* @author	Jens Moser <jenmo917@gmail.com>
+	* @since	v0.1
+	*/	
     $('.date-pick').datetimepicker({
         dateFormat: 'yy-mm-dd',
         minDate: getFormattedDate(new Date())
@@ -98,7 +162,12 @@ $(document).ready(function() {
         return day + '-' + month + '-' + year;
     }
 
-    // Create ticket type fieldsets
+	/**
+	* Create ticket type fieldsets
+	*
+	* @author	Jens Moser <jenmo917@gmail.com>
+	* @since	v0.1
+	*/
     $('#step2-new_ticket_type').livequery('click',function() {
         
         // Find and determine the highest id-number
@@ -164,7 +233,12 @@ $(document).ready(function() {
         return false; 
     });
 
-    // Remove ticket type fieldset from form
+	/**
+	* Remove ticket type fieldset from form
+	*
+	* @author	Jens Moser <jenmo917@gmail.com>
+	* @since	v0.1
+	*/	
     $('.remove_ticket_type').livequery('click',function() {
 
         // Get target id
