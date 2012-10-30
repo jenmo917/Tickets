@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TDDD27\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-24 13:50+0200\n"
+"POT-Creation-Date: 2012-10-30 13:53+0100\n"
 "PO-Revision-Date: 2012-09-17 17:56+0100\n"
 "Last-Translator: Jens Moser <jenmo917@gmail.com>\n"
 "Language-Team: Automagisk <language@automagisk.nu>\n"
@@ -15,39 +15,39 @@ msgstr ""
 msgid "Start"
 msgstr "Start"
 
-#: application/library/Plugins/Navigation.php:32
+#: application/library/Plugins/Navigation.php:33
 #: application/modules/admin/views/scripts/event/create-event.phtml:2
 msgid "Create Event"
 msgstr "Create Event"
 
-#: application/library/Plugins/Navigation.php:40
+#: application/library/Plugins/Navigation.php:42
 #: application/modules/admin/views/scripts/event/my-events.phtml:2
 #: application/modules/admin/views/scripts/index/index.phtml:2
 msgid "My Events"
 msgstr ""
 
-#: application/library/Plugins/Navigation.php:48
+#: application/library/Plugins/Navigation.php:51
 #: application/modules/login/forms/LiuLogin.php:13
 #: application/modules/login/forms/OpenIdLogin.php:20
 msgid "Sign in"
 msgstr ""
 
-#: application/library/Plugins/Navigation.php:56
+#: application/library/Plugins/Navigation.php:60
 msgid "Sign out"
 msgstr ""
 
-#: application/library/Plugins/Navigation.php:83
+#: application/library/Plugins/Navigation.php:88
 #: application/modules/admin/views/scripts/event/index.phtml:7
 #: application/modules/default/views/scripts/index/overview.phtml:7
 msgid "Overview"
 msgstr ""
 
-#: application/library/Plugins/Navigation.php:92
+#: application/library/Plugins/Navigation.php:98
 #: application/modules/admin/views/scripts/event/sell.phtml:7
 msgid "Sell Tickets"
 msgstr ""
 
-#: application/library/Plugins/Navigation.php:101
+#: application/library/Plugins/Navigation.php:108
 #: application/modules/admin/views/scripts/event/attendees.phtml:7
 msgid "Attendees"
 msgstr ""
@@ -129,15 +129,15 @@ msgstr ""
 msgid "saved"
 msgstr ""
 
-#: application/modules/admin/controllers/EventController.php:265
+#: application/modules/admin/controllers/EventController.php:266
 msgid "is now deleted"
 msgstr ""
 
-#: application/modules/admin/controllers/EventController.php:307
+#: application/modules/admin/controllers/EventController.php:308
 msgid "has been unpublished"
 msgstr ""
 
-#: application/modules/admin/controllers/EventController.php:311
+#: application/modules/admin/controllers/EventController.php:312
 msgid "has been published"
 msgstr ""
 
@@ -238,24 +238,24 @@ msgstr ""
 msgid "Ticket Type please"
 msgstr ""
 
-#: application/modules/admin/forms/SellTickets.php:78
+#: application/modules/admin/forms/SellTickets.php:79
 msgid "Payment Options"
 msgstr ""
 
-#: application/modules/admin/forms/SellTickets.php:80
+#: application/modules/admin/forms/SellTickets.php:81
 msgid "Select payment type please"
 msgstr ""
 
-#: application/modules/admin/forms/SellTickets.php:82
+#: application/modules/admin/forms/SellTickets.php:83
 #: application/modules/admin/views/scripts/event/attendees.phtml:50
 msgid "Cash"
 msgstr ""
 
-#: application/modules/admin/forms/SellTickets.php:83
+#: application/modules/admin/forms/SellTickets.php:84
 msgid "Send Invoice"
 msgstr ""
 
-#: application/modules/admin/forms/SellTickets.php:94
+#: application/modules/admin/forms/SellTickets.php:96
 msgid "Register Ticket"
 msgstr ""
 
@@ -313,32 +313,32 @@ msgid "Quick links"
 msgstr ""
 
 #: application/modules/admin/views/scripts/event/my-events.phtml:37
-#: application/modules/admin/views/scripts/index/index.phtml:34
+#: application/modules/admin/views/scripts/index/index.phtml:38
 msgid "Live"
 msgstr ""
 
 #: application/modules/admin/views/scripts/event/my-events.phtml:42
-#: application/modules/admin/views/scripts/index/index.phtml:39
+#: application/modules/admin/views/scripts/index/index.phtml:43
 msgid "Draft"
 msgstr ""
 
 #: application/modules/admin/views/scripts/event/my-events.phtml:47
-#: application/modules/admin/views/scripts/index/index.phtml:44
+#: application/modules/admin/views/scripts/index/index.phtml:51
 msgid "Edit"
 msgstr ""
 
 #: application/modules/admin/views/scripts/event/my-events.phtml:48
-#: application/modules/admin/views/scripts/index/index.phtml:45
+#: application/modules/admin/views/scripts/index/index.phtml:53
 msgid "Delete"
 msgstr ""
 
 #: application/modules/admin/views/scripts/event/my-events.phtml:49
-#: application/modules/admin/views/scripts/index/index.phtml:46
+#: application/modules/admin/views/scripts/index/index.phtml:56
 msgid "Unpublish"
 msgstr ""
 
 #: application/modules/admin/views/scripts/event/my-events.phtml:49
-#: application/modules/admin/views/scripts/index/index.phtml:46
+#: application/modules/admin/views/scripts/index/index.phtml:57
 msgid "Publish"
 msgstr ""
 
@@ -365,15 +365,19 @@ msgstr ""
 "be redirected to LiU's CAS.Only account holders at LiU can use this "
 "authentication."
 
-#: application/modules/login/controllers/IndexController.php:84
+#: application/modules/login/controllers/IndexController.php:92
 msgid "You are about to create a new user."
 msgstr ""
 
-#: application/modules/login/controllers/IndexController.php:85
+#: application/modules/login/controllers/IndexController.php:93
 msgid "User Agreement message"
 msgstr ""
 
-#: application/modules/login/controllers/IndexController.php:181
+#: application/modules/login/controllers/IndexController.php:113
+msgid "Log in failed."
+msgstr ""
+
+#: application/modules/login/controllers/IndexController.php:189
 msgid "openId authentication message"
 msgstr ""
 "Authenticate yourself with a LiU-ID by pressing the button below. You will "

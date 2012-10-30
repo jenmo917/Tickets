@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TDDD27\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-24 13:50+0200\n"
+"POT-Creation-Date: 2012-10-30 13:53+0100\n"
 "PO-Revision-Date: 2012-09-17 17:56+0100\n"
 "Last-Translator: Jens Moser <jenmo917@gmail.com>\n"
 "Language-Team: Automagisk <language@automagisk.nu>\n"
@@ -15,39 +15,39 @@ msgstr ""
 msgid "Start"
 msgstr "Start"
 
-#: application/library/Plugins/Navigation.php:32
+#: application/library/Plugins/Navigation.php:33
 #: application/modules/admin/views/scripts/event/create-event.phtml:2
 msgid "Create Event"
 msgstr "Skapa Event"
 
-#: application/library/Plugins/Navigation.php:40
+#: application/library/Plugins/Navigation.php:42
 #: application/modules/admin/views/scripts/event/my-events.phtml:2
 #: application/modules/admin/views/scripts/index/index.phtml:2
 msgid "My Events"
 msgstr "Mina Event"
 
-#: application/library/Plugins/Navigation.php:48
+#: application/library/Plugins/Navigation.php:51
 #: application/modules/login/forms/LiuLogin.php:13
 #: application/modules/login/forms/OpenIdLogin.php:20
 msgid "Sign in"
 msgstr "Logga in"
 
-#: application/library/Plugins/Navigation.php:56
+#: application/library/Plugins/Navigation.php:60
 msgid "Sign out"
 msgstr "Logga ut"
 
-#: application/library/Plugins/Navigation.php:83
+#: application/library/Plugins/Navigation.php:88
 #: application/modules/admin/views/scripts/event/index.phtml:7
 #: application/modules/default/views/scripts/index/overview.phtml:7
 msgid "Overview"
 msgstr "Överblick"
 
-#: application/library/Plugins/Navigation.php:92
+#: application/library/Plugins/Navigation.php:98
 #: application/modules/admin/views/scripts/event/sell.phtml:7
 msgid "Sell Tickets"
 msgstr "Sälj Biljetter"
 
-#: application/library/Plugins/Navigation.php:101
+#: application/library/Plugins/Navigation.php:108
 #: application/modules/admin/views/scripts/event/attendees.phtml:7
 msgid "Attendees"
 msgstr "Besökare"
@@ -129,15 +129,15 @@ msgstr "Biljetten är registrerad"
 msgid "saved"
 msgstr "sparad"
 
-#: application/modules/admin/controllers/EventController.php:265
+#: application/modules/admin/controllers/EventController.php:266
 msgid "is now deleted"
 msgstr "är nu borttaget"
 
-#: application/modules/admin/controllers/EventController.php:307
+#: application/modules/admin/controllers/EventController.php:308
 msgid "has been unpublished"
 msgstr "har avpublicerats"
 
-#: application/modules/admin/controllers/EventController.php:311
+#: application/modules/admin/controllers/EventController.php:312
 msgid "has been published"
 msgstr "har publicerats"
 
@@ -238,24 +238,24 @@ msgstr "Biljettyp"
 msgid "Ticket Type please"
 msgstr "Välj biljettyp"
 
-#: application/modules/admin/forms/SellTickets.php:78
+#: application/modules/admin/forms/SellTickets.php:79
 msgid "Payment Options"
 msgstr "Betalalternativ"
 
-#: application/modules/admin/forms/SellTickets.php:80
+#: application/modules/admin/forms/SellTickets.php:81
 msgid "Select payment type please"
 msgstr "Välj betalmetod"
 
-#: application/modules/admin/forms/SellTickets.php:82
+#: application/modules/admin/forms/SellTickets.php:83
 #: application/modules/admin/views/scripts/event/attendees.phtml:50
 msgid "Cash"
 msgstr "Kontant"
 
-#: application/modules/admin/forms/SellTickets.php:83
+#: application/modules/admin/forms/SellTickets.php:84
 msgid "Send Invoice"
 msgstr "Skicka Faktura"
 
-#: application/modules/admin/forms/SellTickets.php:94
+#: application/modules/admin/forms/SellTickets.php:96
 msgid "Register Ticket"
 msgstr "Registrera Biljett"
 
@@ -313,32 +313,32 @@ msgid "Quick links"
 msgstr "Snabblänkar"
 
 #: application/modules/admin/views/scripts/event/my-events.phtml:37
-#: application/modules/admin/views/scripts/index/index.phtml:34
+#: application/modules/admin/views/scripts/index/index.phtml:38
 msgid "Live"
 msgstr "Live"
 
 #: application/modules/admin/views/scripts/event/my-events.phtml:42
-#: application/modules/admin/views/scripts/index/index.phtml:39
+#: application/modules/admin/views/scripts/index/index.phtml:43
 msgid "Draft"
 msgstr "Utkast"
 
 #: application/modules/admin/views/scripts/event/my-events.phtml:47
-#: application/modules/admin/views/scripts/index/index.phtml:44
+#: application/modules/admin/views/scripts/index/index.phtml:51
 msgid "Edit"
 msgstr "Ändra"
 
 #: application/modules/admin/views/scripts/event/my-events.phtml:48
-#: application/modules/admin/views/scripts/index/index.phtml:45
+#: application/modules/admin/views/scripts/index/index.phtml:53
 msgid "Delete"
 msgstr "Ta bort"
 
 #: application/modules/admin/views/scripts/event/my-events.phtml:49
-#: application/modules/admin/views/scripts/index/index.phtml:46
+#: application/modules/admin/views/scripts/index/index.phtml:56
 msgid "Unpublish"
 msgstr "Avpublicera"
 
 #: application/modules/admin/views/scripts/event/my-events.phtml:49
-#: application/modules/admin/views/scripts/index/index.phtml:46
+#: application/modules/admin/views/scripts/index/index.phtml:57
 msgid "Publish"
 msgstr "Publicera"
 
@@ -360,27 +360,28 @@ msgstr "Mer information"
 
 #: application/modules/login/controllers/IndexController.php:47
 msgid "LiU authentication message"
-msgstr ""
-"Autentisiera dig med ditt LiU-ID genom att trycka på knappen nedan. Du "
+msgstr "Autentisiera dig med ditt LiU-ID genom att trycka på knappen nedan. Du "
 "kommer att bli skickad till LiUs CAS. Bara de som har ett LiU-ID kan använda "
 "denna inloggningstjänst."
 
-#: application/modules/login/controllers/IndexController.php:84
+#: application/modules/login/controllers/IndexController.php:92
 msgid "You are about to create a new user."
 msgstr "Du försöker skapa en ny användare."
 
-#: application/modules/login/controllers/IndexController.php:85
+#: application/modules/login/controllers/IndexController.php:93
 msgid "User Agreement message"
-msgstr ""
-"För att använda våra tjänster behöver vi din tillåtelse att spara ditt "
+msgstr "För att använda våra tjänster behöver vi din tillåtelse att spara ditt "
 "användarid för den inloggningstjänst som du använder. Vi komer dock aldrig "
 "behöva spara ditt lösenord. Det är en av fördelarna med att använda externa "
 "inloggningstjänster."
 
-#: application/modules/login/controllers/IndexController.php:181
+#: application/modules/login/controllers/IndexController.php:113
+msgid "Log in failed."
+msgstr "Inloggningen misslyckades."
+
+#: application/modules/login/controllers/IndexController.php:189
 msgid "openId authentication message"
-msgstr ""
-"Autentisiera dig med ditt LiU-ID genom att trycka på knappen nedan. Du "
+msgstr "Autentisiera dig med ditt LiU-ID genom att trycka på knappen nedan. Du "
 "kommer att bli skickad till LiUs CAS. Bara de som har ett LiU-ID kan använda "
 "denna inloggningstjänst."
 
@@ -403,3 +404,4 @@ msgstr "Logga in"
 #: application/modules/login/forms/OpenIdLogin.php:15
 msgid "openId"
 msgstr "openId"
+
