@@ -303,13 +303,13 @@ class Admin_EventController extends Zend_Controller_Action
 		$events->publishEvent($eventId);
 
 		// Set message
-		if($event->published)
+		if($event['published'])
 		{
-			$flashMessenger->addMessage($event->name. ' '.$translate->_('has been unpublished'));
+			$flashMessenger->addMessage($event['name']. ' '.$translate->_('has been unpublished'));
 		}
 		else
 		{
-			$flashMessenger->addMessage($event->name. ' '.$translate->_('has been published'));
+			$flashMessenger->addMessage($event['name']. ' '.$translate->_('has been published'));
 		}
 
 		// Redirect to admin/index
