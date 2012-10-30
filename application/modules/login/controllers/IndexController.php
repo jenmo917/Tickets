@@ -78,9 +78,9 @@ class Login_IndexController extends Zend_Controller_Action
 					}
 					else
 					{
-						$url = array(	'module' => 'admin',
-										'controller' => 'event',
-										'action'	=> 'my-events',
+						$url = array(	'module' => 'default',
+										'controller' => 'index',
+										'action'	=> 'index',
 									);
 						$this->_redirect($this->_helper->url->url($url, "defaultRoute",true));
 					}
@@ -121,9 +121,12 @@ class Login_IndexController extends Zend_Controller_Action
 		elseif ($confirmation = htmlspecialchars($request->getParam('ok')))
 		{
 			if ( $this->_userInfoSession->hasNew() )
+			{
 				$this->view->ticket = $this->_userInfoSession->addLoginServiceToUser($liuServiceName);
+				$this->_redirect($this->_helper->url->url(array('module' => 'default', 'controller' => 'index', 'action' => 'index'),"defaultRoute",true));
+			}
 			else
-				$this->_redirect($this->_helper->url->url(array('module' => 'admin'),"defaultRoute",true));
+				$this->_redirect($this->_helper->url->url(array('module' => 'default', 'controller' => 'index', 'action' => 'index'),"defaultRoute",true));
 		}
 
 		//$this->view->ticket = $this->getRequest()->getParams();
