@@ -193,17 +193,6 @@ class Login_IndexController extends Zend_Controller_Action
 		echo '</pre>';
 	}
 
-	public function testAction()
-	{
-		$this->_userInfoSession = new Login_Model_UserInfoSession();
-		$this->_userInfoSession->test();
-		//$this->_userInfoSession->test();
-			echo "<pre>";
-				var_dump($_SESSION);
-			echo "</pre>";
-		//$this->_redirect($this->_helper->url->url(array('module' => 'admin','controller' => 'event', 'action' => 'sell', 'event_id' => $params['event_id']),"defaultRoute",true));
-	}
-
 	protected function _loadUserInfoSession()
 	{
 		if ( !$this->_userInfoSession instanceof Login_Model_UserInfoSession )
