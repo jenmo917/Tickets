@@ -45,11 +45,11 @@ foreach ($this->attendees as $att):
         </td>
         <td>
             <?PHP
-			if($att['payment'] == '0')
+			if($att['payment'] == 'cash')
 			{
 				echo $this->translate->_('Cash');
 			}
-			elseif($att['payment'] == '1')
+			elseif($att['payment'] == 'invoice')
 			{
 				echo $this->translate->_('Invoice');
 			}
