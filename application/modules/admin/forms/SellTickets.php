@@ -67,6 +67,7 @@ class Admin_Form_SellTickets extends Generic_Form_Base
 			'label'			=> gettext('Ticket Type'),
 			'decorators'	=> $this->elementDecorators,
 			'errorMessages'	=> array(gettext('Ticket Type please')),
+			'registerInArrayValidator' => false,
 			'required'		=> true,
 		));
 		$ticketType->setEventID($this->_eventID);
@@ -79,10 +80,11 @@ class Admin_Form_SellTickets extends Generic_Form_Base
 			'required'		=> true,
 			'errorMessages'	=> array(gettext('Select payment type please')),
 			'multiOptions'	=> array(
-				"cash"		=> gettext('Cash'),
-				"invoice"	=> gettext('Send Invoice')),
+				'cash'			=> gettext('Cash'),
+				'invoice'		=> gettext('Send Invoice')),
 			'separator'		=> '</li><li>',
-			"disableLoadDefaultDecorators" => true,
+			'disableLoadDefaultDecorators' => true,
+			'registerInArrayValidator' => false,
 			'decorators'	=> $this::$multiChoiseDecorators,
 			'id'			=> 'payment'
 			
@@ -90,8 +92,8 @@ class Admin_Form_SellTickets extends Generic_Form_Base
 
 		// Add submit button
 		$this->addElement('submit', self::REGISTER_TICKET_SUBMIT, array(
-				'decorators' => $this::$buttonDecorators,
-				'label' => gettext('Register Ticket')));
+				'decorators'	=> $this::$buttonDecorators,
+				'label'			=> gettext('Register Ticket')));
 	}
 
 	/**

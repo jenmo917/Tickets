@@ -224,6 +224,7 @@ class Admin_EventController extends Zend_Controller_Action
 			$flashMessenger = $this->_helper->getHelper('FlashMessenger');
 			$flashMessenger->addMessage($status['eventName'].' '.$translate->_('saved').'!');
 			$this->view->messages = $flashMessenger->getMessages();
+			$this->_redirect($this->_helper->url->url(array('module' => 'admin', 'controller' => 'event', 'action' => 'my-events'),"defaultRoute",true));
 		}
 	}
 

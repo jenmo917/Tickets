@@ -110,12 +110,12 @@ class Login_IndexController extends Zend_Controller_Action
 			}
 		}
 		// If a new user is about to register
-		elseif (	$confirmation = htmlspecialchars($request->getParam('ok')))
+		elseif ($confirmation = htmlspecialchars($request->getParam('ok')))
 		{
 			if ( $this->_userInfoSession->hasNew() )
 				$this->view->ticket = $this->_userInfoSession->addLoginServiceToUser($liuServiceName);
 			else
-				$this->_redirect('/');
+				$this->_redirect($this->_helper->url->url(array('module' => 'admin'),"defaultRoute",true));
 		}
 
 		//$this->view->ticket = $this->getRequest()->getParams();
