@@ -10,15 +10,13 @@ class Admin_AjaxController extends Zend_Controller_Action
     */    
     public function getKobraDetailsAction()
     {
+		$this->_helper->viewRenderer->setNoRender();
+		$this->_helper->getHelper('layout')->disableLayout();
+		
         $kobra = new Generic_Kobra();
 
-        // Exit if liuit is empty
-        if ( empty($_GET['liuid']) )
-                exit();
-
-        // Change var
-        $liuid = $_GET['liuid'];
-
+		$liuid = $this->getRequest()->getParam('id');
+		
         // search by RFID number or LiU-ID
         if ( is_numeric($liuid) )
                 $details = $kobra->findByRFID($liuid);
@@ -33,8 +31,12 @@ class Admin_AjaxController extends Zend_Controller_Action
                 $details['last_name'] = ucfirst(strtolower($details['last_name']));
                 $json = Zend_Json::encode($details);
         }
-        // Exit and return $json
-        exit($json);
+
+		// Tell the browser that we are sending some json data
+		header('content-type: application/json');
+		
+		// Exit and return $json
+        exit($json);	
     }    
 }
 

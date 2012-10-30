@@ -324,7 +324,7 @@ class Admin_EventController extends Zend_Controller_Action
 	}
 
 	public function myEventsAction()
-	{
+	{		
 		$uI = new Login_Model_UserInfoSession();
 		$events = new Admin_Model_AdminEvents();
 		$eventIds = $uI->getUserEventIds();
