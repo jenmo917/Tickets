@@ -76,6 +76,14 @@ class Login_IndexController extends Zend_Controller_Action
 						}
 						$this->_redirect($this->_helper->url->url($url, "defaultRoute",true));
 					}
+					else
+					{
+						$url = array(	'module' => 'admin',
+										'controller' => 'event',
+										'action'	=> 'my-events',
+									);
+						$this->_redirect($this->_helper->url->url($url, "defaultRoute",true));
+					}
 				}
 				// Show Register new user form.
 				elseif(!strcmp('notFound', $loginResult))
@@ -102,7 +110,7 @@ class Login_IndexController extends Zend_Controller_Action
 			else
 			{
 				// If the login failed, send the user back to the login page.
-				$this->_helper->flashMessenger->addMessage("Log in failed.");
+				$this->_helper->flashMessenger->addMessage($translate->translate("Log in failed."));
 				$url = array(	'module' => 'login',
 								'controller' => 'index',
 								'action' => 'liu-login');
@@ -172,7 +180,7 @@ class Login_IndexController extends Zend_Controller_Action
 			null://$this->_redirect($this->_helper->url->url($defaultUrl,"defaultRoute",true)):
 			$this->_redirect($logoutUrl);
 	}
-	
+
 	public function openIdLoginAction()
 	{
  		$openIdServiceName = Login_Model_OpenIdInfoSession::getServiceName();
