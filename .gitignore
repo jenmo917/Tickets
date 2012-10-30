@@ -12,3 +12,4 @@ application/cache/zend_cache*
 application/lang/po/*
 application/lang/mo/*
 *.mo
+application/configs/application.ini
